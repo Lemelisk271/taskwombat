@@ -2,6 +2,8 @@
 
 ## Description
 
+TaskWombat is a clone of taskrabit.
+
 ## Table of Contents
 - [Technologies](#technologies)
 - [Installation](#installation)
