@@ -2,9 +2,8 @@ const express = require('express')
 const { Op } = require('sequelize')
 const bcrypt = require('bcryptjs')
 
-const { setTokenCookie, restoreUser } = require('../../utils/auth.js')
+const { setTokenCookie } = require('../../utils/auth.js')
 const { User } = require('../../db/models')
-const { isErrored } = require('stream')
 
 const router = express.Router()
 

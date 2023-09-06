@@ -1,7 +1,7 @@
 const express = require('express')
 const bcrypt = require('bcryptjs')
 
-const { setTokenCookie, requireAuth } = require('../../utils/auth.js')
+const { setTokenCookie } = require('../../utils/auth.js')
 const { User } = require('../../db/models')
 
 const router = express.Router()
