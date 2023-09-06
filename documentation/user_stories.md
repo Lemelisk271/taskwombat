@@ -89,3 +89,10 @@
   - There should be a section that shows a list of the categories that they are skilled in.
     - Each category will show their hourly rate, the average review, the number of completed tasks, and the reviews for that category.
 - If a user is logged in there will be a button to select that tasker and start a new task.
+
+## Reviews
+
+- Any users, regardless of if they're logged in, should be able to view the reviews for any tasker.
+- As a logged in user I should be able to add a review to a taskers.
+- As a logged in user I should be able to edit a review that I've previously added.
+- As a logged in user I should be able to delete a review that I've previously added.
