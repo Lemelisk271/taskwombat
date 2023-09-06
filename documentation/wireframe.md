@@ -67,7 +67,7 @@
 
 ### Sign Up
 
-![Log In](./images/wireframe/signup.png)
+![Sign Up](./images/wireframe/signup.png)
 
 ### Profile
 
