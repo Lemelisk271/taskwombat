@@ -96,3 +96,21 @@
 - As a logged in user I should be able to add a review to a taskers.
 - As a logged in user I should be able to edit a review that I've previously added.
 - As a logged in user I should be able to delete a review that I've previously added.
+
+## Images
+
+### User Images
+- As a logged in user I want to be able to add a profile image.
+- As a logged in I would like to be able to change my profile image.
+
+### Review images
+- As a logged in user I would like to be able to add an image to a review.
+- As a logged in user I would like to be able to delete my image from a review.
+
+## Future Implementations
+
+### AWS
+- When submitting an image users can upload image files with approved extensions.
+
+### Search
+- Logged in users will be able to search for taskers to view their profile.
