@@ -1,16 +1,18 @@
 import { useState, useEffect } from 'react'
 import { login } from '../../store/session'
-import { useDispatch, useSelector } from 'react-redux'
-import { Redirect } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { useHistory } from 'react-router-dom'
+import { useModal } from '../../context/Modal'
 
-const LoginFormPage = () => {
+const LoginFormModal = () => {
   const dispatch = useDispatch()
-  const sessionUser = useSelector(state => state.session.user)
+  const history = useHistory()
   const [credential, setCredential] = useState("")
   const [password, setPassword] = useState("")
   const [resErrors, setResErrors] = useState({})
   const [validationErrors, setValidationErrors] = useState({})
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const { closeModal } = useModal()
 
   useEffect(() => {
     const errors = {}
@@ -25,8 +27,6 @@ const LoginFormPage = () => {
     setValidationErrors(errors)
   }, [credential, password])
 
-  if (sessionUser) return <Redirect to="/" />
-
   const handleSubmit = (e) => {
     e.preventDefault()
 
@@ -36,11 +36,13 @@ const LoginFormPage = () => {
 
     setResErrors({})
 
-    return dispatch(login({ credential, password })).catch(async (res) => {
-      const data = await res.json()
-      console.log(data)
-      if (data && data.errors) setResErrors(data.errors)
-    })
+    return dispatch(login({ credential, password }))
+      .then(closeModal)
+      .then(history.push('/'))
+      .catch(async (res) => {
+        const data = await res.json()
+        if (data && data.errors) setResErrors(data.errors)
+      })
 
   }
 
@@ -75,4 +77,4 @@ const LoginFormPage = () => {
   )
 }
 
-export default LoginFormPage
+export default LoginFormModal

@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { Provider as ReduxProvider} from 'react-redux'
 import { BrowserRouter } from 'react-router-dom'
 import { restoreCSRF, csrfFetch } from './store/csrf.js'
+import { ModalProvider, Modal } from './context/Modal.js'
 import * as sessionActions from "./store/session.js"
 import App from './App';
 import './index.css';
@@ -21,11 +22,14 @@ if (process.env.NODE_ENV !== 'production') {
 
 function Root() {
   return (
-    <ReduxProvider store={store}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </ReduxProvider>
+    <ModalProvider>
+      <ReduxProvider store={store}>
+        <BrowserRouter>
+          <App />
+          <Modal />
+        </BrowserRouter>
+      </ReduxProvider>
+    </ModalProvider>
   )
 }
 
