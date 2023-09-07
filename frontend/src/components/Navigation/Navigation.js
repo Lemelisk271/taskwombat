@@ -2,6 +2,7 @@ import { NavLink } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import ProfileButton from './ProfileButton'
 import wombat from '../../images/wombat.png'
+import './Navigation.css'
 
 
 const Navigation = ({ isLoaded }) => {
