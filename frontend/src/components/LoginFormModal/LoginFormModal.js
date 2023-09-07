@@ -3,9 +3,8 @@ import { login } from '../../store/session'
 import { useDispatch, useSelector } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 
-const LoginFormPage = () => {
+const LoginFormModal = () => {
   const dispatch = useDispatch()
-  const sessionUser = useSelector(state => state.session.user)
   const [credential, setCredential] = useState("")
   const [password, setPassword] = useState("")
   const [resErrors, setResErrors] = useState({})
@@ -24,8 +23,6 @@ const LoginFormPage = () => {
 
     setValidationErrors(errors)
   }, [credential, password])
-
-  if (sessionUser) return <Redirect to="/" />
 
   const handleSubmit = (e) => {
     e.preventDefault()
@@ -75,4 +72,4 @@ const LoginFormPage = () => {
   )
 }
 
-export default LoginFormPage
+export default LoginFormModal
