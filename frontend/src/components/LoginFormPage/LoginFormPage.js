@@ -16,7 +16,7 @@ const LoginFormPage = () => {
     const errors = {}
 
     if (credential.length < 4) {
-      errors.credential = "Please enter a username or password longer the 6 characters."
+      errors.credential = "Please enter an email longer the 6 characters."
     }
     if (password.length < 6) {
       errors.password = "Please enter a password longer then 6 characters."
@@ -51,7 +51,7 @@ const LoginFormPage = () => {
       <form onSubmit={handleSubmit}>
         <div>
           {(validationErrors.credential && isSubmitted) && <p className='error'>{validationErrors.credential}</p>}
-          <label htmlFor='credential'>Username or Email:</label>
+          <label htmlFor='credential'>Email:</label>
           <input
             type="text"
             id="credential"

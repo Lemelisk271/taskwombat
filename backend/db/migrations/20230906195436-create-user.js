@@ -15,11 +15,6 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      username: {
-        type: Sequelize.STRING(30),
-        allowNull: false,
-        unique: true
-      },
       firstName: {
         type: Sequelize.STRING(100),
         allowNull: false
@@ -35,6 +30,17 @@ module.exports = {
       },
       hashedPassword: {
         type: Sequelize.STRING.BINARY,
+        allowNull: false
+      },
+      zipCode: {
+        type: Sequelize.INTEGER,
+        allowNull: false
+      },
+      profileImage: {
+        type: Sequelize.STRING(255)
+      },
+      phone: {
+        type: Sequelize.INTEGER,
         allowNull: false
       },
       createdAt: {
