@@ -1,3 +1,88 @@
 .hidden {
   display: none;
 }
+
+nav {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.navigation {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 10px;
+}
+
+.navigation img {
+  display: flex;
+  height: 50px;
+  margin-right: 10px;
+}
+
+.nav-links a {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  text-decoration: none;
+  font-weight: 900;
+  color: black;
+}
+
+.user-icon {
+  cursor: pointer;
+  font-size: 40px;
+  border: none;
+  color: #0D7A5F;
+  background: none;
+}
+
+.user-icon i {
+  padding: 0 5px;
+}
+
+.icon-div {
+  position: relative;
+}
+
+.profile-dropdown {
+  position: absolute;
+  right: 20px;
+  background-color: white;
+  z-index: 1;
+  list-style-type: none;
+  padding: 5px 10px;
+  border: 1px solid black;
+  font-size: 16px;
+}
+
+.profile-dropdown li {
+  padding: 5px 0;
+}
+
+.profile-dropdown button {
+  background: none;
+  border: none;
+  width: 100%;
+  cursor: pointer;
+  font-size: 16px;
+  padding-top: 5px;
+}
+
+.dropdown-line {
+  padding-top: 5px;
+  margin-bottom: 5px;
+  border-bottom: 2px solid grey;
+  width: 100%;
+}
+
+.nav-loggedOff button {
+  font-size: 14px;
+  font-weight: bold;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
