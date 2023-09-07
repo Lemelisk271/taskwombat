@@ -13,16 +13,22 @@ if (process.env.NODE_ENV === 'production') {
 const userSeeds = [
   {
     email: 'demo@user.io',
+    firstName: 'Demo',
+    lastName: 'User',
     username: 'Demo-lition',
     hashedPassword: bcrypt.hashSync('password')
   },
   {
     email: 'user1@user.io',
+    firstName: 'User',
+    lastName: 'One',
     username: 'FakeUser1',
     hashedPassword: bcrypt.hashSync('password2')
   },
   {
     email: 'user2@user.io',
+    firstName: "User",
+    lastName: 'Two',
     username: 'FakeUser2',
     hashedPassword: bcrypt.hashSync('password3')
   }
