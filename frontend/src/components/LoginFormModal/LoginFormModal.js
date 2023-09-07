@@ -41,7 +41,6 @@ const LoginFormModal = () => {
       .then(history.push('/'))
       .catch(async (res) => {
         const data = await res.json()
-        console.log(data)
         if (data && data.errors) setResErrors(data.errors)
       })
 

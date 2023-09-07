@@ -89,8 +89,6 @@ const SignupFormModal = () => {
       zipCode
     }
 
-    console.log(reqObj)
-
     return dispatch(signup(reqObj))
       .then(closeModal)
       .then(history.push("/"))
