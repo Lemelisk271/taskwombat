@@ -46,7 +46,7 @@ const SignupFormModal = () => {
       }
     })
 
-    setPhoneNumbers(parseInt(phoneNumberArray.join("")))
+    setPhoneNumbers(phoneNumberArray.join(""))
 
     if (phoneNumberArray.length < 10) {
       errors.phone = "Please enter a valid phone"
