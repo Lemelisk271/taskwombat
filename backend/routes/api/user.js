@@ -19,30 +19,31 @@ const validateSignup = [
     .exists({ checkFalsy: true })
     .isEmail()
     .withMessage('Please provide a valid email'),
-  check('username')
-    .exists({ checkFalsy: true })
-    .isLength({ min: 4 })
-    .withMessage('Please provide a username with at least 4 characters'),
-  check('username')
-    .not()
-    .isEmail()
-    .withMessage("Username cannot be an email"),
   check('password')
     .exists({ checkFalsy: true })
     .isLength({ min: 6 })
     .withMessage("Password must be 6 characters or more."),
+  check('zipCode')
+    .exists({ checkFalsy: true})
+    .isInt()
+    .withMessage("Please enter a zip code."),
+  check('profileImage')
+    .optional()
+    .isURL()
+    .withMessage("Please enter a valid URL for the image"),
   handleValidationErrors
 ]
 
 router.post('/', validateSignup, async (req, res) => {
-  const { email, password, username, firstName, lastName } = req.body
+  const { email, password, firstName, lastName, zipCode, profileImage } = req.body
   const hashedPassword = bcrypt.hashSync(password)
   const user = await User.create({
     firstName,
     lastName,
     email,
-    username,
-    hashedPassword
+    hashedPassword,
+    zipCode,
+    profileImage
   })
 
   const safeUser = {
@@ -50,7 +51,8 @@ router.post('/', validateSignup, async (req, res) => {
     firstName: user.firstName,
     lastName: user.lastName,
     email: user.email,
-    username: user.username
+    zipCode: user.zipCode,
+    profileImage: user.profileImage
   }
 
   await setTokenCookie(res, safeUser)

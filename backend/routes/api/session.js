@@ -11,7 +11,8 @@ const validateLogin = [
   check('credential')
     .exists({ checkFalsy: true })
     .notEmpty()
-    .withMessage('Please provide a valid email or username'),
+    .isEmail()
+    .withMessage('Please provide a valid email'),
   check('password')
     .exists({ checkFalsy: true })
     .withMessage('Please Provide a password'),
@@ -23,10 +24,7 @@ router.post('/', validateLogin, async (req, res, next) => {
 
   const user = await User.unscoped().findOne({
     where: {
-      [Op.or]: {
-        username: credential,
-        email: credential
-      }
+      email: credential
     }
   })
 
@@ -43,7 +41,8 @@ router.post('/', validateLogin, async (req, res, next) => {
     firstName: user.firstName,
     lastName: user.lastName,
     email: user.email,
-    username: user.username
+    zipCode: user.zipCode,
+    profileImage: user.profileImage
   }
 
   await setTokenCookie(res, safeUser)
@@ -64,7 +63,8 @@ router.get('/', (req, res) => {
       firstName: user.firstName,
       lastName: user.lastName,
       email: user.email,
-      username: user.username
+      zipCode: user.zipCode,
+      profileImage: user.profileImage
     }
     return res.json({ user: safeUser })
   } else return res.json({ user: null })

@@ -15,21 +15,24 @@ const userSeeds = [
     email: 'demo@user.io',
     firstName: 'Demo',
     lastName: 'User',
-    username: 'Demo-lition',
+    zipCode: 98051,
+    url: "https://images.dog.ceo/breeds/hound-blood/n02088466_8842.jpg",
     hashedPassword: bcrypt.hashSync('password')
   },
   {
     email: 'user1@user.io',
     firstName: 'User',
     lastName: 'One',
-    username: 'FakeUser1',
+    zipCode: 98051,
+    url: "https://images.dog.ceo/breeds/hound-blood/n02088466_8842.jpg",
     hashedPassword: bcrypt.hashSync('password2')
   },
   {
     email: 'user2@user.io',
     firstName: "User",
     lastName: 'Two',
-    username: 'FakeUser2',
+    zipCode: 98051,
+    url: "https://images.dog.ceo/breeds/hound-blood/n02088466_8842.jpg",
     hashedPassword: bcrypt.hashSync('password3')
   }
 ]
@@ -43,7 +46,7 @@ module.exports = {
     options.tableName = 'Users';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      username: { [Op.in]: ['Demo-lition', 'FakeUser1', 'FakeUser2'] }
+      email: { [Op.in]: ['demo@user.io', 'user1@user.io', 'user2@user.io'] }
     }, {});
   }
 };
