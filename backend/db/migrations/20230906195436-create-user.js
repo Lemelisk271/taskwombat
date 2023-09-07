@@ -40,7 +40,7 @@ module.exports = {
         type: Sequelize.STRING(255)
       },
       phone: {
-        type: Sequelize.STRING(14),
+        type: Sequelize.INTEGER,
         allowNull: false
       },
       createdAt: {
