@@ -17,7 +17,8 @@ const userSeeds = [
     lastName: 'User',
     zipCode: 98051,
     profileImage: "https://images.dog.ceo/breeds/hound-blood/n02088466_8842.jpg",
-    hashedPassword: bcrypt.hashSync('password')
+    hashedPassword: bcrypt.hashSync('password'),
+    phone: "(123) 456-7890"
   },
   {
     email: 'user1@user.io',
@@ -25,7 +26,8 @@ const userSeeds = [
     lastName: 'One',
     zipCode: 98051,
     profileImage: "https://images.dog.ceo/breeds/hound-blood/n02088466_8842.jpg",
-    hashedPassword: bcrypt.hashSync('password2')
+    hashedPassword: bcrypt.hashSync('password2'),
+    phone: "(123) 456-7890"
   },
   {
     email: 'user2@user.io',
@@ -33,7 +35,8 @@ const userSeeds = [
     lastName: 'Two',
     zipCode: 98051,
     profileImage: "https://images.dog.ceo/breeds/hound-blood/n02088466_8842.jpg",
-    hashedPassword: bcrypt.hashSync('password3')
+    hashedPassword: bcrypt.hashSync('password3'),
+    phone: "(123) 456-7890"
   }
 ]
 

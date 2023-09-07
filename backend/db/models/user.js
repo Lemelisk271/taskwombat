@@ -48,6 +48,11 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING.BINARY,
       allowNull: false,
       len: [60, 60]
+    },
+    phone: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      len: [1, 14]
     }
   }, {
     sequelize,

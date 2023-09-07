@@ -39,6 +39,10 @@ module.exports = {
       profileImage: {
         type: Sequelize.STRING(255)
       },
+      phone: {
+        type: Sequelize.STRING(14),
+        allowNull: false
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
