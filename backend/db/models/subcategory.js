@@ -19,11 +19,8 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       validate: {
         len: [1, 100]
-      }
-    },
-    about: {
-      type: DataTypes.TEXT,
-      allowNull: false,
+      },
+      unique: true
     }
   }, {
     sequelize,

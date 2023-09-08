@@ -17,11 +17,8 @@ module.exports = {
       },
       subcategory: {
         type: Sequelize.STRING(100),
-        allowNull: false
-      },
-      about: {
-        type: Sequelize.TEXT,
         allowNull: false,
+        unique: true
       },
       createdAt: {
         allowNull: false,

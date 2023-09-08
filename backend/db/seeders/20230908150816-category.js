@@ -33,7 +33,6 @@ categoryList.forEach(el => {
   const cat = {
     category: el
   }
-  console.log(cat)
   categorySeeds.push(cat)
 })
 
