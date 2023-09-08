@@ -196,6 +196,70 @@ module.exports = {
       "Wait in Line"
     ]
 
+    catSeedObj["Personal Assistant"] = [
+      "Personal Assistant",
+      "Running Your Errands",
+      "Wait in Line",
+      "Organization",
+      "Organize Home",
+      "Closet Organization Service",
+      "Interior Design Service",
+      "Virtual Assistant",
+      "Dog Walking"
+    ]
+
+    catSeedObj["Baby Prep"] = [
+      "Baby Proofing",
+      "Baby Food Delivery",
+      "Organize a Room",
+      "Painting",
+      "Toy Assembly Service",
+      "Smart Home Installation",
+      "Delivery",
+      "Shopping",
+      "General Cleaning"
+    ]
+
+    catSeedObj["Virtual & Online Tasks"] = [
+      "Virtual Assistant",
+      "Organization",
+      "Data Entry",
+      "Computer Help"
+    ]
+
+    catSeedObj["Parties & Events"] = [
+      "Bartending",
+      "Help Cooking & Serving Food",
+      "Shop for & Install Decorations",
+      "Event Help & Wait Staff",
+      "Event Decorating",
+      "Event Staff"
+    ]
+
+    catSeedObj["Office Services"] = [
+      "Office Cleaning",
+      "Office Tech Setup",
+      "Office Movers",
+      "Office Supply & Snack Delivery",
+      "Office Furniture Assembly",
+      "Office Setup & Organization",
+      "Office Administration",
+      "Office Interior Design",
+      "Moving Office Furniture",
+      "Office Mounting Service"
+    ]
+
+    catSeedObj["Contactless Tasks"] = [
+      "Contactless Delivery",
+      "Contactless Prescription Pick-up & Delivery",
+      "Running Your Errands",
+      "Grocery Shopping & Delivery",
+      "Disinfecting Services",
+      "Drop Off Donations",
+      "Yard Work Services",
+      "Virtual Assistant"
+    ]
+
     const keys = Object.keys(catSeedObj)
 
     for (let key of keys) {
