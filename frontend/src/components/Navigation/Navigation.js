@@ -37,7 +37,7 @@ const Navigation = ({ isLoaded }) => {
   return (
     <div className="navigation">
       <div className='nav-links'>
-        <NavLink exact to='/'><img src={wombat} alt="wombat logo" /></NavLink>
+        <NavLink exact to='/'><img src={wombat} alt="wombat logo"/>TaskWombat</NavLink>
       </div>
       {isLoaded && sessionLinks}
     </div>
