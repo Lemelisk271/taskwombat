@@ -33,7 +33,7 @@ module.exports = {
         allowNull: false
       },
       zipCode: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING(5),
         allowNull: false
       },
       profileImage: {

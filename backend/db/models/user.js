@@ -38,8 +38,9 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     zipCode: {
-      type: DataTypes.INTEGER,
-      allowNull: false
+      type: DataTypes.STRING,
+      allowNull: false,
+      len: [5, 5]
     },
     profileImage: {
       type: DataTypes.STRING
