@@ -19,14 +19,9 @@ module.exports = {
         type: Sequelize.STRING(100),
         allowNull: false
       },
-      categoryId: {
-        type: Sequelize.INTEGER,
+      about: {
+        type: Sequelize.TEXT,
         allowNull: false,
-        references: {
-          model: "Categories",
-          key: "id"
-        },
-        onDelete: 'cascade'
       },
       createdAt: {
         allowNull: false,

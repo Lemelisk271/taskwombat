@@ -10,9 +10,7 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Subcategory.belongsTo(models.Category, {
-        foreignKey: 'categoryId'
-      })
+      // define association here
     }
   }
   Subcategory.init({
@@ -23,14 +21,9 @@ module.exports = (sequelize, DataTypes) => {
         len: [1, 100]
       }
     },
-    categoryId: {
-      type: DataTypes.INTEGER,
+    about: {
+      type: DataTypes.TEXT,
       allowNull: false,
-      references: {
-        model: "Categories",
-        key: "id"
-      },
-      onDelete: 'cascade'
     }
   }, {
     sequelize,
