@@ -1,14 +1,8 @@
 'use strict';
 /** @type {import('sequelize-cli').Migration} */
-
-let options = {}
-if (process.env.NODE_ENV === 'production') {
-  options.schema = process.env.SCHEMA
-}
-
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Categories_subcategories', {
+    await queryInterface.createTable('CategoriesSubcategories', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -44,7 +38,7 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    options.tableName = "Categories_subcategories"
-    await queryInterface.dropTable('Categories_subcategories');
+    options.tableName = "CategoriesSubcategories"
+    await queryInterface.dropTable('CategoriesSubcategories');
   }
 };
