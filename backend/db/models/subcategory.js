@@ -3,29 +3,33 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Category extends Model {
+  class Subcategory extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // assign
+      // define association here
     }
   }
-  Category.init({
-    category: {
+  Subcategory.init({
+    subcategory: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        len: [1, 100]
+      },
+      unique: true
     }
   }, {
     sequelize,
-    modelName: 'Category',
+    modelName: 'Subcategory',
     defaultScope: {
       attributes: {
         exclude: ["createdAt", "updatedAt"]
       }
     }
   });
-  return Category;
+  return Subcategory;
 };
