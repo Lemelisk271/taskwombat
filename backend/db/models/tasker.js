@@ -10,7 +10,11 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      Tasker.belongsToMany(models.Category, {
+        through: models.TaskerCategories,
+        foreignKey: "taskerId",
+        otherKey: "categoryId"
+      })
     }
   }
   Tasker.init({
