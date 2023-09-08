@@ -4,6 +4,7 @@
 
 const { User } = require('../models');
 const bcrypt = require("bcryptjs");
+const { fakerEN_US: faker } = require('@faker-js/faker')
 
 let options = {};
 if (process.env.NODE_ENV === 'production') {
@@ -15,30 +16,33 @@ const userSeeds = [
     email: 'demo@user.io',
     firstName: 'Demo',
     lastName: 'User',
-    zipCode: 98051,
-    profileImage: "https://images.dog.ceo/breeds/hound-blood/n02088466_8842.jpg",
+    zipCode: faker.location.zipCode({ state: "WA" }),
+    profileImage: faker.image.avatar(),
     hashedPassword: bcrypt.hashSync('password'),
-    phone: "123456790"
-  },
-  {
-    email: 'user1@user.io',
-    firstName: 'User',
-    lastName: 'One',
-    zipCode: 98051,
-    profileImage: "https://images.dog.ceo/breeds/hound-blood/n02088466_8842.jpg",
-    hashedPassword: bcrypt.hashSync('password2'),
-    phone: "123456790"
-  },
-  {
-    email: 'user2@user.io',
-    firstName: "User",
-    lastName: 'Two',
-    zipCode: 98051,
-    profileImage: "https://images.dog.ceo/breeds/hound-blood/n02088466_8842.jpg",
-    hashedPassword: bcrypt.hashSync('password3'),
-    phone: "123456790"
+    phone: faker.phone.number('##########')
   }
 ]
+
+const createRandomUser = () => {
+  const firstName = faker.person.firstName()
+  const lastName = faker.person.lastName()
+  const email = faker.internet.email({ firstName, lastName })
+
+  return {
+    email,
+    firstName,
+    lastName,
+    zipCode: faker.location.zipCode({ state: "WA" }),
+    profileImage: faker.image.avatar(),
+    hashedPassword: bcrypt.hashSync('password'),
+    phone: faker.phone.number('##########')
+  }
+}
+
+for (let i = 0; i < 49; i++) {
+  let user = createRandomUser()
+  userSeeds.push(user)
+}
 
 module.exports = {
   async up (queryInterface, Sequelize) {
@@ -47,9 +51,6 @@ module.exports = {
 
   async down (queryInterface, Sequelize) {
     options.tableName = 'Users';
-    const Op = Sequelize.Op;
-    return queryInterface.bulkDelete(options, {
-      email: { [Op.in]: ['demo@user.io', 'user1@user.io', 'user2@user.io'] }
-    }, {});
+    return queryInterface.bulkDelete(options)
   }
 };
