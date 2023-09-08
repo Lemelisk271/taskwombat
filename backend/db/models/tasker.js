@@ -3,7 +3,7 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class User extends Model {
+  class Tasker extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
       // define association here
     }
   }
-  User.init({
+  Tasker.init({
     firstName: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -28,27 +28,27 @@ module.exports = (sequelize, DataTypes) => {
         len: [1, 100]
       }
     },
-    email: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      unique: true,
-      validate: {
-        len: [3, 256],
-        isEmail: true
-      }
+    about: {
+      type: DataTypes.TEXT,
+      allowNull:false
     },
     zipCode: {
       type: DataTypes.STRING,
-      allowNull: false,
-      len: [5, 5]
+      validate: {
+        len: [5, 5]
+      }
     },
     profileImage: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
+      validate: {
+        len: [1, 255]
+      }
     },
-    hashedPassword: {
-      type: DataTypes.STRING.BINARY,
-      allowNull: false,
-      len: [60, 60]
+    email: {
+      type: DataTypes.STRING,
+      validate: {
+        len: [1, 100]
+      }
     },
     phone: {
       type: DataTypes.STRING,
@@ -57,12 +57,12 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {
     sequelize,
-    modelName: 'User',
+    modelName: 'Tasker',
     defaultScope: {
       attributes: {
-        exclude: ["hashedPassword", "createdAt", "updatedAt"]
+        exclude: ["createdAt", "updatedAt"]
       }
     }
   });
-  return User;
+  return Tasker;
 };
