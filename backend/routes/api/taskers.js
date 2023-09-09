@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 
-const { Tasker, Category, Review } = require('../../db/models')
+const { Tasker, Category, Review, Vehicle } = require('../../db/models')
 
 router.get('/', async (req, res) => {
   const taskers = await Tasker.findAll({
@@ -14,6 +14,12 @@ router.get('/', async (req, res) => {
       },
       {
         model: Review
+      },
+      {
+        model: Vehicle,
+        through: {
+          attributes: []
+        }
       }
     ],
     order: [
