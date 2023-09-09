@@ -19,6 +19,9 @@ module.exports = (sequelize, DataTypes) => {
       Review.belongsTo(models.Tasker, {
         foreignKey: 'categoryId'
       })
+      Review.hasMany(models.ReviewImages, {
+        foreignKey: 'reviewId'
+      })
     }
   }
   Review.init({
