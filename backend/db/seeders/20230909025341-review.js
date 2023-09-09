@@ -43,6 +43,7 @@ module.exports = {
         seeds.push({
           review: faker.hacker.phrase(),
           stars: randomBetweenNumbers(1, 5),
+          date: faker.date.between({from: '2022-09-08T00:00:00.000Z', to: '2024-03-08T00:00:00.000Z'}),
           userId: user.id,
           taskerId: select.id,
           categoryId: select.Categories[randomBetweenNumbers(0, (select.Categories.length - 1))].id
