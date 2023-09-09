@@ -16,6 +16,9 @@ module.exports = (sequelize, DataTypes) => {
       Appointment.belongsTo(models.User, {
         foreignKey: 'userId'
       })
+      Appointment.hasOne(models.Invoice, {
+        foreignKey: 'appointmentId'
+      })
     }
   }
   Appointment.init({

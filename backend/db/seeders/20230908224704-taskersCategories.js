@@ -3,6 +3,7 @@
 /** @type {import('sequelize-cli').Migration} */
 
 const { TaskerCategories, Category, Tasker } = require('../models')
+const { fakerEN_US: faker } = require('@faker-js/faker')
 
 let options = {};
 if (process.env.NODE_ENV === 'production') {
@@ -21,6 +22,7 @@ module.exports = {
       const selected = shuffledCat.slice(0, 3)
       for (let select of selected) {
         seeds.push({
+          rate: faker.number.float({ min: 30, max: 99, precision: 0.01}),
           taskerId: tasker.id,
           categoryId: select.id
         })
