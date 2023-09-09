@@ -18,6 +18,11 @@ module.exports = (sequelize, DataTypes) => {
       Tasker.hasMany(models.Review, {
         foreignKey: 'taskerId'
       })
+      Tasker.belongsToMany(models.Vehicle, {
+        through: models.TaskerVehicles,
+        foreignKey: 'taskerId',
+        otherKey: 'vehicleId'
+      })
     }
   }
   Tasker.init({

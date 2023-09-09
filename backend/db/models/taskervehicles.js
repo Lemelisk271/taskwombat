@@ -3,36 +3,43 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Vehicle extends Model {
+  class TaskerVehicles extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Vehicle.belongsToMany(models.Tasker, {
-        through: models.TaskerVehicles,
-        foreignKey: "vehicleId",
-        otherKey: "taskerId"
-      })
+      // define association here
     }
   }
-  Vehicle.init({
-    vehicleType: {
-      type: DataTypes.STRING,
+  TaskerVehicles.init({
+    taskerId: {
+      type: DataTypes.INTEGER,
       allowNull: false,
-      validate: {
-        len: [1, 100]
-      }
+      references: {
+        model: 'Taskers',
+        key: 'id'
+      },
+      onDelete: 'cascade'
+    },
+    vehicleId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'Vehicles',
+        key: 'id'
+      },
+      onDelete: 'cascade'
     }
   }, {
     sequelize,
-    modelName: 'Vehicle',
+    modelName: 'TaskerVehicles',
     defaultScope: {
       attributes: {
         exclude: ["createdAt", "updatedAt"]
       }
     }
   });
-  return Vehicle;
+  return TaskerVehicles;
 };
