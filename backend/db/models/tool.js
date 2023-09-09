@@ -3,22 +3,18 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Vehicle extends Model {
+  class Tool extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Vehicle.belongsToMany(models.Tasker, {
-        through: models.TaskerVehicles,
-        foreignKey: "vehicleId",
-        otherKey: "taskerId"
-      })
+      // define association here
     }
   }
-  Vehicle.init({
-    vehicleType: {
+  Tool.init({
+    toolType: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
@@ -27,12 +23,12 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {
     sequelize,
-    modelName: 'Vehicle',
+    modelName: 'Tool',
     defaultScope: {
       attributes: {
         exclude: ["createdAt", "updatedAt"]
       }
     }
   });
-  return Vehicle;
+  return Tool;
 };
