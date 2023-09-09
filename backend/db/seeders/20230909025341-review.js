@@ -26,15 +26,6 @@ module.exports = {
         }
       ]
     })
-    const categories = await Category.findAll()
-
-    const catObj = {}
-
-    for (let category of categories) {
-      if (catObj[category.category] === undefined) {
-        catObj[category.category] = category.id
-      }
-    }
 
     for (let user of users) {
       const shuffleTaskers = taskers.sort(() => 0.5 - Math.random())
