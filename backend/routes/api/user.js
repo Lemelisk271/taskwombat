@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const bcrypt = require('bcryptjs')
 const { setTokenCookie } = require('../../utils/auth.js')
-const { User, Review, ReviewImages } = require('../../db/models')
+const { User, Review, ReviewImages, Appointment } = require('../../db/models')
 const { check } = require('express-validator')
 const { handleValidationErrors } = require('../../utils/validation.js')
 
@@ -38,6 +38,9 @@ router.get('/', async (req, res) => {
   const users = await User.findAll({
     include: [
       {
+        model: Appointment
+      },
+      {
         model: Review,
         include: [
           {
@@ -48,7 +51,8 @@ router.get('/', async (req, res) => {
     ],
     order: [
       ['id', 'ASC'],
-      [{model: Review}, 'date', 'DESC']
+      [{model: Review}, 'date', 'DESC'],
+      [{model: Appointment}, 'start', 'DESC']
     ]
   })
 
