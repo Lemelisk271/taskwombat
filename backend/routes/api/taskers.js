@@ -18,7 +18,8 @@ router.get('/', async (req, res) => {
     ],
     order: [
       ['id', 'ASC'],
-      [{model: Category}, 'category', 'ASC']
+      [{model: Category}, 'category', 'ASC'],
+      [{model: Review}, 'date', 'DESC']
     ]
   })
 
