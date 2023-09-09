@@ -3,42 +3,47 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Availability extends Model {
+  class Appointment extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Availability.belongsTo(models.Tasker, {
+      Appointment.belongsTo(models.Tasker, {
         foreignKey: 'taskerId'
+      })
+      Appointment.belongsTo(models.User, {
+        foreignKey: 'userId'
       })
     }
   }
-  Availability.init({
-    day: {
-      type: DataTypes.ENUM('Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'),
-      allowNull: false,
-      validate: {
-        isIn: [['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']]
-      }
-    },
-    startTime: {
-      type: DataTypes.TIME
-    },
-    endTime: {
-      type: DataTypes.TIME
-    },
-    notAvailable: {
-      type: DataTypes.BOOLEAN,
-      allowNull: false,
-      defaultValue: false
-    },
-    dayIdx: {
-      type: DataTypes.INTEGER,
+  Appointment.init({
+    start: {
+      type: DataTypes.DATE,
       allowNull: false
     },
+    end: {
+      type: DataTypes.DATE,
+      allowNull: false
+    },
+    task: {
+      type: DataTypes.TEXT,
+      allowNull: false,
+      validate: {
+        notEmpty: true
+      }
+    },
     taskerId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'Taskers',
+        key: 'id'
+      },
+      onDelete: 'cascade'
+    },
+    userId: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
@@ -49,12 +54,12 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {
     sequelize,
-    modelName: 'Availability',
+    modelName: 'Appointment',
     defaultScope: {
       attributes: {
         exclude: ["createdAt", "updatedAt"]
       }
     }
   });
-  return Availability;
+  return Appointment;
 };

@@ -31,6 +31,9 @@ module.exports = (sequelize, DataTypes) => {
       Tasker.hasMany(models.Availability, {
         foreignKey: 'taskerId'
       })
+      Tasker.hasMany(models.Appointment, {
+        foreignKey: 'taskerId'
+      })
     }
   }
   Tasker.init({
@@ -50,7 +53,10 @@ module.exports = (sequelize, DataTypes) => {
     },
     about: {
       type: DataTypes.TEXT,
-      allowNull:false
+      allowNull:false,
+      validate: {
+        notEmpty: true
+      }
     },
     zipCode: {
       type: DataTypes.STRING,
