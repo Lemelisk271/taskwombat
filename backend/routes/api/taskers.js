@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 
-const { Tasker, Category, Review, Vehicle } = require('../../db/models')
+const { Tasker, Category, Review, Vehicle, Tool } = require('../../db/models')
 
 router.get('/', async (req, res) => {
   const taskers = await Tasker.findAll({
