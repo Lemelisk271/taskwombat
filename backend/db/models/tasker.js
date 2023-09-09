@@ -23,6 +23,11 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'taskerId',
         otherKey: 'vehicleId'
       })
+      Tasker.belongsToMany(models.Tool, {
+        through: models.TaskerTools,
+        foreignKey: 'taskerId',
+        otherKey: 'toolId'
+      })
     }
   }
   Tasker.init({
