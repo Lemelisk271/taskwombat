@@ -20,6 +20,12 @@ router.get('/', async (req, res) => {
         through: {
           attributes: []
         }
+      },
+      {
+        model: Tool,
+        through: {
+          attributes: []
+        }
       }
     ],
     order: [
