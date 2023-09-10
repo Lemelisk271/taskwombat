@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },
     cardType: {
-      type: DataTypes.ENUM('visa', 'mastercard', 'discover', 'american express'),
+      type: DataTypes.ENUM('visa', 'mastercard', 'discover', 'american_express'),
       allowNull: false
     },
     cvv: {
