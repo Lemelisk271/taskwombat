@@ -4,6 +4,7 @@ import { Switch, Route } from 'react-router-dom'
 import { restoreUser } from './store/session'
 import LandingPage from './components/LandingPage'
 import Navigation from './components/Navigation'
+import UserProfilePage from './components/UserProfilePage'
 
 function App() {
   const dispatch = useDispatch()
@@ -27,6 +28,9 @@ function App() {
           <Switch>
             <Route exact path='/'>
               <LandingPage />
+            </Route>
+            <Route exact path='/users/:userId'>
+              <UserProfilePage />
             </Route>
             <Route>
               <h1>Page Not Found</h1>

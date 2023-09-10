@@ -31,11 +31,42 @@
   margin-bottom: 20px;
 }
 
-.loginFormPage-button {
-  background-color: #0D7A5F;
-  color: white;
-  border: none;
+.loginFormPage form input {
+  height: 30px;
+}
+
+.loginFormPage-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.loginFormPage-buttons button {
+  width: 75%;
   padding: 15px;
   font-size: 24px;
   cursor: pointer;
+  border: 2px solid #0D7A5F;
+}
+
+.loginFormPage-submitButton {
+  background-color: #0D7A5F;
+  color: white;
+  border: none;
+  margin-bottom: 10px;
+}
+
+.loginFormPage-submitButton:hover {
+  background-color: white;
+  color: #0D7A5F;
+}
+
+.loginFormPage-demoButton {
+  background-color: white;
+  color: #0D7A5F;
+}
+
+.loginFormPage-demoButton:hover {
+  background-color: #0D7A5F;
+  color: white;
 }

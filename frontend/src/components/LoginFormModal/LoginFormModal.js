@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { login } from '../../store/session'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { useModal } from '../../context/Modal'
 import wombat from '../../images/wombat.png'
@@ -55,6 +55,20 @@ const LoginFormModal = () => {
       })
   }
 
+  const demoLogin = (e) => {
+    e.preventDefault()
+    dispatch(login({ credential: "demo@user.io", password: "password" }))
+      .then(closeModal)
+      .then(history.push("/"))
+      .catch(async (res) => {
+        const data = await res.json()
+        console.log(data)
+        if (data && data.errors) {
+          setResErrors(data.errors)
+        }
+      })
+  }
+
   return (
     <div className='loginFormPage'>
       <div className='loginFormPage-Header'>
@@ -83,7 +97,10 @@ const LoginFormModal = () => {
             onChange={e => setPassword(e.target.value)}
           />
         </div>
-        <button className='loginFormPage-button' type="submit">Submit</button>
+        <div className='loginFormPage-buttons'>
+          <button className='loginFormPage-submitButton' type="submit">Submit</button>
+          <button className='loginFormPage-demoButton' onClick={demoLogin}>Demo User</button>
+        </div>
       </form>
     </div>
   )
