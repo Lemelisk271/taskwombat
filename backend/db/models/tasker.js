@@ -34,6 +34,9 @@ module.exports = (sequelize, DataTypes) => {
       Tasker.hasMany(models.Appointment, {
         foreignKey: 'taskerId'
       })
+      Tasker.hasMany(models.Invoice, {
+        foreignKey: 'taskerId'
+      })
     }
   }
   Tasker.init({

@@ -14,6 +14,10 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   TaskerCategories.init({
+    rate: {
+      type: DataTypes.FLOAT(5, 2),
+      allowNull: false
+    },
     taskerId: {
       type: DataTypes.INTEGER,
       allowNull: false,

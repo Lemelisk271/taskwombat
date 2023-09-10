@@ -15,6 +15,10 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
+      rate: {
+        type: Sequelize.FLOAT(5, 2),
+        allowNull: false
+      },
       taskerId: {
         type: Sequelize.INTEGER,
         allowNull: false,

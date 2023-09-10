@@ -9,7 +9,7 @@ router.get('/', async (req, res) => {
       {
         model: Category,
         through: {
-          attributes: []
+          attributes: ['rate']
         }
       },
       {

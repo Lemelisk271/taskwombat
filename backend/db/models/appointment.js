@@ -16,6 +16,9 @@ module.exports = (sequelize, DataTypes) => {
       Appointment.belongsTo(models.User, {
         foreignKey: 'userId'
       })
+      Appointment.hasOne(models.Invoice, {
+        foreignKey: 'appointmentId'
+      })
     }
   }
   Appointment.init({
@@ -47,7 +50,16 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
-        model: 'Taskers',
+        model: 'Users',
+        key: 'id'
+      },
+      onDelete: 'cascade'
+    },
+    categoryId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'Categories',
         key: 'id'
       },
       onDelete: 'cascade'

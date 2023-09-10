@@ -8,24 +8,47 @@ if (process.env.NODE_ENV === 'production') {
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Appointments', {
+    await queryInterface.createTable('Invoices', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      start: {
-        type: Sequelize.DATE,
+      rate: {
+        type: Sequelize.FLOAT(4, 2),
         allowNull: false
       },
-      end: {
-        type: Sequelize.DATE,
+      fees: {
+        type: Sequelize.FLOAT(4, 2),
         allowNull: false
       },
-      task: {
-        type: Sequelize.TEXT,
+      hours: {
+        type: Sequelize.INTEGER,
         allowNull: false
+      },
+      totalDue: {
+        type: Sequelize.FLOAT(6, 2),
+        allowNull: false
+      },
+      amountPaid: {
+        type: Sequelize.FLOAT(6, 2),
+        allowNull: false,
+        defaultValue: 0
+      },
+      fullPaid: {
+        type: Sequelize.BOOLEAN,
+        allowNull: false,
+        defaultValue: false
+      },
+      appointmentId: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        references: {
+          model: 'Appointments',
+          key: 'id'
+        },
+        onDelete: 'cascade'
       },
       taskerId: {
         type: Sequelize.INTEGER,
@@ -41,15 +64,6 @@ module.exports = {
         allowNull: false,
         references: {
           model: 'Users',
-          key: 'id'
-        },
-        onDelete: 'cascade'
-      },
-      categoryId: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-        references: {
-          model: 'Categories',
           key: 'id'
         },
         onDelete: 'cascade'
