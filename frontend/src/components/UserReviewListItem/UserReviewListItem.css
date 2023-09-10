@@ -8,3 +8,10 @@
   margin-bottom: 5px;
   width: 100%;
 }
+
+.userReviewListItem-cardHead img {
+  height: 100;
+  width: 100px;
+  object-fit: cover;
+  object-position: center
+}
