@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const bcrypt = require('bcryptjs')
 const { setTokenCookie } = require('../../utils/auth.js')
-const { User } = require('../../db/models')
+const { User, Review, Tasker, Category } = require('../../db/models')
 const { check } = require('express-validator')
 const { handleValidationErrors } = require('../../utils/validation.js')
 
@@ -36,7 +36,24 @@ const validateSignup = [
 
 router.get('/:userId', async (req, res) => {
   const id = parseInt(req.params.userId)
-  let user = await User.findByPk(id)
+  let user = await User.findByPk(id, {
+    include: [
+      {
+        model: Review,
+        include: [
+          {
+            model: Tasker
+          },
+          {
+            model: Category
+          }
+        ]
+      }
+    ],
+    order: [
+      [{model: Review}, 'date', 'DESC']
+    ]
+  })
 
   if (!user) {
     return res.status(404).json({message: "User couldn't be found"})

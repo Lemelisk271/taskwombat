@@ -1,8 +1,16 @@
+import { useSelector } from "react-redux"
+import UserReviewListItem from '../UserReviewListItem'
+
 const UserReviews = () => {
+  const reviews = useSelector(state => state.user.Reviews)
+  console.log(reviews)
+
   return (
-    <>
-      <h1>User Reviews</h1>
-    </>
+    <div className="userReviews">
+      {reviews?.map(review => (
+        <UserReviewListItem key={review.id} review={review} />
+      ))}
+    </div>
   )
 }
 

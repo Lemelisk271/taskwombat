@@ -7,7 +7,7 @@
 }
 
 .userProfilePage-user {
-  width: 30%;
+  width: 50%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -23,6 +23,13 @@
   margin-bottom: 10px;
 }
 
+.userProfilePage-userCard > img {
+  height: 200px;
+  width: 200px;
+  object-fit: cover;
+  object-position: center
+}
+
 .userProfilePage-select {
   display: flex;
   flex-direction: column;
@@ -31,4 +38,8 @@
   border: 1px solid #848A87;
   border-radius: 20px;
   padding: 10px 0;
+}
+
+.userProfilePage-results {
+  width: 100%;
 }
