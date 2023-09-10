@@ -39,8 +39,6 @@ const UserProfilePage = () => {
       const city = findCity(userData?.zipCode)
       setUserCity(city)
 
-      console.log(userData)
-
       const areaCode = userData?.phone?.slice(0, 3)
       const firstPhone = userData?.phone?.slice(3, 6)
       const lastPhone = userData?.phone?.slice(6)

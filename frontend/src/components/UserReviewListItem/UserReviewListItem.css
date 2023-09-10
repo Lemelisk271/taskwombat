@@ -1,0 +1,10 @@
+.UserReviewListItem {
+  width: 100%;
+}
+
+.userReviewListItem-line {
+  border-bottom: 2px solid #848A87;
+  padding-top: 5px;
+  margin-bottom: 5px;
+  width: 100%;
+}
