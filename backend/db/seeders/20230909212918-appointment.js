@@ -2,7 +2,7 @@
 
 /** @type {import('sequelize-cli').Migration} */
 
-const { Appointment, User, Tasker } = require('../models')
+const { Appointment, User, Tasker, Category } = require('../models')
 const { fakerEN_US: faker } = require('@faker-js/faker')
 const { randomBetweenNumbers } = require('../../utils/helperFunctions')
 
@@ -11,7 +11,7 @@ if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA;
 }
 
-const generateAppointment = (taskerId, userId) => {
+const generateAppointment = (taskerId, userId, categoryId) => {
   const startDate = new Date(faker.date.between({ from: '2022-09-09T00:00:00.000Z', to: '2024-03-09T00:00:00.000Z'}))
   const year = startDate.getFullYear()
   let date = startDate.getDate()
@@ -44,7 +44,8 @@ const generateAppointment = (taskerId, userId) => {
     end,
     task: faker.hacker.phrase(),
     taskerId,
-    userId
+    userId,
+    categoryId
   }
 }
 
@@ -53,14 +54,24 @@ module.exports = {
     const seeds = []
 
     const users = await User.findAll()
-    const taskers = await Tasker.findAll()
+    const taskers = await Tasker.findAll({
+      include: [
+        {
+          model: Category,
+          through: {
+            attributes: []
+          }
+        }
+      ]
+    })
 
     for (let user of users) {
       const numAppt = randomBetweenNumbers(2, 7)
       const shuffleTaskers = taskers.sort(() => 0.5 - Math.random())
       const selectedTaskers = shuffleTaskers.slice(0, numAppt)
       for (let tasker of selectedTaskers) {
-        seeds.push(generateAppointment(tasker.id, user.id))
+        let catIdx = randomBetweenNumbers(0, tasker.Categories.length - 1)
+        seeds.push(generateAppointment(tasker.id, user.id, tasker.Categories[catIdx].id))
       }
     }
 

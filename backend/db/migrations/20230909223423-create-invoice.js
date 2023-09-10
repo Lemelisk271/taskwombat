@@ -27,6 +27,10 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false
       },
+      totalDue: {
+        type: Sequelize.FLOAT(6, 2),
+        allowNull: false
+      },
       amountPaid: {
         type: Sequelize.FLOAT(6, 2),
         allowNull: false,

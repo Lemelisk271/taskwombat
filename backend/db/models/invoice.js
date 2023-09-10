@@ -43,6 +43,13 @@ module.exports = (sequelize, DataTypes) => {
         isInt: true
       }
     },
+    totalDue: {
+      type: DataTypes.FLOAT(6, 2),
+      allowNull: false,
+      validate: {
+        max: 999
+      }
+    },
     amountPaid: {
       type: DataTypes.FLOAT(6, 2),
       allowNull: false,
