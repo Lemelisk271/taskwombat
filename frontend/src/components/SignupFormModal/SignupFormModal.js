@@ -4,6 +4,8 @@ import { signup } from '../../store/session'
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { useModal } from '../../context/Modal'
+import './SignupFormModal.css'
+import wombat from '../../images/wombat.png'
 
 const SignupFormModal = () => {
   const dispatch = useDispatch()
@@ -102,7 +104,10 @@ const SignupFormModal = () => {
 
   return (
     <div className="signupFormPage">
-      <h1>Sign Up</h1>
+      <div className='signupFormPage-header'>
+        <img src={wombat} alt="Wombat Logo"/>
+        <h1>taskwombat</h1>
+      </div>
       {(resErrors && isSubmitted) && <ul>
           {Object.values(resErrors).map((error, i) => (
             <li className='error' key={i}>{error}</li>
@@ -111,60 +116,60 @@ const SignupFormModal = () => {
       <form onSubmit={handleSubmit}>
         <div>
           {(validationErrors.firstName && isSubmitted) && <p className='error'>{validationErrors.firstName}</p>}
-          <label htmlFor="firstName">First Name</label>
           <input
             type="text"
             id="firstName"
+            placeholder='First Name'
             value={firstName}
             onChange={e => setFirstName(e.target.value)}
           />
         </div>
         <div>
           {(validationErrors.lastName && isSubmitted) && <p className='error'>{validationErrors.lastName}</p>}
-          <label htmlFor="lastName">Last Name</label>
           <input
             type="text"
             id="lastName"
+            placeholder='Last Name'
             value={lastName}
             onChange={e => setLastName(e.target.value)}
           />
         </div>
         <div>
           {(validationErrors.email && isSubmitted) && <p className='error'>{validationErrors.email}</p>}
-          <label htmlFor="email">Email</label>
           <input
             type="text"
             id="email"
+            placeholder='Email'
             value={email}
             onChange={e => setEmail(e.target.value)}
           />
         </div>
         <div>
           {(validationErrors.phone && isSubmitted) && <p className='error'>{validationErrors.phone}</p>}
-          <label htmlFor="phone">Phone</label>
           <input
             type="text"
             id="phone"
+            placeholder='Phone'
             value={phone}
             onChange={e => setPhone(e.target.value)}
           />
         </div>
         <div>
           {(validationErrors.password && isSubmitted) && <p className='error'>{validationErrors.password}</p>}
-          <label htmlFor="password">Password</label>
           <input
             type="password"
             id="password"
+            placeholder='Password'
             value={password}
             onChange={e => setPassword(e.target.value)}
           />
         </div>
         <div>
           {(validationErrors.confirmPassword && isSubmitted) && <p className='error'>{validationErrors.confirmPassword}</p>}
-          <label htmlFor="confirmPassword">Confirm Password</label>
           <input
             type="password"
             id="confirmPassword"
+            placeholder='Confirm Password'
             value={confirmPassword}
             onChange={e => setConfirmPassword(e.target.value)}
           />
@@ -172,11 +177,11 @@ const SignupFormModal = () => {
         <div>
           {(validationErrors.zipCode && isSubmitted) && <p className='error'>{validationErrors.zipCode}</p>}
           {(validationErrors.zipCodeNumber && isSubmitted) && <p className='error'>{validationErrors.zipCodeNumber}</p>}
-          <label htmlFor="zipCode">Zip Code</label>
           <input
             type="number"
             id="zipCode"
             value={zipCode}
+            placeholder='Zip Code'
             onChange={e => setZipCode(parseInt(e.target.value))}
           />
         </div>
