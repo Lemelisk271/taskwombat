@@ -1,0 +1,34 @@
+.userProfilePage {
+  min-height: calc(100vh - 100px);
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  margin-top: 10px;
+}
+
+.userProfilePage-user {
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.userProfilePage-userCard {
+  border: 1px solid #848A87;
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 20px;
+  margin-bottom: 10px;
+}
+
+.userProfilePage-select {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 90%;
+  border: 1px solid #848A87;
+  border-radius: 20px;
+  padding: 10px 0;
+}

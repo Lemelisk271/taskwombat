@@ -6,6 +6,8 @@ nav {
   display: flex;
   flex-direction: row;
   align-items: center;
+  height: 70px;
+  border-bottom: 2px solid #848A87;
 }
 
 .navigation {
