@@ -22,6 +22,9 @@ module.exports = (sequelize, DataTypes) => {
       Review.hasMany(models.ReviewImages, {
         foreignKey: 'reviewId'
       })
+      Review.belongsTo(models.Appointment, {
+        foreignKey: 'appointmentId'
+      })
     }
   }
   Review.init({
@@ -37,6 +40,15 @@ module.exports = (sequelize, DataTypes) => {
     date: {
       type: DataTypes.DATEONLY,
       allowNull: false
+    },
+    appointmentId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'Appointments',
+        key: 'id'
+      },
+      onDelete: 'cascade'
     },
     userId: {
       type: DataTypes.INTEGER,

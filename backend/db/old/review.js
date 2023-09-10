@@ -3,57 +3,55 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Appointment extends Model {
+  class Review extends Model {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      Appointment.belongsTo(models.Tasker, {
-        foreignKey: 'taskerId'
-      })
-      Appointment.belongsTo(models.User, {
+      Review.belongsTo(models.User, {
         foreignKey: 'userId'
       })
-      Appointment.hasOne(models.Invoice, {
-        foreignKey: 'appointmentId'
+      Review.belongsTo(models.Tasker, {
+        foreignKey: 'taskerId'
       })
-      Appointment.hasMany(models.Review, {
-        foreignKey: 'appointmentId'
+      Review.belongsTo(models.Category, {
+        foreignKey: 'categoryId'
+      })
+      Review.hasMany(models.ReviewImages, {
+        foreignKey: 'reviewId'
       })
     }
   }
-  Appointment.init({
-    start: {
-      type: DataTypes.DATE,
-      allowNull: false
-    },
-    end: {
-      type: DataTypes.DATE,
-      allowNull: false
-    },
-    task: {
+  Review.init({
+    review: {
       type: DataTypes.TEXT,
-      allowNull: false,
-      validate: {
-        notEmpty: true
-      }
+      allowNull: false
     },
-    taskerId: {
+    stars: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      references: {
-        model: 'Taskers',
-        key: 'id'
-      },
-      onDelete: 'cascade'
+      defaultValue: 1
+    },
+    date: {
+      type: DataTypes.DATEONLY,
+      allowNull: false
     },
     userId: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
         model: 'Users',
+        key: 'id'
+      },
+      onDelete: 'cascade'
+    },
+    taskerId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'Taskers',
         key: 'id'
       },
       onDelete: 'cascade'
@@ -69,12 +67,12 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {
     sequelize,
-    modelName: 'Appointment',
+    modelName: 'Review',
     defaultScope: {
       attributes: {
         exclude: ["createdAt", "updatedAt"]
       }
     }
   });
-  return Appointment;
+  return Review;
 };
