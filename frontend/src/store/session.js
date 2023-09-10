@@ -25,9 +25,18 @@ export const login = (user) => async (dispatch) => {
       password
     })
   })
-  const data = await res.json()
-  dispatch(setUser(data.user))
-  return res
+  if (res.ok) {
+    const data = await res.json()
+    dispatch(setUser(data.user))
+    return null
+  } else if (res.status < 500) {
+    const data = await res.json()
+    if (data.errors) {
+      return data.errors
+    }
+  } else {
+    return ["An error occurred. Please try again."]
+  }
 }
 
 export const restoreUser = () => async (dispatch) => {
