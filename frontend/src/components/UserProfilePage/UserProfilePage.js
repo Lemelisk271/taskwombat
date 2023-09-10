@@ -2,6 +2,8 @@ import { useState, useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { findCity } from '../HelperFunctions/HelperFunctions'
+import UserProfileInfo from '../UserProfileInfo'
+import UserReviews from '../UserReviews'
 
 import './UserProfilePage.css'
 import default_avatar from '../../images/default_avatar.png'
@@ -14,6 +16,8 @@ const UserProfilePage = () => {
   const [isSessionUser, setIsSessionUser] = useState(false)
   const [userCity, setUserCity] = useState("")
   const [userPhone, setUserPhone] = useState("")
+  const [selectedPage, setSelectedPage] = useState('reviews')
+  const [selectedPageContent, setSelectedPageContent] = useState('')
 
   useEffect(() => {
     const loadPage = async () => {
@@ -39,6 +43,24 @@ const UserProfilePage = () => {
     loadPage()
     // eslint-disable-next-line
   }, [])
+
+  useEffect(() => {
+    if (selectedPage === 'reviews') {
+      const reviews = (
+        <>
+          <UserReviews />
+        </>
+      )
+      setSelectedPageContent(reviews)
+    } else if (selectedPage === 'profile') {
+      const profile = (
+        <>
+          <UserProfileInfo />
+        </>
+      )
+      setSelectedPageContent(profile)
+    }
+  }, [selectedPage])
 
   let userCard
 
@@ -78,6 +100,33 @@ const UserProfilePage = () => {
     )
   }
 
+  const reviewButton = (e) => {
+    e.preventDefault()
+    setSelectedPage('reviews')
+  }
+
+  const profileButton = (e) => {
+    e.preventDefault()
+    setSelectedPage('profile')
+  }
+
+  let selector
+
+  if (isSessionUser) {
+    selector = (
+      <>
+        <button onClick={reviewButton}>Reviews</button>
+        <button onClick={profileButton}>My Profile</button>
+      </>
+    )
+  } else {
+    selector = (
+      <>
+        <button>Reviews</button>
+      </>
+    )
+  }
+
   return (
     <div className="userProfilePage">
       {isLoaded ? (
@@ -86,8 +135,13 @@ const UserProfilePage = () => {
             <div className="userProfilePage-userCard">
               {isLoaded && userCard}
             </div>
+            <div className='userProfilePage-select'>
+              {isLoaded && selector}
+            </div>
           </div>
-          <div className="userProfilePage-results"></div>
+          <div className="userProfilePage-results">
+            {isLoaded && selectedPageContent}
+          </div>
         </>
       ):(
         <>
