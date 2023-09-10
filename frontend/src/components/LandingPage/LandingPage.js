@@ -4,6 +4,9 @@ import './LandingPage.css'
 const LandingPage = () => {
   return (
     <div className='landingPage'>
+      <div className='landingPage-hero'>
+
+      </div>
       <img src={tasker_holding_plunger} alt="Tasker Holding Plunger"/>
     </div>
   )

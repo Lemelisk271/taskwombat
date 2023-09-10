@@ -3,6 +3,8 @@ import { login } from '../../store/session'
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { useModal } from '../../context/Modal'
+import wombat from '../../images/wombat.png'
+import './LoginFormModal.css'
 
 const LoginFormModal = () => {
   const dispatch = useDispatch()
@@ -27,7 +29,7 @@ const LoginFormModal = () => {
     setValidationErrors(errors)
   }, [credential, password])
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
 
     setIsSubmitted(true)
@@ -36,19 +38,29 @@ const LoginFormModal = () => {
 
     setResErrors({})
 
+    console.log({
+      credential,
+      password
+    })
+
     return dispatch(login({ credential, password }))
       .then(closeModal)
-      .then(history.push('/'))
+      .then(history.push("/"))
       .catch(async (res) => {
         const data = await res.json()
-        if (data && data.errors) setResErrors(data.errors)
+        console.log(data)
+        if (data && data.errors) {
+          setResErrors(data.errors)
+        }
       })
-
   }
 
   return (
     <div className='loginFormPage'>
-      <h1>Log In</h1>
+      <div className='loginFormPage-Header'>
+        <img src={wombat} alt="Wombat Logo"/>
+        <h1>taskwombat</h1>
+      </div>
       {resErrors.credential && <p className='error'>{resErrors.credential}</p>}
       <form onSubmit={handleSubmit}>
         <div>
@@ -71,7 +83,7 @@ const LoginFormModal = () => {
             onChange={e => setPassword(e.target.value)}
           />
         </div>
-        <button type="submit">Submit</button>
+        <button className='loginFormPage-button' type="submit">Submit</button>
       </form>
     </div>
   )

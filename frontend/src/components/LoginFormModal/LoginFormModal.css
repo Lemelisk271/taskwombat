@@ -1,0 +1,41 @@
+.loginFormPage {
+  padding: 50px;
+  min-width: 30vw;
+  min-height: 30vh
+}
+
+.loginFormPage-Header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.loginFormPage-Header > img {
+  height: 50px;
+  margin-right: 10px;
+}
+
+.loginFormPage form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 75%;
+  margin: 0 auto;
+}
+
+.loginFormPage form div {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.loginFormPage-button {
+  background-color: #0D7A5F;
+  color: white;
+  border: none;
+  padding: 15px;
+  font-size: 24px;
+  cursor: pointer;
+}
