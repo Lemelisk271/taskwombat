@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
 import { findCity } from '../HelperFunctions/HelperFunctions'
 import { Link } from 'react-router-dom'
+import ReviewForm from '../ReviewForm'
+import OpenModalButton from '../OpenModalButton'
 import './UserTaskListItem.css'
 
 const UserTaskListItem = ({ task, page }) => {
@@ -10,8 +12,6 @@ const UserTaskListItem = ({ task, page }) => {
   const [startTime, setStartTime] = useState('')
   const [endTime, setEndTime] = useState('')
   const [userButtons, setUserButtons] = useState('')
-
-  console.log(task)
 
   useEffect(() => {
     const taskerPhone = task.Tasker.phone
@@ -62,7 +62,10 @@ const UserTaskListItem = ({ task, page }) => {
         )
       } else {
         buttons = (
-          <button>Add Review</button>
+          <OpenModalButton
+            buttonText="Add Review"
+            modalComponent={<ReviewForm task={task} page="add"/>}
+          />
         )
       }
       setUserButtons(buttons)
