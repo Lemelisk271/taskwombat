@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import wombat from '../../images/wombat.png'
 import { useModal } from '../../context/Modal'
 import './ReviewForm.css'
 import { csrfFetch } from '../../store/csrf'
+import { ResetContext } from '../../context/ResetContext'
 
 const ReviewForm = ({ page, review }) => {
   const [stars, setStars] = useState(1)
@@ -13,6 +14,7 @@ const ReviewForm = ({ page, review }) => {
   const [pageTitle, setPageTitle] = useState('')
   const [resErrors, setResErrors] = useState([])
   const { closeModal } = useModal()
+  const { setResetPage, resetPage } = useContext(ResetContext)
 
   useEffect(() => {
     if (page === "update") {
@@ -70,6 +72,7 @@ const ReviewForm = ({ page, review }) => {
       })
       if (res.ok) {
         closeModal()
+        setResetPage(!resetPage)
       } else {
         const data = await res.json()
         if (data && data.errors) {
