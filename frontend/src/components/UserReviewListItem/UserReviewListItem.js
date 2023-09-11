@@ -2,6 +2,7 @@ import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import ReviewForm from '../ReviewForm'
 import OpenModalButton from '../OpenModalButton'
+import DeleteReviewModal from '../DeleteReviewModal'
 
 import './UserReviewListItem.css'
 
@@ -29,7 +30,10 @@ const UserReviewListItem = ({ review }) => {
         buttonText="Edit Review"
         modalComponent={<ReviewForm page="update" review={review}/>}
       />
-      <button>Delete Review</button>
+      <OpenModalButton
+        buttonText="Delete Review"
+        modalComponent={<DeleteReviewModal id={review.id} />}
+      />
     </>
   )
 
