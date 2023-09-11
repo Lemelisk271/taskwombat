@@ -1,17 +1,27 @@
 import { useState, useEffect } from 'react'
 import wombat from '../../images/wombat.png'
+import { useModal } from '../../context/Modal'
 import './ReviewForm.css'
+import { csrfFetch } from '../../store/csrf'
 
 const ReviewForm = ({ page, review }) => {
   const [stars, setStars] = useState(1)
   const [activeStars, setActiveStars] = useState(1)
   const [newReview, setNewReview] = useState('')
+  const [isSubmitted, setIsSubmitted] = useState(false)
+  const [validationErrors, setValidationErrors] = useState({})
+  const [pageTitle, setPageTitle] = useState('')
+  const [resErrors, setResErrors] = useState([])
+  const { closeModal } = useModal()
 
   useEffect(() => {
     if (page === "update") {
       setStars(review.stars)
       setActiveStars(review.stars)
       setNewReview(review.review)
+      setPageTitle("Update Review")
+    } else {
+      setPageTitle("Create Review")
     }
   }, [])
 
@@ -19,8 +29,26 @@ const ReviewForm = ({ page, review }) => {
     setActiveStars(stars)
   }, [stars])
 
-  const handleSubmit = (e) => {
+  useEffect(() => {
+    const errors = {}
+
+    if (newReview.length === 0) {
+      errors.review = "Please enter a review"
+    }
+
+    if ((stars < 1) || (stars > 5)) {
+      errors.stars = "The star rating must be between 1 and 5"
+    }
+
+    setValidationErrors(errors)
+  }, [stars, newReview])
+
+  const handleSubmit = async (e) => {
     e.preventDefault()
+
+    setIsSubmitted(true)
+
+    if (Object.values(validationErrors).length) return
 
     if (page === "update") {
       const reviewObj = {
@@ -33,7 +61,21 @@ const ReviewForm = ({ page, review }) => {
         categoryId: review.categoryId
       }
 
-      console.log(reviewObj)
+      const res = await csrfFetch(`/api/reviews/${review.id}`, {
+        method: 'PUT',
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(reviewObj)
+      })
+      if (res.ok) {
+        closeModal()
+      } else {
+        const data = await res.json()
+        if (data && data.errors) {
+          setResErrors(data.errors)
+        }
+      }
     } else {
       const today = new Date()
       let day = today.getDate()
@@ -60,9 +102,18 @@ const ReviewForm = ({ page, review }) => {
   return (
     <div className="reviewForm">
       <div className='reviewForm-header'>
-        <img src={wombat} alt="Wombat Logo"/>
-        <h1>taskwombat</h1>
+        <div className='reviewForm-headerWombat'>
+          <img src={wombat} alt="Wombat Logo"/>
+          <h1>taskwombat</h1>
+        </div>
+        <h1>{pageTitle}</h1>
+        {(resErrors && isSubmitted) && <ul>
+            {Object.values(resErrors).map((error, i) => (
+              <li className='error' key={i}>{error}</li>
+            ))}
+          </ul>}
       </div>
+      {(validationErrors.stars && isSubmitted) && <p className='error'>{validationErrors.stars}</p>}
       <div
         className='reviewForm-starInput'
         onMouseLeave={() => setActiveStars(stars)}
@@ -104,6 +155,7 @@ const ReviewForm = ({ page, review }) => {
         </div>
       </div>
       <form onSubmit={handleSubmit}>
+        {(validationErrors.review && isSubmitted) && <p className='error'>{validationErrors.review}</p>}
         <textarea
           name='review'
           value={newReview}
