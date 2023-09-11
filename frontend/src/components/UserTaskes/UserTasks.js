@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { useSelector } from "react-redux"
 import { Redirect } from 'react-router-dom'
 import UserTaskListItem from '../UserTaskListItem'
+import './UserTasks.css'
 
 const UserTasks = () => {
   const user = useSelector(state => state.user)
@@ -44,15 +45,15 @@ const UserTasks = () => {
       {isLoaded ? (
         <>
           <div className='userTask-current'>
-            <h1>Current Tasks</h1>
+            <h1>Upcoming Tasks</h1>
             <div className='userTasks-currentList'>
               {futureTasks?.map(task => (
                 <UserTaskListItem key={task.id} task={task} page="future"/>
               ))}
             </div>
           </div>
-          <div className='userTask-current'>
-            <h1>Past Tasks</h1>
+          <div className='userTask-past'>
+            <h1>Completed Tasks</h1>
             <div className='userTasks-pastList'>
               {pastTasks?.map(task => (
                 <UserTaskListItem key={task.id} task={task} page="past"/>

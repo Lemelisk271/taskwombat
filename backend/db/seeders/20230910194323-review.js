@@ -18,28 +18,31 @@ module.exports = {
     const appointments = await Appointment.findAll()
 
     for (let appointment of appointments) {
-      const apptDate = Date.parse(appointment.start)
-      const dateNow = Date.now()
-      const dateDiff = dateNow - apptDate
+      const ranNum = randomBetweenNumbers(1, 2)
+      if (ranNum === 1) {
+        const apptDate = Date.parse(appointment.start)
+        const dateNow = Date.now()
+        const dateDiff = dateNow - apptDate
 
-      if (dateDiff > 0) {
-        let review = faker.hacker.phrase()
-        let stars = randomBetweenNumbers(1, 5)
+        if (dateDiff > 0) {
+          let review = faker.hacker.phrase()
+          let stars = randomBetweenNumbers(1, 5)
 
-        const today = new Date()
-        const date = faker.date.between({from: appointment.start, to: today})
+          const today = new Date()
+          const date = faker.date.between({from: appointment.start, to: today})
 
-        const reviewObj = {
-          review,
-          stars,
-          date,
-          appointmentId: appointment.id,
-          userId: appointment.userId,
-          taskerId: appointment.taskerId,
-          categoryId: appointment.categoryId
+          const reviewObj = {
+            review,
+            stars,
+            date,
+            appointmentId: appointment.id,
+            userId: appointment.userId,
+            taskerId: appointment.taskerId,
+            categoryId: appointment.categoryId
+          }
+
+          seeds.push(reviewObj)
         }
-
-        seeds.push(reviewObj)
       }
     }
     Review.bulkCreate(seeds, {validate: true})

@@ -5,7 +5,7 @@ import './ReviewForm.css'
 import { csrfFetch } from '../../store/csrf'
 import { ResetContext } from '../../context/ResetContext'
 
-const ReviewForm = ({ page, review }) => {
+const ReviewForm = ({ page, review, task }) => {
   const [stars, setStars] = useState(1)
   const [activeStars, setActiveStars] = useState(1)
   const [newReview, setNewReview] = useState('')
@@ -23,7 +23,7 @@ const ReviewForm = ({ page, review }) => {
       setNewReview(review.review)
       setPageTitle("Update Review")
     } else {
-      setPageTitle("Create Review")
+      setPageTitle(`Add Review for ${task.Tasker.firstName} ${task.Tasker.lastName}`)
     }
   }, [])
 
@@ -95,8 +95,14 @@ const ReviewForm = ({ page, review }) => {
       const reviewObj = {
         review: newReview,
         stars,
-        date
+        date,
+        appointmentId: task.id,
+        userId: task.userId,
+        taskerId: task.taskerId,
+        categoryId: task.categoryId
       }
+
+      console.log(reviewObj)
     }
   }
 
