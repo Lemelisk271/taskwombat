@@ -21,6 +21,7 @@ module.exports = {
       const apptDate = Date.parse(appointment.start)
       const dateNow = Date.now()
       const dateDiff = dateNow - apptDate
+      console.log(dateDiff)
 
       if (dateDiff > 0) {
         let review = faker.hacker.phrase()
@@ -42,7 +43,8 @@ module.exports = {
         seeds.push(reviewObj)
       }
     }
-    console.log("Seeds: ", seeds)
+    console.log("Seeds: ", seeds.length)
+    console.log("Appointments: ", appointments.length)
     Review.bulkCreate(seeds, {validate: true})
   },
 
