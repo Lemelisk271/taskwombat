@@ -39,8 +39,6 @@ const UserTasks = () => {
 
   if (sessionUser.id !== user.id) return <Redirect to={`/users/${sessionUser.id}`}/>
 
-  console.log("futureTasks", futureTasks)
-  console.log("pastTasks", pastTasks)
   return (
     <div className='userTasks'>
       {isLoaded ? (

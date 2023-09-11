@@ -17,8 +17,6 @@ module.exports = {
 
     const reviews = await Review.findAll()
 
-    console.log("Reviews: ", reviews.length)
-
     for (let review of reviews) {
       const num = randomBetweenNumbers(2, 5)
       for (let i = 0; i < num; i++) {
@@ -29,8 +27,6 @@ module.exports = {
         })
       }
     }
-
-    console.log("Seeds: ", seeds.length)
 
     await ReviewImages.bulkCreate(seeds, {validate: true})
   },

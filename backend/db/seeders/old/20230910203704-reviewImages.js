@@ -28,8 +28,6 @@ module.exports = {
       }
     }
 
-    console.log(seeds.length)
-
     ReviewImages.bulkCreate(seeds, {validate: true})
   },
 

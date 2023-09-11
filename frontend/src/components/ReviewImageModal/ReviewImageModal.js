@@ -1,7 +1,7 @@
 import './reviewImageModal.css'
 
 const ReviewImageModal = ({ images }) => {
-  console.log(images)
+
 
   return (
     <div className='reviewImageModal'>

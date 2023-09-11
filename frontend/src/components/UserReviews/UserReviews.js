@@ -3,7 +3,6 @@ import UserReviewListItem from '../UserReviewListItem'
 
 const UserReviews = () => {
   const reviews = useSelector(state => state.user.Reviews)
-  console.log(reviews)
 
   return (
     <div className="userReviews">

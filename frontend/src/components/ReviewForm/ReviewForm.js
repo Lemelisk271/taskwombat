@@ -97,8 +97,6 @@ const ReviewForm = ({ page, review }) => {
         stars,
         date
       }
-
-      console.log(reviewObj)
     }
   }
 
