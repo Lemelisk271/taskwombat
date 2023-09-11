@@ -1,0 +1,44 @@
+.reviewForm-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.reviewForm-header > h1 {
+  margin: 0;
+  margin-bottom: 20px;
+}
+
+.reviewForm-headerWombat {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.reviewForm-headerWombat > img {
+  height: 50px;
+  margin-right: 10px;
+}
+
+.reviewForm-starInput {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.reviewForm-filled {
+  background-color: #0D7A5F;
+  padding: 5px;
+  margin: 2px 2px 2px 0;
+  border-radius: 50%;
+  color: white;
+}
+
+.reviewForm-empty {
+  background-color: #848A87;
+  padding: 5px;
+  margin: 2px 2px 2px 0;
+  border-radius: 50%;
+  color: white;
+}

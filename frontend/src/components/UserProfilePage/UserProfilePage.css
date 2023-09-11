@@ -21,13 +21,20 @@
   align-items: center;
   border-radius: 20px;
   margin-bottom: 10px;
+  padding-bottom: 20px;
+}
+
+.userProfilePage-userCard p {
+  margin-top: 10px;
+  margin-bottom: 0;
 }
 
 .userProfilePage-userCard > img {
-  height: 200px;
-  width: 200px;
+  height: 250px;
+  width: 250px;
   object-fit: cover;
-  object-position: center
+  object-position: center;
+  border-radius: 50%;
 }
 
 .userProfilePage-select {
@@ -37,9 +44,46 @@
   width: 90%;
   border: 1px solid #848A87;
   border-radius: 20px;
-  padding: 10px 0;
+}
+
+.userProfilePage-select button {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  border: none;
+  background: none;
+  height: 30px;
+  cursor: pointer;
+  font-size: 20px;
+  padding-left: 30px;
+  padding-top: 25px;
+  padding-bottom: 25px;
+}
+
+.userProfilePage-select button:hover {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.userProfilePage-reviewButtonOther {
+  border-radius: 20px;
+}
+
+.userProfilePage-reviewButton {
+  border-top-right-radius: 20px;
+  border-top-left-radius: 20px;
+}
+
+.userProfilePage-profileButton {
+  border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 20px;
 }
 
 .userProfilePage-results {
+  width: 100%;
+  margin-right: 20px;
+}
+
+.userProfilePage-line {
+  border-bottom: 1px solid #848A87;
   width: 100%;
 }

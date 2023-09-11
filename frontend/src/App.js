@@ -5,6 +5,7 @@ import { restoreUser } from './store/session'
 import LandingPage from './components/LandingPage'
 import Navigation from './components/Navigation'
 import UserProfilePage from './components/UserProfilePage'
+import TaskerProfilePage from './components/TaskerProfilePage'
 
 function App() {
   const dispatch = useDispatch()
@@ -31,6 +32,9 @@ function App() {
             </Route>
             <Route exact path='/users/:userId'>
               <UserProfilePage />
+            </Route>
+            <Route exact path='/taskers/:taskerId'>
+              <TaskerProfilePage />
             </Route>
             <Route>
               <h1>Page Not Found</h1>

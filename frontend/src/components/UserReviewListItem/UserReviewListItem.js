@@ -1,4 +1,7 @@
 import { useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
+import ReviewForm from '../ReviewForm'
+import OpenModalButton from '../OpenModalButton'
 
 import './UserReviewListItem.css'
 
@@ -22,7 +25,10 @@ const UserReviewListItem = ({ review }) => {
 
   const userButtons = (
     <>
-      <button>Edit Review</button>
+      <OpenModalButton
+        buttonText="Edit Review"
+        modalComponent={<ReviewForm page="update" review={review}/>}
+      />
       <button>Delete Review</button>
     </>
   )
@@ -31,13 +37,21 @@ const UserReviewListItem = ({ review }) => {
     <div className="UserReviewListItem">
       <div className='userReviewListItem-line'></div>
       <div className='userReviewListItem-card'>
-        <div className='userReviewListItem-cardHead'>
+        <Link to={`/taskers/${review.Tasker.id}`} className='userReviewListItem-cardHead'>
           <img src={review.Tasker.profileImage} alt="Tasker Image"/>
           <div className='userReviewListItem-cardHeadInfo'>
-            <p>Tasker: {review.Tasker.firstName} {review.Tasker.lastName}</p>
-            <p>{review.Category.category}</p>
-            <p>{date}</p>
-            <p>{review.stars}</p>
+            <div className='userReviewListItem-cardInfo'>
+              <label htmlFor='taskerInfo'>Tasker:</label>
+              <p id='taskerInfo'>{review.Tasker.firstName} {review.Tasker.lastName}</p>
+            </div>
+            <div className='userReviewListItem-cardInfo'>
+              <label htmlFor='categoryInfo'>Category:</label>
+              <p id='categoryInfo'>{review.Category.category}</p>
+            </div>
+            <div className='userReviewListItem-cardInfo'>
+              <label htmlFor='dataInfo'>Date: </label>
+              <p id='dateInfo'>{date}</p>
+            </div>
             <div className='userReviewListItem-stars'>
               <div className={review.stars >= 1 ? "listItem-filled" : "listItem-empty"}>
                 <i className="fa-solid fa-star"></i>
@@ -56,12 +70,14 @@ const UserReviewListItem = ({ review }) => {
               </div>
             </div>
           </div>
-          <div className='userReviewListItem-body'>
-            <p>{review.review}</p>
-          </div>
-          <div className='userReviewListItem-buttons'>
-            {isSessionUser && userButtons}
-          </div>
+        </Link>
+        <Link to={`/taskers/${review.Tasker.id}`}  className='userReviewListItem-body'>
+          <p>{review.review}</p>
+        </Link>
+        <div className='userReviewListItem-line'></div>
+        <div className='userReviewListItem-buttons'>
+          {isSessionUser && userButtons}
+          <button>View Images</button>
         </div>
       </div>
       <div className='userReviewListItem-line'></div>

@@ -1,10 +1,11 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { useParams } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import { findCity } from '../HelperFunctions/HelperFunctions'
 import UserProfileInfo from '../UserProfileInfo'
 import UserReviews from '../UserReviews'
 import { getSingleUser } from '../../store/user'
+import { ResetContext } from '../../context/ResetContext'
 
 import './UserProfilePage.css'
 import default_avatar from '../../images/default_avatar.png'
@@ -20,6 +21,7 @@ const UserProfilePage = () => {
   const [userPhone, setUserPhone] = useState("")
   const [selectedPage, setSelectedPage] = useState('reviews')
   const [selectedPageContent, setSelectedPageContent] = useState('')
+  const { resetPage } = useContext(ResetContext)
 
   useEffect(() => {
     const getUser = async () => {
@@ -27,7 +29,7 @@ const UserProfilePage = () => {
     }
     getUser()
     // eslint-disable-next-line
-  }, [dispatch])
+  }, [dispatch, resetPage])
 
   useEffect(() => {
     const loadPage = async () => {
@@ -66,7 +68,7 @@ const UserProfilePage = () => {
       )
       setSelectedPageContent(profile)
     }
-  }, [selectedPage])
+  }, [selectedPage, resetPage])
 
   let userCard
 
@@ -121,14 +123,15 @@ const UserProfilePage = () => {
   if (isSessionUser) {
     selector = (
       <>
-        <button onClick={reviewButton}>Reviews</button>
-        <button onClick={profileButton}>My Profile</button>
+        <button className="userProfilePage-reviewButton" onClick={reviewButton}>Reviews</button>
+        <div className='userProfilePage-line'/>
+        <button className="userProfilePage-profileButton" onClick={profileButton}>My Profile</button>
       </>
     )
   } else {
     selector = (
       <>
-        <button>Reviews</button>
+        <button className="userProfilePage-reviewButtonOther">Reviews</button>
       </>
     )
   }
