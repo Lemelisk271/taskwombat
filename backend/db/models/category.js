@@ -23,6 +23,9 @@ module.exports = (sequelize, DataTypes) => {
       Category.hasMany(models.Review, {
         foreignKey: 'categoryId'
       })
+      Category.hasMany(models.Appointment, {
+        foreignKey: 'categoryId'
+      })
     }
   }
   Category.init({
