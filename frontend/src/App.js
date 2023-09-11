@@ -6,7 +6,6 @@ import LandingPage from './components/LandingPage'
 import Navigation from './components/Navigation'
 import UserProfilePage from './components/UserProfilePage'
 import TaskerProfilePage from './components/TaskerProfilePage'
-import Images from './components/Images/Images.js'
 
 function App() {
   const dispatch = useDispatch()
@@ -36,9 +35,6 @@ function App() {
             </Route>
             <Route exact path='/taskers/:taskerId'>
               <TaskerProfilePage />
-            </Route>
-            <Route exact path='/images'>
-              <Images />
             </Route>
             <Route>
               <h1>Page Not Found</h1>

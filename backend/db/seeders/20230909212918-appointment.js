@@ -66,7 +66,7 @@ module.exports = {
     })
 
     for (let user of users) {
-      const numAppt = randomBetweenNumbers(2, 4)
+      const numAppt = randomBetweenNumbers(15, 20)
       const shuffleTaskers = taskers.sort(() => 0.5 - Math.random())
       const selectedTaskers = shuffleTaskers.slice(0, numAppt)
       for (let tasker of selectedTaskers) {
