@@ -39,12 +39,13 @@ const UserTasks = () => {
 
   if (sessionUser.id !== user.id) return <Redirect to={`/users/${sessionUser.id}`}/>
 
-  console.log(futureTasks)
+  console.log("futureTasks", futureTasks)
+  console.log("pastTasks", pastTasks)
   return (
     <div className='userTasks'>
       {isLoaded ? (
         <>
-          <div className='userTass-current'>
+          <div className='userTask-current'>
             <h1>Current Tasks</h1>
             <div className='userTasks-currentList'>
               {futureTasks?.map(task => (
@@ -52,9 +53,9 @@ const UserTasks = () => {
               ))}
             </div>
           </div>
-          <div className='userTass-current'>
+          <div className='userTask-current'>
             <h1>Past Tasks</h1>
-            <div className='userTasks-currentList'>
+            <div className='userTasks-pastList'>
               {pastTasks?.map(task => (
                 <UserTaskListItem key={task.id} task={task} page="past"/>
               ))}
