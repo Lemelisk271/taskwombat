@@ -1,5 +1,7 @@
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
+import ReviewForm from '../ReviewForm'
+import OpenModalButton from '../OpenModalButton'
 
 import './UserReviewListItem.css'
 
@@ -23,7 +25,10 @@ const UserReviewListItem = ({ review }) => {
 
   const userButtons = (
     <>
-      <button>Edit Review</button>
+      <OpenModalButton
+        buttonText="Edit Review"
+        modalComponent={<ReviewForm page="update" review={review}/>}
+      />
       <button>Delete Review</button>
     </>
   )
