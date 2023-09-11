@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { findCity } from '../HelperFunctions/HelperFunctions'
 import UserProfileInfo from '../UserProfileInfo'
 import UserReviews from '../UserReviews'
+import UserTasks from '../UserTaskes'
 import { getSingleUser } from '../../store/user'
 import { ResetContext } from '../../context/ResetContext'
 
@@ -67,6 +68,13 @@ const UserProfilePage = () => {
         </>
       )
       setSelectedPageContent(profile)
+    } else if (selectedPage === 'tasks') {
+      const tasks = (
+        <>
+          <UserTasks />
+        </>
+      )
+      setSelectedPageContent(tasks)
     }
   }, [selectedPage, resetPage])
 
@@ -118,12 +126,19 @@ const UserProfilePage = () => {
     setSelectedPage('profile')
   }
 
+  const taskButton = (e) => {
+    e.preventDefault()
+    setSelectedPage("tasks")
+  }
+
   let selector
 
   if (isSessionUser) {
     selector = (
       <>
         <button className="userProfilePage-reviewButton" onClick={reviewButton}>Reviews</button>
+        <div className='userProfilePage-line'/>
+        <button className='userProfilePage-taskButton' onClick={taskButton}>Tasks</button>
         <div className='userProfilePage-line'/>
         <button className="userProfilePage-profileButton" onClick={profileButton}>My Profile</button>
       </>

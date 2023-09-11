@@ -19,8 +19,11 @@ module.exports = (sequelize, DataTypes) => {
       Appointment.hasOne(models.Invoice, {
         foreignKey: 'appointmentId'
       })
-      Appointment.hasMany(models.Review, {
+      Appointment.hasOne(models.Review, {
         foreignKey: 'appointmentId'
+      })
+      Appointment.belongsTo(models.Category, {
+        foreignKey: 'categoryId'
       })
     }
   }
