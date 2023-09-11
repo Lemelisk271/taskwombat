@@ -39,7 +39,7 @@ const createRandomUser = () => {
   }
 }
 
-for (let i = 0; i < 99; i++) {
+for (let i = 0; i < 19; i++) {
   let user = createRandomUser()
   userSeeds.push(user)
 }
