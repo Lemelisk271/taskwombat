@@ -1,0 +1,20 @@
+.reviewImageModal {
+  max-width: 70vw;
+  max-height: 70vh;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding: 50px;
+  background-color: #848A87;
+}
+
+.reviewImageModal img {
+  width: 300px;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  object-position: center;
+  margin: 10px;
+}
