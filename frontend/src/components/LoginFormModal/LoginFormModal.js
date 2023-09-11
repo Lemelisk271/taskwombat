@@ -38,17 +38,11 @@ const LoginFormModal = () => {
 
     setResErrors({})
 
-    console.log({
-      credential,
-      password
-    })
-
     return dispatch(login({ credential, password }))
       .then(closeModal)
       .then(history.push("/"))
       .catch(async (res) => {
         const data = await res.json()
-        console.log(data)
         if (data && data.errors) {
           setResErrors(data.errors)
         }
@@ -62,7 +56,6 @@ const LoginFormModal = () => {
       .then(history.push("/"))
       .catch(async (res) => {
         const data = await res.json()
-        console.log(data)
         if (data && data.errors) {
           setResErrors(data.errors)
         }
