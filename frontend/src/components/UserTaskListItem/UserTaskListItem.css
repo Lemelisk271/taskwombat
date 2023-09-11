@@ -1,13 +1,73 @@
-.userTaskListItem-tasker > img {
-  width: 100px;
-  aspect-ratio: 1/1;
-  object-fit: cover;
-  object-position: center;
-}
-
 .userTaskListItem-line {
   border-bottom: 2px solid #848A87;
   padding-top: 5px;
   margin-bottom: 5px;
   width: 100%;
+}
+
+.userTaskListItem-card {
+  border: 1px solid #848A87;
+  padding: 20px;
+  border-radius: 20px;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.userTaskListItem-tasker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 40%;
+  border-right: 1px solid #848A87;
+  margin-right: 20px;
+  text-decoration: none;
+  color: black
+}
+
+.userTaskListItem-tasker p {
+  margin: 0 0 5px 0;
+}
+
+.userTaskListItem-tasker > img {
+  width: 100px;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 50%;
+}
+
+.userTaskListItem-body {
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+}
+
+.userTaskListItem-bodyInfo table td {
+  padding-right: 10px;
+  padding-bottom: 5px;
+}
+
+.userTaskListItem-buttons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  justify-content: space-around;
+  margin-top: 10px;
+}
+
+.userTaskListItem-buttons button {
+  background-color: #0D7A5F;
+  color: white;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  font-size: 16px;
+}
+
+.userTaskListItem-buttons button:hover {
+  background-color: #055240;
 }

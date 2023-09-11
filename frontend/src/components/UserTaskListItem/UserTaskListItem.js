@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { findCity } from '../HelperFunctions/HelperFunctions'
+import { Link } from 'react-router-dom'
 import './UserTaskListItem.css'
 
 const UserTaskListItem = ({ task, page }) => {
@@ -9,6 +10,8 @@ const UserTaskListItem = ({ task, page }) => {
   const [startTime, setStartTime] = useState('')
   const [endTime, setEndTime] = useState('')
   const [userButtons, setUserButtons] = useState('')
+
+  console.log(task)
 
   useEffect(() => {
     const taskerPhone = task.Tasker.phone
@@ -51,6 +54,20 @@ const UserTaskListItem = ({ task, page }) => {
       setUserButtons(buttons)
     }
 
+    if (page === 'past') {
+      let buttons
+      if (task.Review) {
+        buttons = (
+          <button>See Review</button>
+        )
+      } else {
+        buttons = (
+          <button>Add Review</button>
+        )
+      }
+      setUserButtons(buttons)
+    }
+
     setStartTime(`${startMonth}-${startDay}-${startYear} ${apptStartTime}`)
     setEndTime(`${endMonth}-${endDay}-${endYear} ${apptEndTime}`)
     setPhone(newPhone)
@@ -62,44 +79,42 @@ const UserTaskListItem = ({ task, page }) => {
     <div className="userTaskListItem">
       {isLoaded ? (
         <>
-          <div className='userTaskListItem-line'/>
-            <div className='userTaskListItem-card'>
-              <div className="userTaskListItem-tasker">
-                <img src={task.Tasker.profileImage} alt={task.Tasker.firstName}/>
-                <p>{task.Tasker.firstName} {task.Tasker.lastName}</p>
-                <p>{task.Tasker.email}</p>
-                <p>{phone}</p>
-                <p>{city}</p>
+          <div className='userTaskListItem-card'>
+            <Link to={`/taskers/${task.Tasker.id}`} className="userTaskListItem-tasker">
+              <img src={task.Tasker.profileImage} alt={task.Tasker.firstName}/>
+              <p>{task.Tasker.firstName} {task.Tasker.lastName}</p>
+              <p>{task.Tasker.email}</p>
+              <p>{phone}</p>
+              <p>{city}</p>
+            </Link>
+            <div className='userTaskListItem-body'>
+              <div className='userTaskListItem-bodyInfo'>
+                <table>
+                  <tbody>
+                    <tr>
+                      <td>Task Start:</td>
+                      <td>{startTime}</td>
+                    </tr>
+                    <tr>
+                      <td>Task End:</td>
+                      <td>{endTime}</td>
+                    </tr>
+                    <tr>
+                      <td>Task Category: </td>
+                      <td>{task.Category.category}</td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
-              <div className='userTaskListItem-body'>
-                <div className='userTaskListItem-bodyInfo'>
-                  <table>
-                    <tbody>
-                      <tr>
-                        <td>Task Start:</td>
-                        <td>{startTime}</td>
-                      </tr>
-                      <tr>
-                        <td>Task End:</td>
-                        <td>{endTime}</td>
-                      </tr>
-                      <tr>
-                        <td>Task Category: </td>
-                        <td>{task.Category.category}</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-                <div className='userTaskListItem-bodyTask'>
-                  <p>{task.task}</p>
-                </div>
-                <div className='userTaskListItem-line'/>
-                <div className='userTaskListItem-buttons'>
-                  {isLoaded && userButtons}
-                </div>
+              <div className='userTaskListItem-bodyTask'>
+                <p>{task.task}</p>
+              </div>
+              <div className='userTaskListItem-line'/>
+              <div className='userTaskListItem-buttons'>
+                {isLoaded && userButtons}
               </div>
             </div>
-          <div className='userTaskListItem-line'/>
+          </div>
         </>
       ):(
         <>
