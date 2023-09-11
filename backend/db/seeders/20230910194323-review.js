@@ -42,7 +42,7 @@ module.exports = {
         seeds.push(reviewObj)
       }
     }
-
+    console.log("Seeds: ", seeds)
     Review.bulkCreate(seeds, {validate: true})
   },
 
