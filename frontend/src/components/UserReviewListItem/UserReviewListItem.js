@@ -40,18 +40,22 @@ const UserReviewListItem = ({ review }) => {
         <Link to={`/taskers/${review.Tasker.id}`} className='userReviewListItem-cardHead'>
           <img src={review.Tasker.profileImage} alt="Tasker Image"/>
           <div className='userReviewListItem-cardHeadInfo'>
-            <div className='userReviewListItem-cardInfo'>
-              <label htmlFor='taskerInfo'>Tasker:</label>
-              <p id='taskerInfo'>{review.Tasker.firstName} {review.Tasker.lastName}</p>
-            </div>
-            <div className='userReviewListItem-cardInfo'>
-              <label htmlFor='categoryInfo'>Category:</label>
-              <p id='categoryInfo'>{review.Category.category}</p>
-            </div>
-            <div className='userReviewListItem-cardInfo'>
-              <label htmlFor='dataInfo'>Date: </label>
-              <p id='dateInfo'>{date}</p>
-            </div>
+            <table>
+              <tbody>
+                <tr>
+                  <td>Tasker:</td>
+                  <td>{review.Tasker.firstName} {review.Tasker.lastName}</td>
+                </tr>
+                <tr>
+                  <td>Category:</td>
+                  <td>{review.Category.category}</td>
+                </tr>
+                <tr>
+                  <td>Date:</td>
+                  <td>{date}</td>
+                </tr>
+              </tbody>
+            </table>
             <div className='userReviewListItem-stars'>
               <div className={review.stars >= 1 ? "listItem-filled" : "listItem-empty"}>
                 <i className="fa-solid fa-star"></i>
