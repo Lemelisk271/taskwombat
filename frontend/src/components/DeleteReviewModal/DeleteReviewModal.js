@@ -2,6 +2,7 @@ import { useState, useContext } from 'react'
 import { csrfFetch } from '../../store/csrf'
 import { useModal } from '../../context/Modal'
 import { ResetContext } from '../../context/ResetContext'
+import './DeleteReviewModal.css'
 
 
 const DeleteReviewModal = ({ id }) => {
@@ -36,14 +37,16 @@ const DeleteReviewModal = ({ id }) => {
   return (
     <div className="deleteReviewModal">
       <h1>Are you sure you want to delete this review?</h1>
-      <h3>This change is permanent.</h3>
+      <h2>This change is <span>permanent</span>.</h2>
       {(errors && isSubmitted) && <ul>
           {Object.values(errors).map((error, i) => (
             <li className='error' key={i}>{error}</li>
           ))}
         </ul>}
-      <button onClick={deleteButton}>Yes</button>
-      <button onClick={cancelButton}>No</button>
+      <div className='deleteReviewModal-buttons'>
+        <button className='deleteReviewModal-delete' onClick={deleteButton}>Yes</button>
+        <button className='deleteReviewModal-cancel' onClick={cancelButton}>No</button>
+      </div>
     </div>
   )
 }
