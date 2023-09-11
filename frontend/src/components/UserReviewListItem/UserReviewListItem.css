@@ -9,9 +9,84 @@
   width: 100%;
 }
 
+.userReviewListItem-card {
+  display: flex;
+  flex-direction: column;
+  margin: 20px 20px 10px 20px;
+}
+
+.userReviewListItem-cardHead {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  text-decoration: none;
+  color: black
+}
+
+.userReviewListItem-cardHead p {
+  margin: 0;
+}
+
+.userReviewListItem-stars {
+  display: flex;
+  flex-direction: row;
+}
+
 .userReviewListItem-cardHead img {
-  height: 100;
-  width: 100px;
+  height: 150px;
+  width: 150px;
   object-fit: cover;
-  object-position: center
+  object-position: center;
+  margin-right: 10px;
+  border-radius: 50%;
+}
+
+.listItem-filled {
+  background-color: #0D7A5F;
+  padding: 5px;
+  margin: 2px 2px 2px 0;
+  border-radius: 50%;
+  color: white;
+}
+
+.listItem-empty {
+  background-color: #848A87;
+  padding: 5px;
+  margin: 2px;
+  border-radius: 50%;
+  color: white;
+}
+
+.userReviewListItem-cardInfo {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 200px;
+  margin-bottom: 10px;
+}
+
+.userReviewListItem-buttons {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.userReviewListItem-buttons button {
+  background-color: #0D7A5F;
+  border: none;
+  color: white;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.userReviewListItem-buttons button:hover {
+  background-color: #055240;
+}
+
+.userReviewListItem-body {
+  text-decoration: none;
+  color: black;
 }
