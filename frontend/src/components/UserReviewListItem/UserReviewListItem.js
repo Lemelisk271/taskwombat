@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import ReviewForm from '../ReviewForm'
 import OpenModalButton from '../OpenModalButton'
 import DeleteReviewModal from '../DeleteReviewModal'
+import ReviewImageModal from '../ReviewImageModal'
 
 import './UserReviewListItem.css'
 
@@ -85,7 +86,10 @@ const UserReviewListItem = ({ review }) => {
         <div className='userReviewListItem-line'></div>
         <div className='userReviewListItem-buttons'>
           {isSessionUser && userButtons}
-          <button>View Images</button>
+          <OpenModalButton
+            buttonText="View Images"
+            modalComponent={<ReviewImageModal images={review.ReviewImages}/>}
+          />
         </div>
       </div>
       <div className='userReviewListItem-line'></div>
