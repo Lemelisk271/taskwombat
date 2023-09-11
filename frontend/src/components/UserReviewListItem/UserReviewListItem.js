@@ -42,7 +42,7 @@ const UserReviewListItem = ({ review }) => {
       <div className='userReviewListItem-line'></div>
       <div className='userReviewListItem-card'>
         <Link to={`/taskers/${review.Tasker.id}`} className='userReviewListItem-cardHead'>
-          <img src={review.Tasker.profileImage} alt="Tasker Image"/>
+          <img src={review.Tasker.profileImage} alt="Tasker"/>
           <div className='userReviewListItem-cardHeadInfo'>
             <table>
               <tbody>
