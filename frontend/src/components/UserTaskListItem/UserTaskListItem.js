@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useContext } from 'react'
 import { findCity } from '../HelperFunctions/HelperFunctions'
 import { Link } from 'react-router-dom'
 import ReviewForm from '../ReviewForm'
 import OpenModalButton from '../OpenModalButton'
+import { ResetContext } from '../../context/ResetContext'
 import './UserTaskListItem.css'
 
 const UserTaskListItem = ({ task, page }) => {
@@ -11,7 +12,7 @@ const UserTaskListItem = ({ task, page }) => {
   const [city, setCity] = useState('')
   const [startTime, setStartTime] = useState('')
   const [endTime, setEndTime] = useState('')
-  const [userButtons, setUserButtons] = useState('')
+  const { resetPage } = useContext(ResetContext)
 
   useEffect(() => {
     const taskerPhone = task.Tasker.phone
@@ -44,39 +45,12 @@ const UserTaskListItem = ({ task, page }) => {
     }
     const endYear = endDate.getFullYear()
 
-    if (page === 'future') {
-      const buttons = (
-        <>
-          <button>Edit Appointment</button>
-          <button>Cancel Appointment</button>
-        </>
-      )
-      setUserButtons(buttons)
-    }
-
-    if (page === 'past') {
-      let buttons
-      if (task.Review) {
-        buttons = (
-          <button>See Review</button>
-        )
-      } else {
-        buttons = (
-          <OpenModalButton
-            buttonText="Add Review"
-            modalComponent={<ReviewForm task={task} page="add"/>}
-          />
-        )
-      }
-      setUserButtons(buttons)
-    }
-
     setStartTime(`${startMonth}-${startDay}-${startYear} ${apptStartTime}`)
     setEndTime(`${endMonth}-${endDay}-${endYear} ${apptEndTime}`)
     setPhone(newPhone)
     setCity(findCity(task.Tasker.zipCode))
     setIsLoaded(true)
-  }, [])
+  }, [resetPage])
 
   return (
     <div className="userTaskListItem">
@@ -114,7 +88,27 @@ const UserTaskListItem = ({ task, page }) => {
               </div>
               <div className='userTaskListItem-line'/>
               <div className='userTaskListItem-buttons'>
-                {isLoaded && userButtons}
+                {page === "future" ? (
+                  <>
+                    <button>Edit Appointment</button>
+                    <button>Cancel Appointment</button>
+                  </>
+                ):(
+                  <>
+                    {task.Review ? (
+                      <>
+                        <button>See Review</button>
+                      </>
+                    ):(
+                      <>
+                        <OpenModalButton
+                          buttonText="Add Review"
+                          modalComponent={<ReviewForm task={task} page="add"/>}
+                        />
+                      </>
+                    )}
+                  </>
+                )}
               </div>
             </div>
           </div>

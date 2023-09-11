@@ -1,11 +1,14 @@
 import { useState, useEffect, useContext } from 'react'
+import { useDispatch } from 'react-redux'
 import wombat from '../../images/wombat.png'
 import { useModal } from '../../context/Modal'
 import './ReviewForm.css'
 import { csrfFetch } from '../../store/csrf'
 import { ResetContext } from '../../context/ResetContext'
+import { updateReview } from '../../store/user'
 
 const ReviewForm = ({ page, review, task }) => {
+  const dispatch = useDispatch()
   const [stars, setStars] = useState(1)
   const [activeStars, setActiveStars] = useState(1)
   const [newReview, setNewReview] = useState('')
@@ -102,7 +105,15 @@ const ReviewForm = ({ page, review, task }) => {
         categoryId: task.categoryId
       }
 
-      console.log(reviewObj)
+      return dispatch(updateReview(task.userId, reviewObj))
+        .then(closeModal)
+        .then(setResetPage(!resetPage))
+        .catch(async (res) => {
+          const data = await res.json()
+          if (data && data.errors) {
+            setResErrors(data.errors)
+          }
+        })
     }
   }
 
