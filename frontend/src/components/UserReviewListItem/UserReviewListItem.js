@@ -40,7 +40,7 @@ const UserReviewListItem = ({ review }) => {
 
   return (
     <div className="UserReviewListItem">
-      <div className='userReviewListItem-line'></div>
+      {/* <div className='userReviewListItem-line'></div> */}
       <div className='userReviewListItem-card'>
         <Link to={`/taskers/${review.Tasker.id}`} className='userReviewListItem-cardHead'>
           <img src={review.Tasker.profileImage} alt="Tasker"/>
@@ -92,7 +92,7 @@ const UserReviewListItem = ({ review }) => {
           />
         </div>
       </div>
-      <div className='userReviewListItem-line'></div>
+      {/* <div className='userReviewListItem-line'></div> */}
     </div>
   )
 }

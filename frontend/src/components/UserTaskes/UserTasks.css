@@ -1,0 +1,13 @@
+.userTask-current > h1 {
+  text-align: center;
+  background-color: #0D7A5F;
+  color: white;
+  padding: 10px 0 10px 0;
+}
+
+.userTask-past h1 {
+  text-align: center;
+  background-color: #0D7A5F;
+  color: white;
+  padding: 10px 0 10px 0;
+}

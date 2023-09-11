@@ -12,7 +12,10 @@
 .userReviewListItem-card {
   display: flex;
   flex-direction: column;
-  margin: 20px 20px 10px 20px;
+  margin-bottom: 10px;
+  border: 1px solid #848A87;
+  padding: 20px;
+  border-radius: 20px;
 }
 
 .userReviewListItem-cardHead {
