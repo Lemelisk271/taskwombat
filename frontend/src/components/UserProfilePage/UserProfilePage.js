@@ -121,14 +121,15 @@ const UserProfilePage = () => {
   if (isSessionUser) {
     selector = (
       <>
-        <button onClick={reviewButton}>Reviews</button>
-        <button onClick={profileButton}>My Profile</button>
+        <button className="userProfilePage-reviewButton" onClick={reviewButton}>Reviews</button>
+        <div className='userProfilePage-line'/>
+        <button className="userProfilePage-profileButton" onClick={profileButton}>My Profile</button>
       </>
     )
   } else {
     selector = (
       <>
-        <button>Reviews</button>
+        <button className="userProfilePage-reviewButtonOther">Reviews</button>
       </>
     )
   }
