@@ -65,8 +65,16 @@ module.exports = {
       ]
     })
 
+    let min = 15
+    let max = 20
+
+    if (process.env.NODE_ENV === 'production') {
+      min = 3
+      max = 5
+    }
+
     for (let user of users) {
-      const numAppt = randomBetweenNumbers(3, 5)
+      const numAppt = randomBetweenNumbers(min, max)
       const shuffleTaskers = taskers.sort(() => 0.5 - Math.random())
       const selectedTaskers = shuffleTaskers.slice(0, numAppt)
       for (let tasker of selectedTaskers) {

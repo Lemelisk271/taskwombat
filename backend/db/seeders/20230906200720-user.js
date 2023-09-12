@@ -39,7 +39,13 @@ const createRandomUser = () => {
   }
 }
 
-for (let i = 0; i < 29; i++) {
+let users = 99
+
+if (process.env.NODE_ENV === 'production') {
+  users = 29
+}
+
+for (let i = 0; i < users; i++) {
   let user = createRandomUser()
   userSeeds.push(user)
 }
