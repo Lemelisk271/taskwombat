@@ -23,6 +23,7 @@ const UserTaskListItem = ({ task, page }) => {
     setPhone(newPhone)
     setCity(findCity(task.Tasker.zipCode))
     setIsLoaded(true)
+    // eslint-disable-next-line
   }, [resetPage])
 
   const startDate = new Date(task.start)
