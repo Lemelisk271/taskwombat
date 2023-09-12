@@ -12,8 +12,6 @@ const UserTaskListItem = ({ task, page }) => {
   const [isLoaded, setIsLoaded] = useState(false)
   const [phone, setPhone] = useState('')
   const [city, setCity] = useState('')
-  const [startTime, setStartTime] = useState('')
-  const [endTime, setEndTime] = useState('')
   const { resetPage } = useContext(ResetContext)
 
   useEffect(() => {
@@ -22,59 +20,56 @@ const UserTaskListItem = ({ task, page }) => {
     const firstThree = taskerPhone?.slice(3, 6)
     const lastFour = taskerPhone?.slice(6)
     const newPhone = `(${areaCode}) ${firstThree}-${lastFour}`
-
-    const startDate = new Date(task.start)
-    const apptStartTime = startDate.toLocaleTimeString()
-    let startDateDay = startDate.getDay()
-    if (startDateDay === 0) {
-      startDateDay = 'Sun'
-    }
-    if (startDateDay === 1) {
-      startDateDay = 'Mon'
-    }
-    if (startDateDay === 2) {
-      startDateDay = 'Tue'
-    }
-    if (startDateDay === 3) {
-      startDateDay = 'Wed'
-    }
-    if (startDateDay === 4) {
-      startDateDay = 'Thu'
-    }
-    if (startDateDay === 5) {
-      startDateDay = 'Fri'
-    }
-    if (startDateDay === 6) {
-      startDateDay = 'Sat'
-    }
-    let startMonth = startDate.getMonth() + 1
-    if (startMonth < 10) {
-      startMonth = "0" + startMonth
-    }
-    let startDay = startDate.getDate()
-    if (startDay < 10) {
-      startDay = "0" + startDay
-    }
-    const startYear = startDate.getFullYear()
-
-    const endDate = new Date(task.end)
-    const apptEndTime = endDate.toLocaleTimeString()
-    let endMonth = endDate.getMonth() + 1
-    if (endMonth < 10) {
-      endMonth = "0" + endMonth
-    }
-    let endDay = endDate.getDate()
-    if (endDay < 10) {
-      endDay = "0" + endDay
-    }
-    const endYear = endDate.getFullYear()
-
-    setStartTime(`${startDateDay} ${startMonth}-${startDay}-${startYear} ${apptStartTime}`)
-    setEndTime(`${startDateDay} ${endMonth}-${endDay}-${endYear} ${apptEndTime}`)
     setPhone(newPhone)
     setCity(findCity(task.Tasker.zipCode))
     setIsLoaded(true)
   }, [resetPage])
+
+  const startDate = new Date(task.start)
+  const apptStartTime = startDate.toLocaleTimeString()
+  let startDateDay = startDate.getDay()
+  if (startDateDay === 0) {
+    startDateDay = 'Sun'
+  }
+  if (startDateDay === 1) {
+    startDateDay = 'Mon'
+  }
+  if (startDateDay === 2) {
+    startDateDay = 'Tue'
+  }
+  if (startDateDay === 3) {
+    startDateDay = 'Wed'
+  }
+  if (startDateDay === 4) {
+    startDateDay = 'Thu'
+  }
+  if (startDateDay === 5) {
+    startDateDay = 'Fri'
+  }
+  if (startDateDay === 6) {
+    startDateDay = 'Sat'
+  }
+  let startMonth = startDate.getMonth() + 1
+  if (startMonth < 10) {
+    startMonth = "0" + startMonth
+  }
+  let startDay = startDate.getDate()
+  if (startDay < 10) {
+    startDay = "0" + startDay
+  }
+  const startYear = startDate.getFullYear()
+
+  const endDate = new Date(task.end)
+  const apptEndTime = endDate.toLocaleTimeString()
+  let endMonth = endDate.getMonth() + 1
+  if (endMonth < 10) {
+    endMonth = "0" + endMonth
+  }
+  let endDay = endDate.getDate()
+  if (endDay < 10) {
+    endDay = "0" + endDay
+  }
+  const endYear = endDate.getFullYear()
 
   return (
     <div className="userTaskListItem">
@@ -94,11 +89,11 @@ const UserTaskListItem = ({ task, page }) => {
                   <tbody>
                     <tr>
                       <td>Task Start:</td>
-                      <td>{startTime}</td>
+                      <td>{`${startDateDay} ${startMonth}-${startDay}-${startYear} ${apptStartTime}`}</td>
                     </tr>
                     <tr>
                       <td>Task End:</td>
-                      <td>{endTime}</td>
+                      <td>{`${startDateDay} ${endMonth}-${endDay}-${endYear} ${apptEndTime}`}</td>
                     </tr>
                     <tr>
                       <td>Task Category: </td>

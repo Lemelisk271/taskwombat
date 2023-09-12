@@ -5,6 +5,7 @@ const userRouter = require('./user.js')
 const categoryRouter = require('./categories.js')
 const taskerRouter = require('./taskers.js')
 const reviewRouter = require('./reviews.js')
+const appointmentRouter = require('./appointments.js')
 
 router.use(restoreUser)
 
@@ -13,5 +14,6 @@ router.use('/users', userRouter)
 router.use('/categories', categoryRouter)
 router.use('/taskers', taskerRouter)
 router.use('/reviews', reviewRouter)
+router.use('/appointments', appointmentRouter)
 
 module.exports = router

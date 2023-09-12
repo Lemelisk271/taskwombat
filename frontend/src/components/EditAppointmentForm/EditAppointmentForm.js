@@ -1,9 +1,11 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import wombat from '../../images/wombat.png'
 import './EditAppointmentForm.css'
+import { csrfFetch } from '../../store/csrf'
+import { ResetContext } from '../../context/ResetContext'
+import { useModal } from '../../context/Modal'
 
 const EditAppointmentForm = ({ task }) => {
-  console.log(task)
   const [start, setStart] = useState('')
   const [end, setEnd] = useState('')
   const [startAvail, setStartAvail] = useState('09:00')
@@ -13,6 +15,9 @@ const EditAppointmentForm = ({ task }) => {
   const [newTask, setNewTask] = useState(task.task)
   const [validationErrors, setValidationErrors] = useState({})
   const [isSubmitted, setIsSubmitted] = useState(false)
+  const [resErrors, setResErrors] = useState([])
+  const { closeModal } = useModal()
+  const { setResetPage, resetPage } = useContext(ResetContext)
 
   useEffect(() => {
     const loadPage = async () => {
@@ -122,7 +127,7 @@ const EditAppointmentForm = ({ task }) => {
       setStart(`${startHour}:${startMinutes}`)
     }
     loadPage()
-  }, [])
+  }, [resetPage])
 
   useEffect(() => {
     const errors = {}
@@ -134,8 +139,20 @@ const EditAppointmentForm = ({ task }) => {
       errors.startAfter = `The start time cannot be after ${endAvailLocal}`
     }
 
+    if (start > end) {
+      errors.startAfterEnd = `The start time cannot be after the end time.`
+    }
+
+    if (end < startAvail) {
+      errors.endBefore = `The end time cannot be before ${startAvailLocal}`
+    }
+
+    if (end > endAvail) {
+      errors.endAfter = `The end time cannot be after ${endAvailLocal}`
+    }
+
     setValidationErrors(errors)
-  }, [start])
+  }, [start, end])
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -144,12 +161,66 @@ const EditAppointmentForm = ({ task }) => {
 
     if (Object.values(validationErrors).length) return
 
+    let startDate = new Date(task.start)
+    let startDateDate = startDate.getDate()
+    if (startDateDate < 10) {
+      startDateDate = "0" + startDateDate
+    }
+    let startDateMonth = startDate.getMonth() + 1
+    if (startDateMonth < 10) {
+      startDateMonth = "0" + startDateMonth
+    }
+    let startDateYear = startDate.getFullYear()
+
+    const startDateFinal = `${startDateYear}-${startDateMonth}-${startDateDate}T${start}`
+
+    let endDate = new Date(task.end)
+    let endDateDate = endDate.getDate()
+    if (endDateDate < 10) {
+      endDateDate = "0" + endDateDate
+    }
+    let endDateMonth = endDate.getMonth() + 1
+    if (endDateMonth < 10) {
+      endDateMonth = "0" + endDateMonth
+    }
+    let endDateYear = endDate.getFullYear()
+
+    const endDateFinal = `${endDateYear}-${endDateMonth}-${endDateDate}T${end}`
+
     const apptObj = {
-      start,
-      end
+      start: startDateFinal,
+      end: endDateFinal,
+      task: newTask,
+      taskerId: task.taskerId,
+      userId: task.userId,
+      categoryId: task.categoryId
     }
 
-    console.log(apptObj)
+    const res = await csrfFetch(`/api/appointments/${task.id}`, {
+      method: 'PUT',
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(apptObj)
+    })
+    if (res.ok) {
+      const data = await res.json()
+      if (data.errors) {
+        const err = []
+        data.errors.forEach(el => {
+          err.push(el.message)
+        })
+        setResErrors(err)
+        return
+      }
+      closeModal()
+      setResetPage(!resetPage)
+    } else {
+      const data = await res.json()
+      if (data && data.errors) {
+        setResErrors(data.errors)
+      }
+    }
   }
 
   return (
@@ -165,6 +236,11 @@ const EditAppointmentForm = ({ task }) => {
               <li key={i} className='error'>{error}</li>
             ))}
           </ul>}
+          {isSubmitted && <ul>
+            {resErrors.map((error, i) => (
+              <li key={i} className='error'>{error}</li>
+            ))}
+          </ul>}
       </div>
       <form onSubmit={handleSubmit}>
         <div className='editAppointmentForm-time'>
@@ -174,8 +250,8 @@ const EditAppointmentForm = ({ task }) => {
             <input
               type='time'
               id='startTime'
-              // min={startAvail}
-              // max={endAvail}
+              min={startAvail}
+              max={endAvail}
               value={start}
               onChange={e => setStart(e.target.value)}
             />
@@ -185,8 +261,8 @@ const EditAppointmentForm = ({ task }) => {
             <input
               type='time'
               id='endTime'
-              // min={startAvail}
-              // max={endAvail}
+              min={startAvail}
+              max={endAvail}
               value={end}
               onChange={e => setEnd(e.target.value)}
             />
