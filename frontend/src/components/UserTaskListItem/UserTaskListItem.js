@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import ReviewForm from '../ReviewForm'
 import OpenModalButton from '../OpenModalButton'
 import { ResetContext } from '../../context/ResetContext'
+import UserReviewListItem from '../UserReviewListItem'
 import './UserTaskListItem.css'
 
 const UserTaskListItem = ({ task, page }) => {
@@ -97,7 +98,10 @@ const UserTaskListItem = ({ task, page }) => {
                   <>
                     {task.Review ? (
                       <>
-                        <button>See Review</button>
+                        <OpenModalButton
+                          buttonText="See Review"
+                          modalComponent={<UserReviewListItem review={task.Review} page="task"/>}
+                        />
                       </>
                     ):(
                       <>

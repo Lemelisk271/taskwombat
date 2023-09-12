@@ -18,6 +18,10 @@
   border-radius: 20px;
 }
 
+.task {
+  margin: 50px;
+}
+
 .userReviewListItem-cardHead {
   display: flex;
   flex-direction: row;
