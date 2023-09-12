@@ -68,12 +68,12 @@
   border-radius: 20px;
 }
 
-.userProfilePage-reviewButton {
+.userProfilePage-profileButton {
   border-top-right-radius: 20px;
   border-top-left-radius: 20px;
 }
 
-.userProfilePage-profileButton {
+.userProfilePage-taskButton {
   border-bottom-right-radius: 20px;
   border-bottom-left-radius: 20px;
 }

@@ -4,9 +4,10 @@ import { useSelector, useDispatch } from 'react-redux'
 import { findCity } from '../HelperFunctions/HelperFunctions'
 import UserProfileInfo from '../UserProfileInfo'
 import UserReviews from '../UserReviews'
-import UserTasks from '../UserTaskes'
+import UserTasks from '../UserTasks'
 import { getSingleUser } from '../../store/user'
 import { ResetContext } from '../../context/ResetContext'
+import { UserPageContext } from '../../context/UserPageContext'
 
 import './UserProfilePage.css'
 import default_avatar from '../../images/default_avatar.png'
@@ -20,9 +21,9 @@ const UserProfilePage = () => {
   const [isSessionUser, setIsSessionUser] = useState(false)
   const [userCity, setUserCity] = useState("")
   const [userPhone, setUserPhone] = useState("")
-  const [selectedPage, setSelectedPage] = useState('reviews')
   const [selectedPageContent, setSelectedPageContent] = useState('')
   const { resetPage } = useContext(ResetContext)
+  const { userPage, setUserPage } = useContext(UserPageContext)
 
   useEffect(() => {
     const getUser = async () => {
@@ -54,21 +55,21 @@ const UserProfilePage = () => {
   }, [userData])
 
   useEffect(() => {
-    if (selectedPage === 'reviews') {
+    if (userPage === 'reviews') {
       const reviews = (
         <>
           <UserReviews />
         </>
       )
       setSelectedPageContent(reviews)
-    } else if (selectedPage === 'profile') {
+    } else if (userPage === 'profile') {
       const profile = (
         <>
           <UserProfileInfo />
         </>
       )
       setSelectedPageContent(profile)
-    } else if (selectedPage === 'tasks') {
+    } else if (userPage === 'tasks') {
       const tasks = (
         <>
           <UserTasks />
@@ -76,7 +77,7 @@ const UserProfilePage = () => {
       )
       setSelectedPageContent(tasks)
     }
-  }, [selectedPage, resetPage])
+  }, [userPage])
 
   let userCard
 
@@ -118,17 +119,17 @@ const UserProfilePage = () => {
 
   const reviewButton = (e) => {
     e.preventDefault()
-    setSelectedPage('reviews')
+    setUserPage('reviews')
   }
 
   const profileButton = (e) => {
     e.preventDefault()
-    setSelectedPage('profile')
+    setUserPage('profile')
   }
 
   const taskButton = (e) => {
     e.preventDefault()
-    setSelectedPage("tasks")
+    setUserPage("tasks")
   }
 
   let selector
@@ -136,11 +137,11 @@ const UserProfilePage = () => {
   if (isSessionUser) {
     selector = (
       <>
+        <button className="userProfilePage-profileButton" onClick={profileButton}>My Profile</button>
+        <div className='userProfilePage-line'/>
         <button className="userProfilePage-reviewButton" onClick={reviewButton}>Reviews</button>
         <div className='userProfilePage-line'/>
         <button className='userProfilePage-taskButton' onClick={taskButton}>Tasks</button>
-        <div className='userProfilePage-line'/>
-        <button className="userProfilePage-profileButton" onClick={profileButton}>My Profile</button>
       </>
     )
   } else {
