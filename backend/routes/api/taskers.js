@@ -1,45 +1,25 @@
 const express = require('express')
 const router = express.Router()
 
-const { Tasker, Category, Review, Vehicle, Tool, Availability } = require('../../db/models')
+const { Tasker, Availability, Review, Appointment } = require('../../db/models')
 
-router.get('/', async (_req, res) => {
-  const taskers = await Tasker.findAll({
+router.get('/:taskerId', async (req, res) => {
+  const tasker = await Tasker.findByPk(req.params.taskerId, {
     include: [
-      {
-        model: Category,
-        through: {
-          attributes: ['rate']
-        }
-      },
       {
         model: Review
       },
       {
-        model: Vehicle,
-        through: {
-          attributes: []
-        }
-      },
-      {
-        model: Tool,
-        through: {
-          attributes: []
-        }
-      },
-      {
-        model: Availability
+        model: Appointment
       }
-    ],
-    order: [
-      ['id', 'ASC'],
-      [{model: Category}, 'category', 'ASC'],
-      [{model: Review}, 'date', 'DESC'],
-      [{model: Availability}, 'dayIdx', 'ASC']
     ]
   })
 
-  res.status(200).json(taskers)
+  if (!tasker) {
+    return res.status(404).json({message: "The requested Tasker Couldn't be Found"})
+  }
+
+  res.json(tasker)
 })
 
 router.get('/schedule/:taskerId', async (req, res) => {
