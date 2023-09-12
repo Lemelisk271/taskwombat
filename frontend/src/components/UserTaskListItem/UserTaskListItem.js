@@ -25,6 +25,28 @@ const UserTaskListItem = ({ task, page }) => {
 
     const startDate = new Date(task.start)
     const apptStartTime = startDate.toLocaleTimeString()
+    let startDateDay = startDate.getDay()
+    if (startDateDay === 0) {
+      startDateDay = 'Sun'
+    }
+    if (startDateDay === 1) {
+      startDateDay = 'Mon'
+    }
+    if (startDateDay === 2) {
+      startDateDay = 'Tue'
+    }
+    if (startDateDay === 3) {
+      startDateDay = 'Wed'
+    }
+    if (startDateDay === 4) {
+      startDateDay = 'Thu'
+    }
+    if (startDateDay === 5) {
+      startDateDay = 'Fri'
+    }
+    if (startDateDay === 6) {
+      startDateDay = 'Sat'
+    }
     let startMonth = startDate.getMonth() + 1
     if (startMonth < 10) {
       startMonth = "0" + startMonth
@@ -47,8 +69,8 @@ const UserTaskListItem = ({ task, page }) => {
     }
     const endYear = endDate.getFullYear()
 
-    setStartTime(`${startMonth}-${startDay}-${startYear} ${apptStartTime}`)
-    setEndTime(`${endMonth}-${endDay}-${endYear} ${apptEndTime}`)
+    setStartTime(`${startDateDay} ${startMonth}-${startDay}-${startYear} ${apptStartTime}`)
+    setEndTime(`${startDateDay} ${endMonth}-${endDay}-${endYear} ${apptEndTime}`)
     setPhone(newPhone)
     setCity(findCity(task.Tasker.zipCode))
     setIsLoaded(true)
@@ -94,7 +116,7 @@ const UserTaskListItem = ({ task, page }) => {
                   <>
                     <OpenModalButton
                       buttonText='Edit Task'
-                      modalComponent={<EditAppointmentForm />}
+                      modalComponent={<EditAppointmentForm task={task}/>}
                     />
                     <button>Cancel Task</button>
                   </>

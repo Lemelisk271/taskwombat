@@ -8,10 +8,8 @@ import ReviewImageModal from '../ReviewImageModal'
 import './UserReviewListItem.css'
 
 const UserReviewListItem = ({ review, page }) => {
-  console.log("review", review)
   const user = useSelector(state => state.user)
   const sessionUser = useSelector(state => state.session.user)
-  console.log("review", review)
 
   const isSessionUser = user.id === sessionUser.id
 

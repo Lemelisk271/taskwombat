@@ -1,0 +1,11 @@
+.editAppointmentForm-logo {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.editAppointmentForm-logo > img {
+  height: 50px;
+  margin-right: 10px;
+}
