@@ -1,0 +1,36 @@
+.deleteAppointmentModal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 50px;
+}
+
+.deleteAppointmentModal span {
+  color: red;
+}
+
+.deleteAppointmentModal-buttons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.deleteAppointmentModal-buttons button {
+  border: none;
+  color: white;
+  padding: 10px;
+  cursor: pointer;
+  width: 25%;
+  font-size: 20px;
+}
+
+.deleteAppointmentModal-delete {
+  background-color: red;
+}
+
+.deleteAppointmentModal-cancel {
+  background-color: #0D7A5F;
+}
