@@ -62,7 +62,18 @@ router.get('/:userId', async (req, res) => {
             model: Category
           },
           {
-            model: Review
+            model: Review,
+            include: [
+              {
+                model: Tasker
+              },
+              {
+                model: Category
+              },
+              {
+                model: ReviewImages
+              }
+            ]
           }
         ]
       }

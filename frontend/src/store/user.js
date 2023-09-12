@@ -16,6 +16,20 @@ export const getSingleUser = (id) => async (dispatch) => {
   return res
 }
 
+export const updateReview = (id, body) => async (dispatch) => {
+  const review = await csrfFetch('/api/reviews', {
+    method: 'POST',
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(body)
+  })
+  const user = await csrfFetch(`/api/users/${id}`)
+  const userData = await user.json()
+  dispatch(getUser(userData))
+  return review
+}
+
 const initialState = {}
 
 const userReducer = (state = initialState, action) => {

@@ -7,9 +7,11 @@ import ReviewImageModal from '../ReviewImageModal'
 
 import './UserReviewListItem.css'
 
-const UserReviewListItem = ({ review }) => {
+const UserReviewListItem = ({ review, page }) => {
+  console.log("review", review)
   const user = useSelector(state => state.user)
   const sessionUser = useSelector(state => state.session.user)
+  console.log("review", review)
 
   const isSessionUser = user.id === sessionUser.id
 
@@ -40,7 +42,7 @@ const UserReviewListItem = ({ review }) => {
 
   return (
     <div className="UserReviewListItem">
-      <div className='userReviewListItem-card'>
+      <div className={page === 'task' ? 'userReviewListItem-card task' : 'userReviewListItem-card'}>
         <Link to={`/taskers/${review.Tasker.id}`} className='userReviewListItem-cardHead'>
           <img src={review.Tasker.profileImage} alt="Tasker"/>
           <div className='userReviewListItem-cardHeadInfo'>

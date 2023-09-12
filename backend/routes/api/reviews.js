@@ -63,4 +63,15 @@ router.delete('/:reviewId', requireAuth, async (req, res, next) => {
   res.json({Message: 'Successfully Deleted'})
 })
 
+router.post('/', requireAuth, async (req, res, next) => {
+  try {
+    const newReview = Review.build(req.body)
+    newReview.validate()
+    await newReview.save()
+    res.status(201).json(newReview)
+  } catch (err) {
+    return next(err)
+  }
+})
+
 module.exports = router
