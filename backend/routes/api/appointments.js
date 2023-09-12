@@ -26,4 +26,28 @@ router.put('/:apptId', requireAuth, async (req, res, next) => {
   }
 })
 
+router.delete('/:apptId', requireAuth, async (req, res, next) => {
+  const appointment = await Appointment.findByPk(req.params.apptId)
+
+  if (!appointment) {
+    const err = new Error("Not Found")
+    err.status = 404
+    err.title = "Task Not Found"
+    err.errors = {message: "The Requested appointment couldn't be found"}
+    return next(err)
+  }
+
+  if (appointment.userId != req.user.id) {
+    const err = new Error('Invalid Authorization')
+    err.status = 403
+    err.title = 'Invalid Authorization'
+    err.errors = {message: "You can only delete your own appointments"}
+    return next(err)
+  }
+
+  appointment.destroy()
+
+  res.json({message: "Successfully Deleted"})
+})
+
 module.exports = router
