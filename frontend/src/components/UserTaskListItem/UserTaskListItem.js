@@ -5,6 +5,7 @@ import ReviewForm from '../ReviewForm'
 import OpenModalButton from '../OpenModalButton'
 import { ResetContext } from '../../context/ResetContext'
 import UserReviewListItem from '../UserReviewListItem'
+import EditAppointmentForm from '../EditAppointmentForm'
 import './UserTaskListItem.css'
 
 const UserTaskListItem = ({ task, page }) => {
@@ -91,8 +92,11 @@ const UserTaskListItem = ({ task, page }) => {
               <div className='userTaskListItem-buttons'>
                 {page === "future" ? (
                   <>
-                    <button>Edit Appointment</button>
-                    <button>Cancel Appointment</button>
+                    <OpenModalButton
+                      buttonText='Edit Task'
+                      modalComponent={<EditAppointmentForm />}
+                    />
+                    <button>Cancel Task</button>
                   </>
                 ):(
                   <>

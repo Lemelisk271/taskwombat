@@ -28,7 +28,13 @@ const createRandomTasker = () => {
   }
 }
 
-for (let i = 0; i < 15; i++) {
+let taskers = 50
+
+if (process.env.NODE_ENV === 'production') {
+  taskers = 15
+}
+
+for (let i = 0; i < taskers; i++) {
   let tasker = createRandomTasker()
   taskerSeeds.push(tasker)
 }
