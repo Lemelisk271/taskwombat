@@ -127,6 +127,7 @@ const EditAppointmentForm = ({ task }) => {
       setStart(`${startHour}:${startMinutes}`)
     }
     loadPage()
+    // eslint-disable-next-line
   }, [resetPage])
 
   useEffect(() => {
@@ -156,6 +157,7 @@ const EditAppointmentForm = ({ task }) => {
     }
 
     setValidationErrors(errors)
+    // eslint-disable-next-line
   }, [start, end, newTask])
 
   const handleSubmit = async (e) => {

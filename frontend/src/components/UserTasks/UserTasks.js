@@ -1,7 +1,6 @@
-import { useEffect, useState, useContext } from 'react'
+import { useEffect, useState } from 'react'
 import { useSelector } from "react-redux"
 import { Redirect } from 'react-router-dom'
-import { ResetContext } from '../../context/ResetContext'
 import UserTaskListItem from '../UserTaskListItem'
 import './UserTasks.css'
 
@@ -12,7 +11,6 @@ const UserTasks = () => {
   const [pastTasks, setPastTasks] = useState([])
   const [futureTasks, setFutureTasks] = useState([])
   const [isLoaded, setIsLoaded] = useState(false)
-  const { resetPage } = useContext(ResetContext)
 
   useEffect(() => {
     const oldTasks = []

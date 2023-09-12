@@ -6,6 +6,7 @@ import OpenModalButton from '../OpenModalButton'
 import { ResetContext } from '../../context/ResetContext'
 import UserReviewListItem from '../UserReviewListItem'
 import EditAppointmentForm from '../EditAppointmentForm'
+import DeleteAppointmentModal from '../DeleteAppointmentModal'
 import './UserTaskListItem.css'
 
 const UserTaskListItem = ({ task, page }) => {
@@ -23,6 +24,7 @@ const UserTaskListItem = ({ task, page }) => {
     setPhone(newPhone)
     setCity(findCity(task.Tasker.zipCode))
     setIsLoaded(true)
+    // eslint-disable-next-line
   }, [resetPage])
 
   const startDate = new Date(task.start)
@@ -113,7 +115,10 @@ const UserTaskListItem = ({ task, page }) => {
                       buttonText='Edit Task'
                       modalComponent={<EditAppointmentForm task={task}/>}
                     />
-                    <button>Cancel Task</button>
+                    <OpenModalButton
+                      buttonText='Cancel Task'
+                      modalComponent={<DeleteAppointmentModal id={task.id}/>}
+                    />
                   </>
                 ):(
                   <>
