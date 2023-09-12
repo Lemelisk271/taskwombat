@@ -65,7 +65,7 @@ const UserProfilePage = () => {
     } else if (userPage === 'profile') {
       const profile = (
         <>
-          <UserProfileInfo />
+          <UserProfileInfo isSessionUser={isSessionUser}/>
         </>
       )
       setSelectedPageContent(profile)
