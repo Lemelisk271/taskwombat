@@ -151,8 +151,12 @@ const EditAppointmentForm = ({ task }) => {
       errors.endAfter = `The end time cannot be after ${endAvailLocal}`
     }
 
+    if (newTask.length === 0) {
+      errors.task = "Please enter a description of the task."
+    }
+
     setValidationErrors(errors)
-  }, [start, end])
+  }, [start, end, newTask])
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -242,11 +246,11 @@ const EditAppointmentForm = ({ task }) => {
             ))}
           </ul>}
       </div>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className='editAppointmentForm-form'>
+        <p>This tasker is available from {startAvailLocal} to {endAvailLocal}</p>
         <div className='editAppointmentForm-time'>
-          <p>The tasker is available from {startAvailLocal} to {endAvailLocal}</p>
           <div className='editAppointmentForm-startTime'>
-            <label htmlFor='startTime'>Task Start</label>
+            <label htmlFor='startTime'>Task Start:</label>
             <input
               type='time'
               id='startTime'
@@ -257,7 +261,7 @@ const EditAppointmentForm = ({ task }) => {
             />
           </div>
           <div className='editAppointmentForm-endTime'>
-            <label htmlFor='endTime'>Task End</label>
+            <label htmlFor='endTime'>Task End:</label>
             <input
               type='time'
               id='endTime'
@@ -271,8 +275,8 @@ const EditAppointmentForm = ({ task }) => {
         <div className='editAppointmentForm-text'>
           <textarea
             id='taskText'
-            rows="5"
-            cols="100"
+            rows="8"
+            cols="60"
             value={newTask}
             onChange={e => setNewTask(e.target.value)}
           />
