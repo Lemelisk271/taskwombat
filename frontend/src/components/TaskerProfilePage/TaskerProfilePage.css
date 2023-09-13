@@ -108,6 +108,16 @@
   background-color: rgba(0, 0, 0, 0.7);
 }
 
+.taskerProfilePage-firstButton {
+  border-top-right-radius: 20px;
+  border-top-left-radius: 20px;
+}
+
+.taskerProfilePage-lastButton {
+  border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 20px;
+}
+
 .taskerProfilePage-line {
   border-bottom: 1px solid #848A87;
   width: 100%;

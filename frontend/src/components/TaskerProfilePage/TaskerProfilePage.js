@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getSingleTasker } from '../../store/tasker'
 import { findCity } from '../HelperFunctions/HelperFunctions'
 import TaskerAllSkills from '../TaskerAllSkills'
+import TaskerCategoryPage from '../TaskerCategoryPage'
 
 import default_avatar from '../../images/default_avatar.png'
 import './TaskerProfilePage.css'
@@ -16,10 +17,30 @@ const TaskerProfilePage = () => {
   const [avgReview, setAvgReview] = useState(0)
   const [pageSelect, setPageSelect] = useState('all')
   const [selectedPageContent, setSelectedPageContent] = useState('')
+  const [buttonList, setButtonList] = useState('')
 
   useEffect(() => {
     const getTasker = async () => {
-      await dispatch(getSingleTasker(taskerId))
+      const taskerData = await dispatch(getSingleTasker(taskerId))
+      const buttonElements = []
+      taskerData?.Categories.forEach((category, i) => {
+        if (i === taskerData?.Categories.length - 1) {
+          buttonElements.push((
+            <div key={i} className='taskerProfilePage-buttons'>
+              <div className='taskerProfilePage-line'/>
+              <button className='taskerProfilePage-lastButton' onClick={() => setPageSelect(category.category)}>{category.category}</button>
+            </div>
+          ))
+        } else {
+          buttonElements.push((
+            <div key={i} className='taskerProfilePage-buttons'>
+              <div className='taskerProfilePage-line'/>
+              <button onClick={() => setPageSelect(category.category)}>{category.category}</button>
+            </div>
+          ))
+        }
+      })
+      setButtonList(buttonElements)
       setIsLoaded(true)
     }
     getTasker()
@@ -43,6 +64,13 @@ const TaskerProfilePage = () => {
         </>
       )
       setSelectedPageContent(allSkills)
+    } else {
+      let categoryPage = (
+        <>
+          <TaskerCategoryPage category={pageSelect}/>
+        </>
+      )
+      setSelectedPageContent(categoryPage)
     }
   }, [pageSelect])
 
@@ -77,13 +105,8 @@ const TaskerProfilePage = () => {
               <p> Working in {findCity(tasker?.zipCode)}</p>
             </div>
             <div className='taskerProfilePage-select'>
-              <button onClick={() => setPageSelect('all')}>All Skills</button>
-              {tasker?.Categories.map((category, i) => (
-                <div className='taskerProfilePage-buttons'>
-                  <div className='taskerProfilePage-line'/>
-                  <button key={i}>{category.category}</button>
-                </div>
-              ))}
+              <button className='taskerProfilePage-firstButton' onClick={() => setPageSelect('all')}>All Skills</button>
+              {isLoaded && buttonList}
             </div>
           </div>
           <div className='taskerProfilePage-results'>

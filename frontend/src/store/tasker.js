@@ -13,7 +13,7 @@ export const getSingleTasker = (id) => async (dispatch) => {
   const res = await csrfFetch(`/api/taskers/${id}`)
   const data = await res.json()
   dispatch(getTasker(data))
-  return res
+  return data
 }
 
 const initialState = {}
