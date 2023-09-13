@@ -16,6 +16,7 @@ const EditAppointmentForm = ({ task }) => {
   const [validationErrors, setValidationErrors] = useState({})
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [resErrors, setResErrors] = useState([])
+  const [isLoaded, setIsLoaded] = useState(false)
   const { closeModal } = useModal()
   const { setResetPage, resetPage } = useContext(ResetContext)
 
@@ -125,6 +126,7 @@ const EditAppointmentForm = ({ task }) => {
 
       setEnd(`${endHour}:${endMinutes}`)
       setStart(`${startHour}:${startMinutes}`)
+      setIsLoaded(true)
     }
     loadPage()
     // eslint-disable-next-line
@@ -231,60 +233,68 @@ const EditAppointmentForm = ({ task }) => {
 
   return (
     <div className='editAppointmentForm'>
-      <div className='editAppointmentForm-Header'>
-        <div className='editAppointmentForm-logo'>
-          <img src={wombat} alt="Wombat Logo"/>
-          <h1>taskwombat</h1>
-        </div>
-        <p>*note* You can only change the time and description of your task. If you need to change something else please cancel the task and schedule another.</p>
-        {isSubmitted && <ul>
-            {Object.values(validationErrors).map((error, i) => (
-              <li key={i} className='error'>{error}</li>
-            ))}
-          </ul>}
+      {isLoaded ? (
+        <>
+          <div className='editAppointmentForm-Header'>
+          <div className='editAppointmentForm-logo'>
+            <img src={wombat} alt="Wombat Logo"/>
+            <h1>taskwombat</h1>
+          </div>
+          <p>*note* You can only change the time and description of your task. If you need to change something else please cancel the task and schedule another.</p>
           {isSubmitted && <ul>
-            {resErrors.map((error, i) => (
-              <li key={i} className='error'>{error}</li>
-            ))}
-          </ul>}
-      </div>
-      <form onSubmit={handleSubmit} className='editAppointmentForm-form'>
-        <p>This tasker is available from {startAvailLocal} to {endAvailLocal}</p>
-        <div className='editAppointmentForm-time'>
-          <div className='editAppointmentForm-startTime'>
-            <label htmlFor='startTime'>Task Start:</label>
-            <input
-              type='time'
-              id='startTime'
-              min={startAvail}
-              max={endAvail}
-              value={start}
-              onChange={e => setStart(e.target.value)}
-            />
+              {Object.values(validationErrors).map((error, i) => (
+                <li key={i} className='error'>{error}</li>
+              ))}
+            </ul>}
+            {isSubmitted && <ul>
+              {resErrors.map((error, i) => (
+                <li key={i} className='error'>{error}</li>
+              ))}
+            </ul>}
           </div>
-          <div className='editAppointmentForm-endTime'>
-            <label htmlFor='endTime'>Task End:</label>
-            <input
-              type='time'
-              id='endTime'
-              min={startAvail}
-              max={endAvail}
-              value={end}
-              onChange={e => setEnd(e.target.value)}
-            />
-          </div>
-        </div>
-        <div className='editAppointmentForm-text'>
-          <textarea
-            id='taskText'
-            rows="8"
-            cols="60"
-            value={newTask}
-            onChange={e => setNewTask(e.target.value)}
-          />
-        </div>
-        <button type='submit'>Save</button>
-      </form>
+          <form onSubmit={handleSubmit} className='editAppointmentForm-form'>
+            <p>This tasker is available from {startAvailLocal} to {endAvailLocal}</p>
+            <div className='editAppointmentForm-time'>
+              <div className='editAppointmentForm-startTime'>
+                <label htmlFor='startTime'>Task Start:</label>
+                <input
+                  type='time'
+                  id='startTime'
+                  min={startAvail}
+                  max={endAvail}
+                  value={start}
+                  onChange={e => setStart(e.target.value)}
+                />
+              </div>
+              <div className='editAppointmentForm-endTime'>
+                <label htmlFor='endTime'>Task End:</label>
+                <input
+                  type='time'
+                  id='endTime'
+                  min={startAvail}
+                  max={endAvail}
+                  value={end}
+                  onChange={e => setEnd(e.target.value)}
+                />
+              </div>
+            </div>
+            <div className='editAppointmentForm-text'>
+              <textarea
+                id='taskText'
+                rows="8"
+                cols="60"
+                value={newTask}
+                onChange={e => setNewTask(e.target.value)}
+              />
+            </div>
+            <button type='submit'>Save</button>
+          </form>
+        </>
+      ):(
+        <>
+          <h1>Loading...</h1>
+        </>
+      )}
     </div>
   )
 }

@@ -7,6 +7,7 @@ import { ResetContext } from '../../context/ResetContext'
 import UserReviewListItem from '../UserReviewListItem'
 import EditAppointmentForm from '../EditAppointmentForm'
 import DeleteAppointmentModal from '../DeleteAppointmentModal'
+import moment from 'moment-timezone';
 import './UserTaskListItem.css'
 
 const UserTaskListItem = ({ task, page }) => {
@@ -14,6 +15,7 @@ const UserTaskListItem = ({ task, page }) => {
   const [phone, setPhone] = useState('')
   const [city, setCity] = useState('')
   const { resetPage } = useContext(ResetContext)
+  moment().tz("America/Los_Angeles").format();
 
   useEffect(() => {
     const taskerPhone = task.Tasker.phone
