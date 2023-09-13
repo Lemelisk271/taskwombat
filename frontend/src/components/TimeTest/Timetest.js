@@ -18,10 +18,6 @@ const TimeTest = () => {
     setIsLoaded(true)
   }, [])
 
-  user.Appointments.forEach(appointment => {
-    console.log(moment(appointment.start).format())
-  })
-
   return (
     <div className='timeTest'>
       {isLoaded ? (
