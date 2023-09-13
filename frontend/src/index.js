@@ -14,6 +14,8 @@ import configureStore from './store'
 
 const store = configureStore()
 
+// process.env.TZ="America/Montreal"
+
 if (process.env.NODE_ENV !== 'production') {
   restoreCSRF()
 
