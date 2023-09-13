@@ -40,6 +40,15 @@ const TaskerProfilePage = () => {
           ))
         }
       })
+
+      if (taskerData?.Reviews.length > 0) {
+        let totalStars = 0
+        taskerData.Reviews.forEach(review => {
+          totalStars += review.stars
+        })
+        setAvgReview(Math.floor((totalStars / taskerData.Reviews.length) * 10) / 10)
+      }
+
       setButtonList(buttonElements)
       setIsLoaded(true)
     }
@@ -47,20 +56,10 @@ const TaskerProfilePage = () => {
   }, [dispatch])
 
   useEffect(() => {
-    if (tasker?.Reviews?.length > 0) {
-      let totalStars = 0
-      tasker.Reviews.forEach(review => {
-        totalStars += review.stars
-      })
-      setAvgReview(Math.floor((totalStars / tasker.Reviews.length) * 10) / 10)
-    }
-  }, [])
-
-  useEffect(() => {
     if (pageSelect === 'all') {
       let allSkills = (
         <>
-          <TaskerAllSkills />
+          <TaskerAllSkills tasker={tasker}/>
         </>
       )
       setSelectedPageContent(allSkills)
