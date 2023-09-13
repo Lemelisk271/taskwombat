@@ -2,10 +2,12 @@ import { legacy_createStore as createStore, combineReducers, applyMiddleware, co
 import thunk from 'redux-thunk'
 import sessionReducer from './session'
 import userReducer from './user'
+import TaskerReducer from './tasker'
 
 const rootReducer = combineReducers({
   session: sessionReducer,
-  user: userReducer
+  user: userReducer,
+  tasker: TaskerReducer
 })
 
 let enhancer

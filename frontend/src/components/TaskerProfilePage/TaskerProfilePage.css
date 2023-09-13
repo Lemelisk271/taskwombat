@@ -1,0 +1,129 @@
+.taskerProfilePage {
+  min-height: calc(100vh - 100px);
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  margin-top: 10px;
+}
+
+.taskerProfilePage-tasker {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.taskerProfilePage-taskerCard {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-around;
+  border: 1px solid #848A87;
+  width: 90%;
+  align-items: center;
+  padding: 20px;
+  margin-bottom: 10px;
+  border-radius: 20px;
+}
+
+.taskerProfilePage-about {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  border: 1px solid #848A87;
+  padding: 20px;
+  border-radius: 20px;
+  margin-bottom: 10px;
+}
+
+.taskerProfilePage-about > p {
+  margin: 0;
+  margin-bottom: 20px;
+}
+
+.taskerProfilePage-about h2 {
+  margin: 0;
+  margin-bottom: 10px;
+}
+
+.taskerProfilePage-taskerCardStats {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.taskerProfilePage-taskerCardStats h2, i, p {
+  margin: 0;
+  margin-bottom: 10px;
+}
+
+.taskerProfilePage-reviewStats {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.taskerProfilePage-reviewStats i, p {
+  margin-right: 5px;
+}
+
+.taskerProfilePage-taskerCard > img {
+  height: 150px;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.taskerProfilePage-select {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: calc(90% + 40px);
+  border: 1px solid #848A87;
+  border-radius: 20px;
+}
+
+.taskerProfilePage-select button {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  border: none;
+  background: none;
+  height: 30px;
+  cursor: pointer;
+  font-size: 20px;
+  padding-left: 30px;
+  padding-top: 25px;
+  padding-bottom: 25px;
+}
+
+.taskerProfilePage-buttons {
+  width: 100%;
+}
+
+.taskerProfilePage-select button:hover {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.taskerProfilePage-firstButton {
+  border-top-right-radius: 20px;
+  border-top-left-radius: 20px;
+}
+
+.taskerProfilePage-lastButton {
+  border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 20px;
+}
+
+.taskerProfilePage-line {
+  border-bottom: 1px solid #848A87;
+  width: 100%;
+}
+
+.taskerProfilePage-results {
+  width: 100%;
+  margin-right: 20px;
+}
