@@ -7,6 +7,7 @@ import { ResetContext } from '../../context/ResetContext'
 import UserReviewListItem from '../UserReviewListItem'
 import EditAppointmentForm from '../EditAppointmentForm'
 import DeleteAppointmentModal from '../DeleteAppointmentModal'
+import { getAdjustedDate } from '../HelperFunctions/HelperFunctions.js'
 import moment from 'moment-timezone';
 import './UserTaskListItem.css'
 
@@ -29,7 +30,7 @@ const UserTaskListItem = ({ task, page }) => {
     // eslint-disable-next-line
   }, [resetPage])
 
-  const startDate = new Date(task.start)
+  const startDate = new Date(getAdjustedDate(task.start))
   const apptStartTime = startDate.toLocaleTimeString()
   let startDateDay = startDate.getDay()
   if (startDateDay === 0) {
@@ -63,7 +64,7 @@ const UserTaskListItem = ({ task, page }) => {
   }
   const startYear = startDate.getFullYear()
 
-  const endDate = new Date(task.end)
+  const endDate = new Date(getAdjustedDate(task.end))
   const apptEndTime = endDate.toLocaleTimeString()
   let endMonth = endDate.getMonth() + 1
   if (endMonth < 10) {
