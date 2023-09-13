@@ -1,0 +1,82 @@
+.editAppointmentForm {
+  padding: 50px;
+  max-width: 30vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.editAppointmentForm-Header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.editAppointmentForm-Header > p {
+  text-align: center;
+  background-color: #0D7A5F;
+  color: white;
+  padding: 10px;
+  border-radius: 20px;
+}
+
+.editAppointmentForm-logo {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.editAppointmentForm-logo > img {
+  height: 50px;
+  margin-right: 10px;
+}
+
+.editAppointmentForm-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.editAppointmentForm-form > p {
+  text-align: center;
+  font-weight: bold;
+  color: #0D7A5F
+}
+
+.editAppointmentForm-time {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.editAppointmentForm-time div {
+  display: flex;
+  flex-direction: row;
+  width: 50%;
+  justify-content: center;
+  align-items: center;
+}
+
+.editAppointmentForm-startTime label {
+  margin-right: 10px;
+}
+
+.editAppointmentForm-endTime label {
+  margin-right: 10px;
+}
+
+.editAppointmentForm-form button {
+  background-color: #0D7A5F;
+  color: white;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  font-size: 16px;
+  width: 30%;
+  margin-top: 20px;
+}

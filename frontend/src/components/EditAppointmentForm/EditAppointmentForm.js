@@ -221,7 +221,7 @@ const EditAppointmentForm = ({ task }) => {
     <div className="editAppointmentForm">
       {isLoaded ? (
         <>
-          <div className='editAppointmentForm-header'>
+          <div className='editAppointmentForm-Header'>
             <div className='editAppointmentForm-logo'>
               <img src={wombat} alt="Wombat Logo"/>
               <h1>taskwombat</h1>
@@ -238,7 +238,7 @@ const EditAppointmentForm = ({ task }) => {
                 ))}
               </ul>}
           </div>
-          <form onSubmit={handleSubmit}>
+          <form className='editAppointmentForm-form' onSubmit={handleSubmit}>
             {startAvailLocal && <p>This tasker is available from {startAvailLocal} to {endAvailLocal}</p>}
             <div className='editAppointmentForm-time'>
               <div className='editAppointmentForm-startTime'>
@@ -263,7 +263,8 @@ const EditAppointmentForm = ({ task }) => {
                   onChange={e => setEnd(e.target.value)}
                 />
               </div>
-              <div className='editAppointmentForm-text'>
+            </div>
+            <div className='editAppointmentForm-text'>
               <textarea
                 id='taskText'
                 rows="8"
@@ -273,7 +274,6 @@ const EditAppointmentForm = ({ task }) => {
               />
             </div>
             <button type='submit'>Save</button>
-            </div>
           </form>
         </>
       ):(
