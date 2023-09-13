@@ -17,7 +17,15 @@ const TimeTest = () => {
     loadPage()
   }, [])
 
-  console.log(moment.tz.zonesForCountry('US'))
+  const getAdjustedDate = (date) => {
+    const dateFromSever = new Date(date)
+    const serverOffsetMil = 420 * 60 * 1000
+    const localOffset = new Date().getTimezoneOffset()
+    const localOffsetMil = localOffset * 60 * 1000
+    const localMidnight = new Date(dateFromSever.getTime() - serverOffsetMil + localOffsetMil)
+
+    return localMidnight.toString()
+  }
 
   return (
     <div className='timeTest'>
@@ -37,6 +45,14 @@ const TimeTest = () => {
             <ul>
               {user?.Appointments.map((appointment, i) => (
                 <li key={i}>{appointment.id} - {moment.tz(appointment.start, "America/Los_Angeles").format("hh:mm A")}</li>
+              ))}
+            </ul>
+          </div>
+          <div>
+            <h1>Function</h1>
+            <ul>
+              {user?.Appointments.map((appointment, i) => (
+                <li key={i}>{appointment.id} - {moment(getAdjustedDate(appointment.start)).format("hh:mm A")}</li>
               ))}
             </ul>
           </div>
