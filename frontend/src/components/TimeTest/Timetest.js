@@ -17,6 +17,8 @@ const TimeTest = () => {
     loadPage()
   }, [])
 
+  console.log(moment.tz.zonesForCountry('US'))
+
   return (
     <div className='timeTest'>
       {isLoaded ? (
@@ -34,7 +36,7 @@ const TimeTest = () => {
             <h1>Moment</h1>
             <ul>
               {user?.Appointments.map((appointment, i) => (
-                <li key={i}>{appointment.id} - {moment(appointment.start).tz("America/Los_Angeles").format("hh:mm A")}</li>
+                <li key={i}>{appointment.id} - {moment.tz(appointment.start, "America/Los_Angeles").format("hh:mm A")}</li>
               ))}
             </ul>
           </div>
