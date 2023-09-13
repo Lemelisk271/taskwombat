@@ -1,10 +1,11 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useContext } from 'react'
 import { useParams } from "react-router-dom"
 import { useDispatch, useSelector } from 'react-redux'
 import { getSingleTasker } from '../../store/tasker'
 import { findCity } from '../HelperFunctions/HelperFunctions'
 import TaskerAllSkills from '../TaskerAllSkills'
 import TaskerCategoryPage from '../TaskerCategoryPage'
+import { TaskerPageContext } from '../../context/TaskerPageContext'
 
 import default_avatar from '../../images/default_avatar.png'
 import './TaskerProfilePage.css'
@@ -15,9 +16,9 @@ const TaskerProfilePage = () => {
   const tasker = useSelector(state => state.tasker)
   const [isLoaded, setIsLoaded] = useState(false)
   const [avgReview, setAvgReview] = useState(0)
-  const [pageSelect, setPageSelect] = useState('all')
   const [selectedPageContent, setSelectedPageContent] = useState('')
   const [buttonList, setButtonList] = useState('')
+  const { taskerPage, setTaskerPage } = useContext(TaskerPageContext)
 
   useEffect(() => {
     const getTasker = async () => {
@@ -28,14 +29,14 @@ const TaskerProfilePage = () => {
           buttonElements.push((
             <div key={i} className='taskerProfilePage-buttons'>
               <div className='taskerProfilePage-line'/>
-              <button className='taskerProfilePage-lastButton' onClick={() => setPageSelect(category.category)}>{category.category}</button>
+              <button className='taskerProfilePage-lastButton' onClick={() => setTaskerPage(category.category)}>{category.category}</button>
             </div>
           ))
         } else {
           buttonElements.push((
             <div key={i} className='taskerProfilePage-buttons'>
               <div className='taskerProfilePage-line'/>
-              <button onClick={() => setPageSelect(category.category)}>{category.category}</button>
+              <button onClick={() => setTaskerPage(category.category)}>{category.category}</button>
             </div>
           ))
         }
@@ -56,7 +57,7 @@ const TaskerProfilePage = () => {
   }, [dispatch])
 
   useEffect(() => {
-    if (pageSelect === 'all') {
+    if (taskerPage === 'all') {
       let allSkills = (
         <>
           <TaskerAllSkills tasker={tasker}/>
@@ -66,12 +67,12 @@ const TaskerProfilePage = () => {
     } else {
       let categoryPage = (
         <>
-          <TaskerCategoryPage category={pageSelect}/>
+          <TaskerCategoryPage category={taskerPage}/>
         </>
       )
       setSelectedPageContent(categoryPage)
     }
-  }, [pageSelect])
+  }, [taskerPage])
 
   return (
     <div className="taskerProfilePage">
@@ -104,7 +105,7 @@ const TaskerProfilePage = () => {
               <p> Working in {findCity(tasker?.zipCode)}</p>
             </div>
             <div className='taskerProfilePage-select'>
-              <button className='taskerProfilePage-firstButton' onClick={() => setPageSelect('all')}>All Skills</button>
+              <button className='taskerProfilePage-firstButton' onClick={() => setTaskerPage('all')}>All Skills</button>
               {isLoaded && buttonList}
             </div>
           </div>

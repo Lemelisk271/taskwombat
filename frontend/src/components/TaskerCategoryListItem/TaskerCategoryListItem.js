@@ -1,6 +1,7 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useContext } from 'react'
 import { useSelector } from 'react-redux'
 import './TaskerCategoryListItem.css'
+import { TaskerPageContext } from '../../context/TaskerPageContext'
 
 const TaskerCategoryListItem = ({ category }) => {
   const tasker = useSelector(state => state.tasker)
@@ -8,6 +9,7 @@ const TaskerCategoryListItem = ({ category }) => {
   const [avgStars, setAvgStars] = useState(0)
   const [totalReviews, setTotalReviews] = useState(0)
   const [totalAppointments, setTotalAppointments] = useState(0)
+  const { taskerPage, setTaskerPage } = useContext(TaskerPageContext)
 
   useEffect(() => {
     const categoryItem = tasker?.Categories.filter(el => el.category === category)
@@ -31,10 +33,10 @@ const TaskerCategoryListItem = ({ category }) => {
   return (
     <div className="taskerCategoryListItem">
       <div className='taskerCategoryListItem-head'>
-        <h3>{categoryObj.category} for ${categoryObj?.TaskerCategories?.rate}</h3>
+        <h3>{categoryObj?.category} for ${categoryObj?.TaskerCategories?.rate}</h3>
         <p><i className="fa-solid fa-star"></i> {`${avgStars} (${totalReviews}) Reviews`}</p>
         <p>{totalAppointments} Total Tasks</p>
-        <button>View Profile and Reviews</button>
+        <button onClick={() => setTaskerPage(`${categoryObj.category}`)}>View Profile and Reviews</button>
       </div>
       <button className='taskerCategoryListItem-button'>Select & Continue</button>
     </div>
