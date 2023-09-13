@@ -6,6 +6,7 @@ import { findCity } from '../HelperFunctions/HelperFunctions'
 import TaskerAllSkills from '../TaskerAllSkills'
 
 import default_avatar from '../../images/default_avatar.png'
+import './TaskerProfilePage.css'
 
 const TaskerProfilePage = () => {
   const dispatch = useDispatch()
@@ -71,9 +72,19 @@ const TaskerProfilePage = () => {
               </div>
             </div>
             <div className='taskerProfilePage-about'>
+              <h2>About Me</h2>
               <p>{tasker?.about}</p>
+              <p> Working in {findCity(tasker?.zipCode)}</p>
             </div>
-            <div className='taskerProfilePage-select'></div>
+            <div className='taskerProfilePage-select'>
+              <button onClick={() => setPageSelect('all')}>All Skills</button>
+              {tasker?.Categories.map((category, i) => (
+                <div className='taskerProfilePage-buttons'>
+                  <div className='taskerProfilePage-line'/>
+                  <button key={i}>{category.category}</button>
+                </div>
+              ))}
+            </div>
           </div>
           <div className='taskerProfilePage-results'>
             {isLoaded && selectedPageContent}
