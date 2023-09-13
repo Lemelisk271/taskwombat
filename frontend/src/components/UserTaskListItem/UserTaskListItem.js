@@ -31,7 +31,7 @@ const UserTaskListItem = ({ task, page }) => {
   }, [resetPage])
 
   const startDate = new Date(getAdjustedDate(task.start))
-  const apptStartTime = startDate.toLocaleTimeString()
+  const apptStartTime = moment(startDate).format("h:mm A")
   let startDateDay = startDate.getDay()
   if (startDateDay === 0) {
     startDateDay = 'Sun'
