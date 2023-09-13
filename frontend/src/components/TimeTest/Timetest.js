@@ -4,7 +4,6 @@ import { getSingleUser } from '../../store/user'
 import moment from 'moment-timezone';
 
 const TimeTest = () => {
-  moment().tz("America/Los_Angeles").format();
   const dispatch = useDispatch()
   const sessionUser = useSelector(state => state.session.user)
   const user = useSelector(state => state.user)
@@ -35,7 +34,7 @@ const TimeTest = () => {
             <h1>Moment</h1>
             <ul>
               {user?.Appointments.map((appointment, i) => (
-                <li key={i}>{appointment.id} - {moment(appointment.start).format("hh:mm A")}</li>
+                <li key={i}>{appointment.id} - {moment(appointment.start).tz("America/Los_Angeles").format("hh:mm A")}</li>
               ))}
             </ul>
           </div>
