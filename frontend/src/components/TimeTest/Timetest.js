@@ -37,7 +37,7 @@ const TimeTest = () => {
             <h1>Date</h1>
             <ul>
               {user?.Appointments.map((appointment, i) => (
-                <li key={i}>{appointment.id} - {new Date(appointment.start).toISOString()}</li>
+                <li key={i}>{appointment.id} - {new Date(appointment.start).toLocaleString('en-US', { timeZone: 'America/Los_Angeles'})}</li>
               ))}
             </ul>
           </div>
