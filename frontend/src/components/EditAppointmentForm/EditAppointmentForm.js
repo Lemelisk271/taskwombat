@@ -188,8 +188,6 @@ const EditAppointmentForm = ({ task }) => {
       categoryId: task.categoryId
     }
 
-    console.log(apptObj)
-
     const res = await csrfFetch(`/api/appointments/${task.id}`, {
       method: 'PUT',
       headers: {
