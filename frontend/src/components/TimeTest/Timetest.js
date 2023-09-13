@@ -28,7 +28,7 @@ const TimeTest = () => {
             <h1>Date</h1>
             <ul>
               {user?.Appointments.map((appointment, i) => (
-                <li key={i}>{appointment.id} - {new Date(appointment.start).toLocaleTimeString()}</li>
+                <li key={i}>{appointment.id} - {new Date(appointment.start).toISOString()}</li>
               ))}
             </ul>
           </div>
