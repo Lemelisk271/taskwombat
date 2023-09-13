@@ -65,7 +65,7 @@ const UserTaskListItem = ({ task, page }) => {
   const startYear = startDate.getFullYear()
 
   const endDate = new Date(getAdjustedDate(task.end))
-  const apptEndTime = endDate.toLocaleTimeString()
+  const apptEndTime = moment(endDate).format("h:mm A")
   let endMonth = endDate.getMonth() + 1
   if (endMonth < 10) {
     endMonth = "0" + endMonth
