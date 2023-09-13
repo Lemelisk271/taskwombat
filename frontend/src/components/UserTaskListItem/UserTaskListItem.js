@@ -107,6 +107,7 @@ const UserTaskListItem = ({ task, page }) => {
                   </tbody>
                 </table>
               </div>
+              <div className='userTaskListItem-line'/>
               <div className='userTaskListItem-bodyTask'>
                 <p>{task.task}</p>
               </div>
