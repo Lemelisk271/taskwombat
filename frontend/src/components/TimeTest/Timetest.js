@@ -13,9 +13,9 @@ const TimeTest = () => {
   useEffect(() => {
     const loadPage = async () => {
       await dispatch(getSingleUser(sessionUser.id))
+      setIsLoaded(true)
     }
     loadPage()
-    setIsLoaded(true)
   }, [])
 
   return (
@@ -26,7 +26,7 @@ const TimeTest = () => {
           <div className='noFormat'>
             <h2>No Formatting</h2>
             <ul>
-              {user.Appointments.map((appointment, i) => (
+              {user?.Appointments.map((appointment, i) => (
                 <li key={i}>{appointment.start}</li>
               ))}
             </ul>
@@ -34,7 +34,7 @@ const TimeTest = () => {
           <div>
             <h2>Date Format</h2>
             <ul>
-              {user.Appointments.map((appointment, i) => (
+              {user?.Appointments.map((appointment, i) => (
                 <li key={i}>{new Date(appointment.start).toString()}</li>
               ))}
             </ul>
@@ -42,7 +42,7 @@ const TimeTest = () => {
           <div>
             <h2>Moment Format</h2>
             <ul>
-              {user.Appointments.map((appointment, i) => (
+              {user?.Appointments.map((appointment, i) => (
                 <li key={i}>{moment(appointment.start).format()}</li>
               ))}
             </ul>
@@ -50,7 +50,7 @@ const TimeTest = () => {
           <div>
             <h2>Moment With Date</h2>
             <ul>
-              {user.Appointments.map((appointment, i) => (
+              {user?.Appointments.map((appointment, i) => (
                 <li key={i}>{new Date(moment(appointment.start).format()).toString()}</li>
               ))}
             </ul>
