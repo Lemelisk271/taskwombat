@@ -38,6 +38,12 @@
 .userReviewListItem-stars {
   display: flex;
   flex-direction: row;
+  align-items: center;
+}
+
+.userReviewListItem-stars i {
+  margin: 0;
+  padding: 0;
 }
 
 .userReviewListItem-cardHead img {
@@ -52,7 +58,7 @@
 .listItem-filled {
   background-color: #0D7A5F;
   padding: 5px;
-  margin: 2px 2px 2px 0;
+  margin: 2px 2px 2px 0px;
   border-radius: 50%;
   color: white;
 }
@@ -60,7 +66,7 @@
 .listItem-empty {
   background-color: #848A87;
   padding: 5px;
-  margin: 2px;
+  margin: 2px 2px 2px 0px;
   border-radius: 50%;
   color: white;
 }

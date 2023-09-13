@@ -34,6 +34,11 @@
   margin-bottom: 10px;
 }
 
+.reviewForm-starInput i {
+  margin: 0;
+  padding: 0;
+}
+
 .reviewForm-filled {
   background-color: #0D7A5F;
   padding: 5px;
