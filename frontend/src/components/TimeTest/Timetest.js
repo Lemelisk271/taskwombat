@@ -23,35 +23,19 @@ const TimeTest = () => {
       {isLoaded ? (
         <>
           <h1>Time Test</h1>
-          <div className='noFormat'>
-            <h2>No Formatting</h2>
+          <div>
+            <h1>Date</h1>
             <ul>
               {user?.Appointments.map((appointment, i) => (
-                <li key={i}>{appointment.start}</li>
+                <li key={i}>{appointment.id} - {new Date(appointment.start).toLocaleTimeString()}</li>
               ))}
             </ul>
           </div>
           <div>
-            <h2>Date Format</h2>
+            <h1>Moment</h1>
             <ul>
               {user?.Appointments.map((appointment, i) => (
-                <li key={i}>{new Date(appointment.start).toString()}</li>
-              ))}
-            </ul>
-          </div>
-          <div>
-            <h2>Moment Format</h2>
-            <ul>
-              {user?.Appointments.map((appointment, i) => (
-                <li key={i}>{moment(appointment.start).format()}</li>
-              ))}
-            </ul>
-          </div>
-          <div>
-            <h2>Moment With Date</h2>
-            <ul>
-              {user?.Appointments.map((appointment, i) => (
-                <li key={i}>{new Date(moment(appointment.start).format()).toString()}</li>
+                <li key={i}>{appointment.id} - {moment(appointment.start).format("hh:mm A")}</li>
               ))}
             </ul>
           </div>
