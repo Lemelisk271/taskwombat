@@ -23,7 +23,7 @@ const TimeTest = () => {
     const localOffset = new Date().getTimezoneOffset()
     console.log(localOffset)
     const localOffsetMil = localOffset * 60 * 1000
-    const localMidnight = new Date(dateFromSever.getTime() - localOffsetMil)
+    const localMidnight = new Date(dateFromSever.getTime() - serverOffsetMil)
 
     return localMidnight.toString()
   }
