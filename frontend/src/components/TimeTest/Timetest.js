@@ -21,8 +21,9 @@ const TimeTest = () => {
     const dateFromSever = new Date(date)
     const serverOffsetMil = 420 * 60 * 1000
     const localOffset = new Date().getTimezoneOffset()
+    console.log(localOffset)
     const localOffsetMil = localOffset * 60 * 1000
-    const localMidnight = new Date(dateFromSever.getTime() - serverOffsetMil + localOffsetMil)
+    const localMidnight = new Date(dateFromSever.getTime() - localOffsetMil)
 
     return localMidnight.toString()
   }
