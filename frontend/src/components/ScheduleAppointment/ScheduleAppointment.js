@@ -261,7 +261,7 @@ const ScheduleAppointment = () => {
                     type='date'
                     id="date"
                     name='startDate'
-                    min={moment(new Date()).format("YYYY-MM-DD")}
+                    min={moment(changeTime(getAdjustedDate(new Date()), 24)).format('YYYY-MM-DD')}
                     value={startDate}
                     onChange={e => setStartDate(e.target.value)}
                     disabled={showConfirm}
