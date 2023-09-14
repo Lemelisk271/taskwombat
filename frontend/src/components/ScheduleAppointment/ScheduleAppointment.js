@@ -12,12 +12,13 @@ const ScheduleAppointment = () => {
   const [isLoaded, setIsLoaded] = useState(false)
   const [taskLength, setTaskLength] = useState('1')
   const [startDate, setStartDate] = useState(moment(getAdjustedDate(new Date())).format("YYYY-MM-DD"))
-  const [startTime, setStartTime] = useState(moment(getAdjustedTime(new Date())).format("HH:mm"))
+  const [startTime, setStartTime] = useState(moment(new Date()).format("HH:mm"))
   const [rate, setRate] = useState(0)
   const [availability, setAvailability] = useState([])
   const [schedule, setSchedule] = useState({})
   const [appointments, setAppointments] = useState([])
   const [dateErrors, setDateErrors] = useState({})
+  const [timeErrors, setTimeErrors] = useState({})
 
   // console.log(tasker)
 
@@ -33,12 +34,12 @@ const ScheduleAppointment = () => {
       taskerAvailability.forEach(day => {
         let startTime = null
         if (day.startTime) {
-          startTime = moment(getAdjustedDate(new Date(`2023-09-14T${day.startTime}`))).format('h:mm A')
+          startTime = moment(new Date(`2023-09-14T${day.startTime}`)).format('h:mm A')
         }
 
         let endTime = null
         if (day.endTime) {
-          endTime = moment(getAdjustedDate(new Date(`2023-09-14T${day.endTime}`))).format('h:mm A')
+          endTime = moment(new Date(`2023-09-14T${day.endTime}`)).format('h:mm A')
         }
 
         availabilityArray.push({
@@ -96,6 +97,16 @@ const ScheduleAppointment = () => {
       setDateErrors(errors)
     }
   }, [startDate])
+
+  useEffect(() => {
+    const errors = {}
+
+    if (Object.values(dateErrors).length > 0) {
+      errors.time = "Please select a different date before selecting a time"
+    }
+
+    setTimeErrors(errors)
+  }, [startTime])
 
   return (
     <div className='scheduleAppointment'>
@@ -159,6 +170,11 @@ const ScheduleAppointment = () => {
                     value={startTime}
                     onChange={e => setStartTime(e.target.value)}
                   />
+                  {Object.values(timeErrors).length > 0 && <ul>
+                      {Object.values(timeErrors).map((error, i) => (
+                        <li key={i} className='error'>{error}</li>
+                      ))}
+                    </ul>}
                 </div>
               </div>
             </form>
