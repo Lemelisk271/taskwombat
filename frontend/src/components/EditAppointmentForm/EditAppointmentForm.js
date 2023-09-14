@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext} from 'react'
-import { getAdjustedDate } from '../HelperFunctions/HelperFunctions.js'
+import { getAdjustedDate, getAdjustedTime } from '../HelperFunctions/HelperFunctions.js'
 import moment from 'moment-timezone';
 import './EditAppointmentForm.css'
 import wombat from '../../images/wombat.png'
@@ -165,6 +165,7 @@ const EditAppointmentForm = ({ task }) => {
     let startDateYear = startDate.getFullYear()
 
     const startDateFinal = `${startDateYear}-${startDateMonth}-${startDateDate}T${start}`
+    const startDateAdjusted = getAdjustedTime(startDateFinal)
 
     let endDate = new Date(getAdjustedDate(task.end))
     let endDateDate = endDate.getDate()
@@ -179,9 +180,11 @@ const EditAppointmentForm = ({ task }) => {
 
     const endDateFinal = `${endDateYear}-${endDateMonth}-${endDateDate}T${end}`
 
+    const endDateAdjusted = getAdjustedTime(endDateFinal)
+
     const apptObj = {
-      start: startDateFinal,
-      end: endDateFinal,
+      start: startDateAdjusted,
+      end: endDateAdjusted,
       task: newTask,
       taskerId: task.taskerId,
       userId: task.userId,
