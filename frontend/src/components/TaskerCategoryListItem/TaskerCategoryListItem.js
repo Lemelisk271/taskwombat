@@ -2,14 +2,18 @@ import { useEffect, useState, useContext } from 'react'
 import { useSelector } from 'react-redux'
 import './TaskerCategoryListItem.css'
 import { TaskerPageContext } from '../../context/TaskerPageContext'
+import { ApptContext } from '../../context/ApptContext'
+import { useHistory } from 'react-router-dom'
 
 const TaskerCategoryListItem = ({ category }) => {
   const tasker = useSelector(state => state.tasker)
+  const history = useHistory()
   const [categoryObj, setCategoryObj] = useState({})
   const [avgStars, setAvgStars] = useState(0)
   const [totalReviews, setTotalReviews] = useState(0)
   const [totalAppointments, setTotalAppointments] = useState(0)
-  const { taskerPage, setTaskerPage } = useContext(TaskerPageContext)
+  const { setTaskerPage } = useContext(TaskerPageContext)
+  const { setApptObj } = useContext(ApptContext)
 
   useEffect(() => {
     const categoryItem = tasker?.Categories.filter(el => el.category === category)
@@ -30,6 +34,15 @@ const TaskerCategoryListItem = ({ category }) => {
     }
   }, [])
 
+  const bookAppointment = (e) => {
+    e.preventDefault()
+    setApptObj({
+      tasker: tasker.id,
+      category: categoryObj.id
+    })
+    history.push(`/book/${tasker.id}`)
+  }
+
   return (
     <div className="taskerCategoryListItem">
       <div className='taskerCategoryListItem-head'>
@@ -38,7 +51,7 @@ const TaskerCategoryListItem = ({ category }) => {
         <p>{totalAppointments} Total Tasks</p>
         <button onClick={() => setTaskerPage(`${categoryObj.category}`)}>View Profile and Reviews</button>
       </div>
-      <button className='taskerCategoryListItem-button'>Select & Continue</button>
+      <button onClick={bookAppointment} className='taskerCategoryListItem-button'>Select & Continue</button>
     </div>
   )
 }

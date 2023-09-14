@@ -6,6 +6,7 @@ import LandingPage from './components/LandingPage'
 import Navigation from './components/Navigation'
 import UserProfilePage from './components/UserProfilePage'
 import TaskerProfilePage from './components/TaskerProfilePage'
+import ScheduleAppointment from './components/ScheduleAppointment'
 
 function App() {
   const dispatch = useDispatch()
@@ -35,6 +36,9 @@ function App() {
             </Route>
             <Route exact path='/taskers/:taskerId'>
               <TaskerProfilePage />
+            </Route>
+            <Route exact path='/book/:taskerId'>
+              <ScheduleAppointment />
             </Route>
             <Route>
               <h1>Page Not Found</h1>
