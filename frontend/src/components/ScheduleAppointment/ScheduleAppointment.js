@@ -1,14 +1,20 @@
 import { useEffect, useState, useContext } from 'react'
 import { ApptContext } from '../../context/ApptContext'
 import { useDispatch, useSelector } from 'react-redux'
+import { useHistory, Redirect } from 'react-router-dom'
 import { getSingleTasker } from '../../store/tasker'
-import { getAdjustedDate, changeTime } from '../HelperFunctions/HelperFunctions.js'
+import { getAdjustedDate, changeTime, getAdjustedTime } from '../HelperFunctions/HelperFunctions.js'
 import moment from 'moment-timezone';
+import FeeModal from '../FeeModal'
+import OpenModalButton from '../OpenModalButton'
+import './ScheduleAppointment.css'
 
 const ScheduleAppointment = () => {
   const dispatch = useDispatch()
   const { apptObj } = useContext(ApptContext)
   const tasker = useSelector(state => state.tasker)
+  const sessionUser = useSelector(state => state.session.user)
+  const history = useHistory()
   const [isLoaded, setIsLoaded] = useState(false)
   const [taskLength, setTaskLength] = useState('1')
   const [startDate, setStartDate] = useState(moment(getAdjustedDate(new Date())).format("YYYY-MM-DD"))
@@ -19,6 +25,15 @@ const ScheduleAppointment = () => {
   const [appointments, setAppointments] = useState([])
   const [dateErrors, setDateErrors] = useState({})
   const [timeErrors, setTimeErrors] = useState({})
+  const [task, setTask] = useState('')
+  const [validationErrors, setValidationErrors] = useState({})
+  const [isSubmitted, setIsSubmitted] = useState(false)
+  const [response, setResponse] = useState({})
+  const [showConfirm, setShowConfirm] = useState(false)
+  const [confirmClass, setConfirmClass] = useState('scheduleAppointment-hidden')
+  const [subTotal, setSubTotal] = useState(0)
+  const [fee, setFee] = useState(0)
+  const [total, setTotal] = useState(0)
 
   // console.log(tasker)
 
@@ -108,12 +123,64 @@ const ScheduleAppointment = () => {
     setTimeErrors(errors)
   }, [startTime])
 
+  useEffect(() => {
+    const errors = {}
+
+    if(task.length === 0) {
+      errors.task = "Please enter a description of the task."
+    }
+
+    setValidationErrors(errors)
+  }, [task])
+
+  useEffect(() => {
+    let userSubtotal = Math.floor((rate * parseInt(taskLength)) * 100) / 100
+    let userFee = Math.floor((rate * .3) * 100) / 100
+    let userTotal = userSubtotal + userFee
+
+    setTotal(userTotal)
+    setFee(userFee)
+    setSubTotal(userSubtotal)
+  }, [taskLength, startTime])
+
+  useEffect(() => {
+    if(showConfirm) {
+      setConfirmClass('scheduleAppointment-confirm')
+    } else {
+      setConfirmClass('scheduleAppointment-hidden')
+    }
+  }, [showConfirm])
+
+  if (!sessionUser) return <Redirect to='/'/>
+
   const handleSave = (e) => {
     e.preventDefault()
 
+    setIsSubmitted(true)
+
+    if(Object.values(dateErrors).length > 0) return
+    if(Object.values(timeErrors).length > 0) return
+    if(Object.values(validationErrors).length > 0) return
+
     const endTime = changeTime(`${startDate}T${startTime}:00.000`, parseInt(taskLength))
 
-    console.log(endTime)
+    const reqObj = {
+      start: getAdjustedTime(`${startDate}T${startTime}:00.000`),
+      end: getAdjustedTime(endTime),
+      task,
+      taskerId: tasker.id,
+      userId: sessionUser.id,
+      categoryId: apptObj.category
+    }
+
+    console.log(reqObj)
+    setShowConfirm(true)
+    setResponse(reqObj)
+  }
+
+  const cancelButton = (e) => {
+    e.preventDefault()
+    history.push(`/taskers/${tasker.id}`)
   }
 
   return (
@@ -122,8 +189,8 @@ const ScheduleAppointment = () => {
         <>
           <div className='scheduleAppointment-body'>
             <h3>Task Options:</h3>
-            <form onSubmit={handleSave} className='scheduleAppointment-form'>
-              <div className='scheduleAppointment-radioButtons'>
+            <form onSubmit={handleSave} disabled={showConfirm} className='scheduleAppointment-form'>
+              <div className='scheduleAppointment-radioButtons' disabled={showConfirm}>
                 <input
                   type='radio'
                   name='taskLength'
@@ -131,8 +198,9 @@ const ScheduleAppointment = () => {
                   id='small'
                   checked={taskLength === "1"}
                   onChange={e => setTaskLength(e.target.value)}
+                  disabled={showConfirm}
                 />
-                <label htmlFor='small'>Small - Est. 1 hr</label>
+                <label htmlFor='small'>Small - Est. 1 hr </label>
                 <input
                   type='radio'
                   name='taskLength'
@@ -140,6 +208,7 @@ const ScheduleAppointment = () => {
                   id='medium'
                   checked={taskLength === "2"}
                   onChange={e => setTaskLength(e.target.value)}
+                  disabled={showConfirm}
                 />
                 <label htmlFor='medium'>Medium - Est. 2 hrs</label>
                 <input
@@ -149,11 +218,12 @@ const ScheduleAppointment = () => {
                   id='large'
                   checked={taskLength === "3"}
                   onChange={e => setTaskLength(e.target.value)}
+                  disabled={showConfirm}
                 />
                 <label htmlFor='large'>Large - Est. 3 hrs</label>
               </div>
-              <div className='scheduleAppointment-dateTime'>
-                <div className='scheduleAppointment-date'>
+              <div className='scheduleAppointment-dateTime' disabled={showConfirm}>
+                <div className='scheduleAppointment-date' disabled={showConfirm}>
                   <label htmlFor='date'>Select a Date for Your Task</label>
                   <input
                     type='date'
@@ -162,6 +232,7 @@ const ScheduleAppointment = () => {
                     min={moment(new Date()).format("YYYY-MM-DD")}
                     value={startDate}
                     onChange={e => setStartDate(e.target.value)}
+                    disabled={showConfirm}
                   />
                   {Object.values(dateErrors).length > 0 && <ul>
                       {Object.values(dateErrors).map((error, i) => (
@@ -169,15 +240,30 @@ const ScheduleAppointment = () => {
                       ))}
                     </ul>}
                 </div>
-                <div className='scheduleAppointment-time'>
+                <div className='scheduleAppointment-time' disabled={showConfirm}>
                   <label htmlFor='time'>Select a Time</label>
-                  <input
-                    type='time'
-                    is='time'
-                    name='startTime'
-                    value={startTime}
-                    onChange={e => setStartTime(e.target.value)}
-                  />
+                  {showConfirm ? (
+                    <>
+                      <input
+                        type='time'
+                        is='time'
+                        name='startTime'
+                        value={startTime}
+                        onChange={e => setStartTime(e.target.value)}
+                        disabled={true}
+                      />
+                    </>
+                  ):(
+                    <>
+                      <input
+                        type='time'
+                        is='time'
+                        name='startTime'
+                        value={startTime}
+                        onChange={e => setStartTime(e.target.value)}
+                      />
+                    </>
+                  )}
                   {Object.values(timeErrors).length > 0 && <ul>
                       {Object.values(timeErrors).map((error, i) => (
                         <li key={i} className='error'>{error}</li>
@@ -185,8 +271,79 @@ const ScheduleAppointment = () => {
                     </ul>}
                 </div>
               </div>
-              <button type='submit'>Submit</button>
+              <div className='scheduleAppointment-text' disabled={showConfirm}>
+                <label htmlFor='task'>Please describe your task:</label>
+                <textarea
+                  id='task'
+                  rows='8'
+                  cols='60'
+                  value={task}
+                  onChange={e => setTask(e.target.value)}
+                  disabled={showConfirm}
+                />
+                {(isSubmitted && Object.values(validationErrors).length > 0) && <ul>
+                    {Object.values(validationErrors).map((error, i) => (
+                      <li className='error' key={i}>{error}</li>
+                    ))}
+                  </ul>}
+              </div>
+              <button type='submit' disabled={showConfirm}>Save</button>
             </form>
+            <div className={confirmClass}>
+              <h3>Task Summery:</h3>
+              <div className='scheduleAppointment-summeryButtons'>
+                <div className='scheduleAppointment-summery'>
+                  <table>
+                    <tbody>
+                      <tr>
+                        <th scope='row'>Task Start:</th>
+                        <td>{moment(getAdjustedDate(response.start)).format("ddd M-DD-YYYY h:mm A")}</td>
+                      </tr>
+                      <tr>
+                        <th scope='row'>Task End:</th>
+                        <td>{moment(getAdjustedDate(response.end)).format("ddd M-DD-YYYY h:mm A")}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <p>{response.task}</p>
+                </div>
+                <div className='scheduleAppointment-buttons'>
+                  <button>Confirm</button>
+                  <button onClick={cancelButton}>Cancel</button>
+                </div>
+              </div>
+              <div className='scheduleAppointment-due'>
+                <table>
+                  <tbody>
+                    <tr>
+                      <th scope='row'>Tasker Rate:</th>
+                      <td>${parseFloat(rate).toFixed(2)}</td>
+                    </tr>
+                    <tr>
+                      <th scope='row'>Task Duration (Hours):</th>
+                      <td>{parseInt(taskLength)}</td>
+                    </tr>
+                    <tr>
+                      <th scope='row'>SubTotal:</th>
+                      <td>${parseFloat(subTotal).toFixed(2)}</td>
+                    </tr>
+                    <tr>
+                      <th scope='row'>
+                        <OpenModalButton
+                          buttonText='Trust and Support Fee:'
+                          modalComponent={<FeeModal />}
+                        />
+                      </th>
+                      <td>${parseFloat(fee).toFixed(2)}</td>
+                    </tr>
+                    <tr>
+                      <th scope='row'>Total:</th>
+                      <td>{parseFloat(total).toFixed(2)}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
           </div>
           <div className='scheduleAppointment-tasker'>
             <h3>Your Tasker:</h3>

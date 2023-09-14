@@ -34,5 +34,5 @@ export const getAdjustedTime = (date) => {
 export const changeTime = (date, hours) => {
   const newDate = new Date(date)
   const offSet = hours * 60 * 60 * 1000
-  return new Date(newDate.getTime() + offSet)
+  return new Date(newDate.getTime() + offSet).toString()
 }
