@@ -1,0 +1,8 @@
+.feeModal {
+  max-width: 30vw;
+  padding: 50px;
+}
+
+.feeModal-list > p {
+  font-weight: bold;
+}
