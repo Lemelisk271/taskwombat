@@ -23,8 +23,8 @@ export const getAdjustedDate = (date) => {
 export const getAdjustedTime = (date) => {
   if (process.env.NODE_ENV === 'production') {
     const dateFromServer = new Date(date)
-    const pstOffset = 60 * 60 * 1000
-    const adjustedDate = new Date(dateFromServer.getTime() + pstOffset)
+    const pstOffset = 420 * 60 * 1000
+    const adjustedDate = new Date(dateFromServer.getTime() - pstOffset)
     return adjustedDate.toString()
   } else {
     return date
