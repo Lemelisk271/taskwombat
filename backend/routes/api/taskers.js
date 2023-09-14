@@ -17,7 +17,14 @@ router.get('/:taskerId', async (req, res) => {
         through: {
           attributes: ['rate']
         }
+      },
+      {
+        model: Availability
       }
+    ],
+    order: [
+      ['id', 'ASC'],
+      [{model: Availability}, 'dayIdx', 'ASC']
     ]
   })
 

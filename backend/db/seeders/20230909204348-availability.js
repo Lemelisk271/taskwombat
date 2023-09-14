@@ -26,9 +26,9 @@ module.exports = {
       })
       seeds.push({
         day: 'Tue',
-        startTime: '09:00:00',
-        endTime: '21:00:00',
-        notAvailable: false,
+        startTime: null,
+        endTime: null,
+        notAvailable: true,
         dayIdx: 2,
         taskerId: tasker.id
       })
