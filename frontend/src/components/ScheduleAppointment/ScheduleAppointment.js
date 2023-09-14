@@ -5,6 +5,7 @@ import { useHistory, Redirect } from 'react-router-dom'
 import { getSingleTasker } from '../../store/tasker'
 import { getAdjustedDate, changeTime, getAdjustedTime } from '../HelperFunctions/HelperFunctions.js'
 import { csrfFetch } from '../../store/csrf.js';
+import { UserPageContext } from '../../context/UserPageContext'
 import moment from 'moment-timezone';
 import FeeModal from '../FeeModal'
 import OpenModalButton from '../OpenModalButton'
@@ -18,7 +19,7 @@ const ScheduleAppointment = () => {
   const history = useHistory()
   const [isLoaded, setIsLoaded] = useState(false)
   const [taskLength, setTaskLength] = useState('1')
-  const [startDate, setStartDate] = useState(moment(getAdjustedDate(new Date())).format("YYYY-MM-DD"))
+  const [startDate, setStartDate] = useState(moment(changeTime(getAdjustedDate(new Date()), 24)).format('YYYY-MM-DD'))
   const [startTime, setStartTime] = useState(moment(new Date()).format("HH:mm"))
   const [rate, setRate] = useState(0)
   const [availability, setAvailability] = useState([])
@@ -36,8 +37,7 @@ const ScheduleAppointment = () => {
   const [fee, setFee] = useState(0)
   const [total, setTotal] = useState(0)
   const [resErrors, setResErrors] = useState([])
-
-  // console.log(tasker)
+  const { setUserPage } = useContext(UserPageContext)
 
   useEffect(() => {
     const loadPage = async () => {
@@ -205,6 +205,7 @@ const ScheduleAppointment = () => {
         setResErrors(err)
         return
       }
+      setUserPage('tasks')
       history.push(`/users/${sessionUser.id}`)
     } else {
       const data = await res.json()
