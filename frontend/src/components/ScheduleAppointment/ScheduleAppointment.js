@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useHistory, Redirect } from 'react-router-dom'
 import { getSingleTasker } from '../../store/tasker'
 import { getAdjustedDate, changeTime, getAdjustedTime } from '../HelperFunctions/HelperFunctions.js'
+import { csrfFetch } from '../../store/csrf.js';
 import moment from 'moment-timezone';
 import FeeModal from '../FeeModal'
 import OpenModalButton from '../OpenModalButton'
@@ -34,6 +35,7 @@ const ScheduleAppointment = () => {
   const [subTotal, setSubTotal] = useState(0)
   const [fee, setFee] = useState(0)
   const [total, setTotal] = useState(0)
+  const [resErrors, setResErrors] = useState([])
 
   // console.log(tasker)
 
@@ -183,6 +185,35 @@ const ScheduleAppointment = () => {
     history.push(`/taskers/${tasker.id}`)
   }
 
+  const confirmButton = async (e) => {
+    e.preventDefault()
+
+    const res = await csrfFetch('/api/appointments', {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(response)
+    })
+    if (res.ok) {
+      const data = await res.json()
+      if (data.errors) {
+        const err = []
+        data.errors.forEach(el => {
+          err.push(el.message)
+        })
+        setResErrors(err)
+        return
+      }
+      history.push(`/users/${sessionUser.id}`)
+    } else {
+      const data = await res.json()
+      if (data && data.errors) {
+        setResErrors(data.errors)
+      }
+    }
+  }
+
   return (
     <div className='scheduleAppointment'>
       {isLoaded ? (
@@ -288,6 +319,11 @@ const ScheduleAppointment = () => {
                   </ul>}
               </div>
               <button type='submit' disabled={showConfirm}>Save</button>
+              {resErrors.length > 0 && <ul>
+                  {resErrors.map((error, i) => (
+                    <li key={i} className='error'>{error}</li>
+                  ))}
+                </ul>}
             </form>
             <div className={confirmClass}>
               <h3>Task Summery:</h3>
@@ -308,7 +344,7 @@ const ScheduleAppointment = () => {
                   <p>{response.task}</p>
                 </div>
                 <div className='scheduleAppointment-buttons'>
-                  <button>Confirm</button>
+                  <button onClick={confirmButton}>Confirm</button>
                   <button onClick={cancelButton}>Cancel</button>
                 </div>
               </div>
@@ -338,7 +374,7 @@ const ScheduleAppointment = () => {
                     </tr>
                     <tr>
                       <th scope='row'>Total:</th>
-                      <td>{parseFloat(total).toFixed(2)}</td>
+                      <td>${parseFloat(total).toFixed(2)}</td>
                     </tr>
                   </tbody>
                 </table>

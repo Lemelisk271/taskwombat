@@ -50,4 +50,15 @@ router.delete('/:apptId', requireAuth, async (req, res, next) => {
   res.json({message: "Successfully Deleted"})
 })
 
+router.post('/', requireAuth, async (req, res, next) => {
+  try {
+    const newAppointment = Appointment.build(req.body)
+    newAppointment.validate()
+    await newAppointment.save()
+    res.status(201).json(newAppointment)
+  } catch (err) {
+    return next(err)
+  }
+})
+
 module.exports = router
