@@ -220,112 +220,124 @@ const ScheduleAppointment = () => {
       {isLoaded ? (
         <>
           <div className='scheduleAppointment-body'>
-            <h3>Task Options:</h3>
-            <form onSubmit={handleSave} disabled={showConfirm} className='scheduleAppointment-form'>
-              <div className='scheduleAppointment-radioButtons' disabled={showConfirm}>
-                <input
-                  type='radio'
-                  name='taskLength'
-                  value='1'
-                  id='small'
-                  checked={taskLength === "1"}
-                  onChange={e => setTaskLength(e.target.value)}
-                  disabled={showConfirm}
-                />
-                <label htmlFor='small'>Small - Est. 1 hr </label>
-                <input
-                  type='radio'
-                  name='taskLength'
-                  value='2'
-                  id='medium'
-                  checked={taskLength === "2"}
-                  onChange={e => setTaskLength(e.target.value)}
-                  disabled={showConfirm}
-                />
-                <label htmlFor='medium'>Medium - Est. 2 hrs</label>
-                <input
-                  type='radio'
-                  name='taskLength'
-                  value='3'
-                  id='large'
-                  checked={taskLength === "3"}
-                  onChange={e => setTaskLength(e.target.value)}
-                  disabled={showConfirm}
-                />
-                <label htmlFor='large'>Large - Est. 3 hrs</label>
-              </div>
-              <div className='scheduleAppointment-dateTime' disabled={showConfirm}>
-                <div className='scheduleAppointment-date' disabled={showConfirm}>
-                  <label htmlFor='date'>Select a Date for Your Task</label>
-                  <input
-                    type='date'
-                    id="date"
-                    name='startDate'
-                    min={moment(changeTime(getAdjustedDate(new Date()), 24)).format('YYYY-MM-DD')}
-                    value={startDate}
-                    onChange={e => setStartDate(e.target.value)}
+            <div className='scheduleAppointment-formContent'>
+              <h3>Task Options:</h3>
+              <form onSubmit={handleSave} disabled={showConfirm} className='scheduleAppointment-form'>
+                <div className='scheduleAppointment-radioButtons' disabled={showConfirm}>
+                  <h3>How big is Your Task?</h3>
+                  <div className='scheduleAppointment-radio'>
+                    <input
+                      type='radio'
+                      name='taskLength'
+                      value='1'
+                      id='small'
+                      checked={taskLength === "1"}
+                      onChange={e => setTaskLength(e.target.value)}
+                      disabled={showConfirm}
+                    />
+                    <label htmlFor='small'>Small - Est. 1 hr </label>
+                  </div>
+                  <div className='scheduleAppointment-radio'>
+                    <input
+                      type='radio'
+                      name='taskLength'
+                      value='2'
+                      id='medium'
+                      checked={taskLength === "2"}
+                      onChange={e => setTaskLength(e.target.value)}
+                      disabled={showConfirm}
+                    />
+                    <label htmlFor='medium'>Medium - Est. 2 hrs</label>
+                  </div>
+                  <div className='scheduleAppointment-radio'>
+                    <input
+                      type='radio'
+                      name='taskLength'
+                      value='3'
+                      id='large'
+                      checked={taskLength === "3"}
+                      onChange={e => setTaskLength(e.target.value)}
+                      disabled={showConfirm}
+                    />
+                    <label htmlFor='large'>Large - Est. 3 hrs</label>
+                  </div>
+                </div>
+                <div className='scheduleAppointment-line'/>
+                <div className='scheduleAppointment-dateTime' disabled={showConfirm}>
+                  <div className='scheduleAppointment-date' disabled={showConfirm}>
+                    <label htmlFor='date'>Select a Date for Your Task:</label>
+                    <input
+                      type='date'
+                      id="date"
+                      name='startDate'
+                      min={moment(changeTime(getAdjustedDate(new Date()), 24)).format('YYYY-MM-DD')}
+                      value={startDate}
+                      onChange={e => setStartDate(e.target.value)}
+                      disabled={showConfirm}
+                    />
+                    {Object.values(dateErrors).length > 0 && <ul>
+                        {Object.values(dateErrors).map((error, i) => (
+                          <li className='error' key={i}>{error}</li>
+                        ))}
+                      </ul>}
+                  </div>
+                  <div className='scheduleAppointment-time' disabled={showConfirm}>
+                    <label htmlFor='time'>Select a Time for Your Task:</label>
+                    {showConfirm ? (
+                      <>
+                        <input
+                          type='time'
+                          is='time'
+                          name='startTime'
+                          value={startTime}
+                          onChange={e => setStartTime(e.target.value)}
+                          disabled={true}
+                        />
+                      </>
+                    ):(
+                      <>
+                        <input
+                          type='time'
+                          is='time'
+                          name='startTime'
+                          value={startTime}
+                          onChange={e => setStartTime(e.target.value)}
+                        />
+                      </>
+                    )}
+                    {Object.values(timeErrors).length > 0 && <ul>
+                        {Object.values(timeErrors).map((error, i) => (
+                          <li key={i} className='error'>{error}</li>
+                        ))}
+                      </ul>}
+                  </div>
+                </div>
+                <div className='scheduleAppointment-line'/>
+                <div className='scheduleAppointment-text' disabled={showConfirm}>
+                  <label htmlFor='task'>Please describe your task:</label>
+                  <textarea
+                    id='task'
+                    rows='8'
+                    cols='60'
+                    value={task}
+                    onChange={e => setTask(e.target.value)}
                     disabled={showConfirm}
                   />
-                  {Object.values(dateErrors).length > 0 && <ul>
-                      {Object.values(dateErrors).map((error, i) => (
+                  {(isSubmitted && Object.values(validationErrors).length > 0) && <ul>
+                      {Object.values(validationErrors).map((error, i) => (
                         <li className='error' key={i}>{error}</li>
                       ))}
                     </ul>}
                 </div>
-                <div className='scheduleAppointment-time' disabled={showConfirm}>
-                  <label htmlFor='time'>Select a Time</label>
-                  {showConfirm ? (
-                    <>
-                      <input
-                        type='time'
-                        is='time'
-                        name='startTime'
-                        value={startTime}
-                        onChange={e => setStartTime(e.target.value)}
-                        disabled={true}
-                      />
-                    </>
-                  ):(
-                    <>
-                      <input
-                        type='time'
-                        is='time'
-                        name='startTime'
-                        value={startTime}
-                        onChange={e => setStartTime(e.target.value)}
-                      />
-                    </>
-                  )}
-                  {Object.values(timeErrors).length > 0 && <ul>
-                      {Object.values(timeErrors).map((error, i) => (
-                        <li key={i} className='error'>{error}</li>
-                      ))}
-                    </ul>}
-                </div>
-              </div>
-              <div className='scheduleAppointment-text' disabled={showConfirm}>
-                <label htmlFor='task'>Please describe your task:</label>
-                <textarea
-                  id='task'
-                  rows='8'
-                  cols='60'
-                  value={task}
-                  onChange={e => setTask(e.target.value)}
-                  disabled={showConfirm}
-                />
-                {(isSubmitted && Object.values(validationErrors).length > 0) && <ul>
-                    {Object.values(validationErrors).map((error, i) => (
-                      <li className='error' key={i}>{error}</li>
+                <div className='scheduleAppointment-line'/>
+                <button className='scheduleAppointment-saveButton' type='submit' disabled={showConfirm}>Save</button>
+                {resErrors.length > 0 && <ul>
+                    {resErrors.map((error, i) => (
+                      <li key={i} className='error'>{error}</li>
                     ))}
                   </ul>}
-              </div>
-              <button type='submit' disabled={showConfirm}>Save</button>
-              {resErrors.length > 0 && <ul>
-                  {resErrors.map((error, i) => (
-                    <li key={i} className='error'>{error}</li>
-                  ))}
-                </ul>}
-            </form>
+              </form>
+            </div>
             <div className={confirmClass}>
               <h3>Task Summery:</h3>
               <div className='scheduleAppointment-summeryButtons'>
@@ -342,8 +354,11 @@ const ScheduleAppointment = () => {
                       </tr>
                     </tbody>
                   </table>
-                  <p>{response.task}</p>
+                  <div className='scheduleAppointment-line'/>
+                  <label htmlFor='taskDisplay'>Task Description:</label>
+                  <p id='taskDisplay'>{response.task}</p>
                 </div>
+                <div className='scheduleAppointment-line'/>
                 <div className='scheduleAppointment-buttons'>
                   <button onClick={confirmButton}>Confirm</button>
                   <button onClick={cancelButton}>Cancel</button>
@@ -390,21 +405,21 @@ const ScheduleAppointment = () => {
               <p>{rate}/hr</p>
             </div>
             <div className='scheduleAppointment-availability'>
-              <p>{tasker?.firstName}'s Availability</p>
+              <p>{tasker?.firstName}'s Availability:</p>
               <table>
                 <tbody>
                   {availability.map((day, i) => (
                     <tr key={i}>
                       {day.startTime ? (
                         <>
-                          <td>{day.day}</td>
+                          <th scope='row'>{day.day}</th>
                           <td>{day.startTime}</td>
                           <td>to</td>
                           <td>{day.endTime}</td>
                         </>
                       ):(
                         <>
-                          <td>{day.day}</td>
+                          <th scope='row'>{day.day}</th>
                           <td colSpan="3">Unavailable</td>
                         </>
                       )}

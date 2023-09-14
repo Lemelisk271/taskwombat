@@ -1,3 +1,206 @@
+.scheduleAppointment {
+  display: flex;
+  flex-direction: row;
+  min-height: calc(100vh - 100px);
+  margin-top: 10px;
+}
+
+.scheduleAppointment-line {
+  border-bottom: 1px solid #848A87;
+  width: 100%;
+  margin: 10px 0;
+}
+
+.scheduleAppointment-body {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+.scheduleAppointment-formContent {
+  margin: 0 10px;
+  width: 50%;
+}
+
+.scheduleAppointment-form {
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  border: 1px solid #848A87;
+  padding: 20px;
+  border-radius: 20px;
+}
+
+.scheduleAppointment-radioButtons {
+  display: flex;
+  flex-direction: column;
+  align-content: start;
+}
+
+.scheduleAppointment-radioButtons h3 {
+  margin: 0;
+  margin-bottom: 10px;
+}
+
+.scheduleAppointment-radio input {
+  margin-right: 10px;
+  margin-bottom: 5px;
+}
+
+.scheduleAppointment-dateTime label {
+  margin-right: 5px;
+}
+
+.scheduleAppointment-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.scheduleAppointment-text label {
+  margin-bottom: 10px;
+}
+
+.scheduleAppointment-saveButton {
+  width: 30%;
+  margin: 0 auto;
+  background-color: #0D7A5F;
+  border: none;
+  color: white;
+  padding: 10px;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.scheduleAppointment-saveButton:disabled {
+  width: 30%;
+  margin: 0 auto;
+  background-color: #848A87;
+  border: none;
+  color: white;
+  padding: 10px;
+  cursor: not-allowed;
+  font-size: 20px;
+}
+
 .scheduleAppointment-hidden {
   visibility: hidden;
+  width: 50%;
+  margin: 0 10px;
+}
+
+.scheduleAppointment-confirm {
+  width: 50%;
+  margin: 0 10px;
+}
+
+.scheduleAppointment-summery th {
+  text-align: left;
+  padding-right: 10px;
+}
+
+.scheduleAppointment-summery td {
+  text-align: left;
+}
+
+.scheduleAppointment-summery label {
+  font-weight: bold;
+}
+
+.scheduleAppointment-summery p {
+  margin-top: 10px;
+}
+
+.scheduleAppointment-summeryButtons {
+  border: 1px solid #848A87;
+  padding: 20px;
+  border-radius: 20px;
+  margin-bottom: 10px;
+}
+
+.scheduleAppointment-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.scheduleAppointment-buttons button {
+  width: 30%;
+  margin: 0 auto;
+  background-color: #0D7A5F;
+  border: none;
+  color: white;
+  padding: 10px;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.scheduleAppointment-due {
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+}
+
+.scheduleAppointment-due table {
+  border: 1px solid #848A87;
+  padding: 20px;
+  border-radius: 20px;
+}
+
+.scheduleAppointment-due table th {
+  text-align: left;
+  padding-right: 10px;
+}
+
+.scheduleAppointment-due table td {
+  text-align: right;
+}
+
+.scheduleAppointment-due button {
+  background: none;
+  border: none;
+  font-weight: bold;
+  font-size: 17px;
+  text-align: left;
+  padding: 0;
+  margin: 0;
+  color: #0D7A5F;
+  cursor: pointer;
+}
+
+.scheduleAppointment-due button:hover {
+  color: #055240
+}
+
+
+.scheduleAppointment-tasker {
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+  align-items: center;
+}
+
+.scheduleAppointment-taskerCard {
+  border: 1px solid #848A87;
+  padding: 20px;
+  border-radius: 20px;
+  margin-bottom: 10px;
+}
+
+.scheduleAppointment-availability {
+  border: 1px solid #848A87;
+  padding: 20px;
+  border-radius: 20px;
+}
+
+.scheduleAppointment-availability p {
+  font-weight: bold;
+}
+
+.scheduleAppointment-availability table th {
+  text-align: left;
+  padding-right: 10px;
+}
+
+.scheduleAppointment-availability table td {
+  text-align: center;
 }
