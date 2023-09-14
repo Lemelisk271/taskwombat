@@ -16,22 +16,26 @@ const TaskerCategoryListItem = ({ category }) => {
   const { setApptObj } = useContext(ApptContext)
 
   useEffect(() => {
-    const categoryItem = tasker?.Categories.filter(el => el.category === category)
-    setCategoryObj(categoryItem[0])
-    const reviewList = tasker?.Reviews.filter(el => el.categoryId === categoryObj.id)
-    const appointmentList = tasker?.Appointments.filter(el => el.categoryId === categoryObj.id)
-    if (reviewList.length > 0) {
-      let avgReview = 0
-      reviewList.forEach(review => {
-        avgReview += review.stars
-      })
-      setTotalReviews(reviewList.length)
-      setAvgStars(Math.floor((avgReview / reviewList.length) * 10) / 10)
-    }
+    const loadPage = async () => {
+      const categoryItem = await tasker?.Categories.filter(el => el.category === category)
+      setCategoryObj(categoryItem[0])
+      const reviewList = await tasker.Reviews.filter(el => el.categoryId === categoryItem[0].id)
+      console.log(categoryItem[0])
+      const appointmentList = await tasker.Appointments.filter(el => el.categoryId === categoryItem[0].id)
+      if (reviewList.length > 0) {
+        let avgReview = 0
+        reviewList.forEach(review => {
+          avgReview += review.stars
+        })
+        setTotalReviews(reviewList.length)
+        setAvgStars(Math.floor((avgReview / reviewList.length) * 10) / 10)
+      }
 
-    if (appointmentList.length > 0) {
-      setTotalAppointments(appointmentList.length)
+      if (appointmentList.length > 0) {
+        setTotalAppointments(appointmentList.length)
+      }
     }
+    loadPage()
   }, [])
 
   const bookAppointment = (e) => {

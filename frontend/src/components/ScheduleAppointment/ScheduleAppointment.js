@@ -2,7 +2,7 @@ import { useEffect, useState, useContext } from 'react'
 import { ApptContext } from '../../context/ApptContext'
 import { useDispatch, useSelector } from 'react-redux'
 import { getSingleTasker } from '../../store/tasker'
-import { getAdjustedDate, getAdjustedTime } from '../HelperFunctions/HelperFunctions.js'
+import { getAdjustedDate, changeTime } from '../HelperFunctions/HelperFunctions.js'
 import moment from 'moment-timezone';
 
 const ScheduleAppointment = () => {
@@ -108,13 +108,21 @@ const ScheduleAppointment = () => {
     setTimeErrors(errors)
   }, [startTime])
 
+  const handleSave = (e) => {
+    e.preventDefault()
+
+    const endTime = changeTime(`${startDate}T${startTime}:00.000`, parseInt(taskLength))
+
+    console.log(endTime)
+  }
+
   return (
     <div className='scheduleAppointment'>
       {isLoaded ? (
         <>
           <div className='scheduleAppointment-body'>
             <h3>Task Options:</h3>
-            <form className='scheduleAppointment-form'>
+            <form onSubmit={handleSave} className='scheduleAppointment-form'>
               <div className='scheduleAppointment-radioButtons'>
                 <input
                   type='radio'
@@ -177,6 +185,7 @@ const ScheduleAppointment = () => {
                     </ul>}
                 </div>
               </div>
+              <button type='submit'>Submit</button>
             </form>
           </div>
           <div className='scheduleAppointment-tasker'>
