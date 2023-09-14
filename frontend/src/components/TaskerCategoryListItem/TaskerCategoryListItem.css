@@ -1,0 +1,35 @@
+.taskerCategoryListItem {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid #848A87;
+  border-radius: 20px;
+  padding: 20px;
+  margin: 0 0 0 10px;
+  margin-bottom: 10px;
+}
+
+.taskerCategoryListItem-head > button{
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #0D7A5F;
+  font-weight: bold;
+  font-size: 16px;
+  margin: 0;
+  padding: 0;
+}
+
+.taskerCategoryListItem-head > button:hover {
+  color: #055240
+}
+
+.taskerCategoryListItem-button {
+  background-color: #0D7A5F;
+  border: none;
+  color: white;
+  padding: 10px;
+  cursor: pointer;
+  font-size: 16px;
+}
