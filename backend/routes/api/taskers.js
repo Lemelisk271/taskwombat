@@ -1,13 +1,19 @@
 const express = require('express')
 const router = express.Router()
 
-const { Tasker, Availability, Review, Appointment, Category } = require('../../db/models')
+const { Tasker, Availability, Review, Appointment, Category, Vehicle, Tool, User } = require('../../db/models')
 
 router.get('/:taskerId', async (req, res) => {
   const tasker = await Tasker.findByPk(req.params.taskerId, {
     include: [
       {
-        model: Review
+        model: Review,
+        include: [
+          {
+            model: User,
+            attributes: ['id', 'firstName', 'profileImage', 'zipCode']
+          }
+        ]
       },
       {
         model: Appointment
@@ -20,6 +26,19 @@ router.get('/:taskerId', async (req, res) => {
       },
       {
         model: Availability
+      },
+      {
+        model: Vehicle,
+        through: {
+          attributes: []
+        },
+        attributes: ['vehicleType']
+      },
+      {
+        model: Tool,
+        through: {
+          attributes: []
+        }
       }
     ],
     order: [
