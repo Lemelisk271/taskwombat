@@ -3,8 +3,6 @@ import { findCity } from '../HelperFunctions/HelperFunctions.js'
 import './TaskerReviewListItem.css'
 
 const TaskerReviewListItem = ({ review }) => {
-  console.log(review)
-
   return (
     <div className="taskerReviewListItem">
       <Link to={`/users/${review.User.id}`} className="taskerReviewListItem-userCard">
