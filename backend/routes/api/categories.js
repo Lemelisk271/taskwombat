@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 
-const { Category, Subcategory, Tasker } = require('../../db/models')
+const { Category, Subcategory, Tasker, Review, Appointment } = require('../../db/models')
 
 router.get('/', async (_req, res) => {
   const categories = await Category.findAll({
@@ -32,7 +32,24 @@ router.get('/:categoryId', async (req, res) => {
         }
       },
       {
-        model: Tasker
+        model: Tasker,
+        through: {
+          attributes: ['rate']
+        },
+        include: [
+          {
+            model: Review,
+            where: {
+              categoryId: req.params.categoryId
+            }
+          },
+          {
+            model: Appointment,
+            where: {
+              categoryId: req.params.categoryId
+            }
+          }
+        ]
       }
     ]
   })

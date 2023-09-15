@@ -45,7 +45,7 @@ const CategoryPage = () => {
           </div>
           <div className='categoryPage-taskerList'>
             {taskers.map((tasker, i) => (
-              <CategoryTaskerListItem key={i} tasker={tasker}/>
+              <CategoryTaskerListItem key={i} tasker={tasker} categoryId={categoryId}/>
             ))}
           </div>
         </>
