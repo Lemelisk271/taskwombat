@@ -53,6 +53,7 @@ const TaskerProfilePage = () => {
       setIsLoaded(true)
     }
     getTasker()
+    // eslint-disable-next-line
   }, [dispatch])
 
   let categoryPage

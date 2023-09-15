@@ -47,6 +47,7 @@ const TaskerCategoryPage = ({ category, tasker }) => {
     setTools(toolList.join(", "))
 
     setIsLoaded(true)
+    // eslint-disable-next-line
   }, [taskerPage])
 
   const bookAppointment = (e) => {
