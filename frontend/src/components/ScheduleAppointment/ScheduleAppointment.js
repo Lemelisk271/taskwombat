@@ -113,7 +113,7 @@ const ScheduleAppointment = () => {
 
       setDateErrors(errors)
     }
-  }, [startDate])
+  }, [startDate, isLoaded])
 
   useEffect(() => {
     const errors = {}
@@ -143,7 +143,7 @@ const ScheduleAppointment = () => {
     setTotal(userTotal)
     setFee(userFee)
     setSubTotal(userSubtotal)
-  }, [taskLength, startTime])
+  }, [taskLength, startTime, isLoaded])
 
   useEffect(() => {
     if(showConfirm) {

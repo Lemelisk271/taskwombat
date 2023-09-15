@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 
-const { Category, Subcategory } = require('../../db/models')
+const { Category, Subcategory, Tasker } = require('../../db/models')
 
 router.get('/', async (_req, res) => {
   const categories = await Category.findAll({
@@ -20,6 +20,24 @@ router.get('/', async (_req, res) => {
   })
 
   res.status(200).json(categories)
+})
+
+router.get('/:categoryId', async (req, res) => {
+  const category = await Category.findByPk(req.params.categoryId, {
+    include: [
+      {
+        model: Subcategory,
+        through: {
+          attributes: []
+        }
+      },
+      {
+        model: Tasker
+      }
+    ]
+  })
+
+  res.status(200).json(category)
 })
 
 module.exports = router
