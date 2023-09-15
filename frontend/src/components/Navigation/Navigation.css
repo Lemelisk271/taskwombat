@@ -90,3 +90,9 @@ nav {
   border: none;
   cursor: pointer;
 }
+
+.nav-loggedIn {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
