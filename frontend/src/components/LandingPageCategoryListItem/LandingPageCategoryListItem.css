@@ -1,0 +1,21 @@
+.LandingPageCategoryListItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: black;
+  width: 20%;
+  border: 1px solid #848A87;
+  margin: 10px 0;
+  border-radius: 20px;
+}
+
+.LandingPageCategoryListItem img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  object-position: center center;
+  border-top-right-radius: 20px;
+  border-top-left-radius: 20px;
+  border-bottom: 1px solid #848A87;
+}

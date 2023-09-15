@@ -3,6 +3,36 @@
   min-width: calc(100vh - 150px);
 }
 
-.landingPage-hero > img {
-  width: 100%
+.landingPage-hero {
+  width: 100%;
+  height: 500px;
+  background-image: url('https://taskwombat.s3.us-west-2.amazonaws.com/tasker_holding_plunger.jpg');
+  background-position: center top;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.landingPage-heroText {
+  background-color: white;
+  padding: 20px;
+  border-radius: 20px;
+  text-align: center;
+}
+
+.landingPage-line {
+  padding-top: 5px;
+  margin-bottom: 5px;
+  border-bottom: 2px solid #0D7A5F;
+  width: 100%;
+}
+
+.landingPage-categories {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  margin-top: 20px;
 }
