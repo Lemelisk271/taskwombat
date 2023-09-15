@@ -11,7 +11,7 @@ router.get('/:taskerId', async (req, res) => {
         include: [
           {
             model: User,
-            attributes: ['id', 'firstName', 'profileImage']
+            attributes: ['id', 'firstName', 'profileImage', 'zipCode']
           }
         ]
       },

@@ -1,7 +1,11 @@
-const TaskerReviewListItem = () => {
+const TaskerReviewListItem = ({ review }) => {
+  console.log(review)
+
   return (
     <div className="taskerReviewListItem">
-      <h3>Tasker Review List Item</h3>
+      <div className="taskerReviewListItem-userCard">
+        <img src={review.User.profileImage} alt={review.User.firstName}/>
+      </div>
     </div>
   )
 }

@@ -1,8 +1,12 @@
 import { useEffect, useState, useContext } from 'react'
 import { TaskerPageContext } from '../../context/TaskerPageContext'
+import { ApptContext } from '../../context/ApptContext'
+import { useHistory } from 'react-router-dom'
 import TaskerReviewListItem from '../TaskerReviewListItem'
+import './TaskerCategoryPage.css'
 
 const TaskerCategoryPage = ({ category, tasker }) => {
+  const history = useHistory()
   const [categoryObj, setCategoryObj] = useState({})
   const [rate, setRate] = useState(0)
   const [reviews, setReviews] = useState([])
@@ -12,10 +16,11 @@ const TaskerCategoryPage = ({ category, tasker }) => {
   const [vehicles, setVehicles] = useState('')
   const [tools, setTools] = useState('')
   const { taskerPage } = useContext(TaskerPageContext)
+  const { setApptObj } = useContext(ApptContext)
   console.log(tasker)
 
   useEffect(() => {
-    const categoryItem = tasker?.Categories.filter(el => el.category === category)
+    const categoryItem = tasker.Categories.filter(el => el.category === category)
     const categoryId = categoryItem[0].id
     setCategoryObj(categoryItem[0])
 
@@ -43,6 +48,15 @@ const TaskerCategoryPage = ({ category, tasker }) => {
 
     setIsLoaded(true)
   }, [taskerPage])
+
+  const bookAppointment = (e) => {
+    e.preventDefault()
+    setApptObj({
+      tasker: tasker.id,
+      category: parseInt(categoryObj.id)
+    })
+    history.push(`/book/${tasker.id}`)
+  }
 
   return (
     <div className="taskerCategoryPage">
@@ -73,11 +87,11 @@ const TaskerCategoryPage = ({ category, tasker }) => {
               </table>
             </div>
             <div className='taskerCategoryPage-button'>
-              <button>Select & Continue</button>
+              <button onClick={bookAppointment}>Select & Continue</button>
             </div>
           </div>
           <div className='taskerCategoryPage-reviews'>
-            <p>Reviews for {categoryObj.category} ({reviews.length})</p>
+            <p className='taskerCategoryPage-title'>Reviews for {categoryObj.category} ({reviews.length})</p>
             {reviews.map((review, i) => (
               <TaskerReviewListItem key={i} review={review}/>
             ))}

@@ -1,0 +1,36 @@
+.taskerCategoryPage {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
+}
+
+.taskerCategoryPage-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid #848A87;
+  padding: 20px;
+  border-radius: 20px;
+  margin-bottom: 20px;
+}
+
+.taskerCategoryPage-details table td {
+  padding-right: 10px;
+  text-align: left;
+}
+
+.taskerCategoryPage-title {
+  padding-left: 20px;
+  font-weight: bold;
+}
+
+.taskerCategoryPage-button button {
+  background-color: #0D7A5F;
+  color: white;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  font-size: 16px;
+}
