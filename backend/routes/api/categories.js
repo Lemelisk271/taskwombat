@@ -3,7 +3,7 @@ const router = express.Router()
 
 const { Category, Subcategory } = require('../../db/models')
 
-router.get('/', async (req, res) => {
+router.get('/', async (_req, res) => {
   const categories = await Category.findAll({
     include: [
       {

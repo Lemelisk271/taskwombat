@@ -79,7 +79,7 @@ nav {
 .dropdown-line {
   padding-top: 5px;
   margin-bottom: 5px;
-  border-bottom: 2px solid grey;
+  border-bottom: 2px solid #848A87;
   width: 100%;
 }
 
@@ -89,4 +89,10 @@ nav {
   background: none;
   border: none;
   cursor: pointer;
+}
+
+.nav-loggedIn {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 }

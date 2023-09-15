@@ -4,6 +4,7 @@ import ProfileButton from './ProfileButton'
 import LoginFormModal from '../LoginFormModal'
 import SignupFormModal from '../SignupFormModal'
 import OpenModalButton from '../OpenModalButton'
+import CategoryListDropDown from '../CategoryListDropDown'
 import wombat from '../../images/wombat.png'
 import './Navigation.css'
 
@@ -16,6 +17,7 @@ const Navigation = ({ isLoaded }) => {
   if(sessionUser) {
     sessionLinks = (
       <div className='nav-loggedIn'>
+        <CategoryListDropDown />
         <ProfileButton user={sessionUser}/>
       </div>
     )
