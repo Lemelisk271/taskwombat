@@ -16,7 +16,6 @@ const TaskerProfilePage = () => {
   const tasker = useSelector(state => state.tasker)
   const [isLoaded, setIsLoaded] = useState(false)
   const [avgReview, setAvgReview] = useState(0)
-  const [selectedPageContent, setSelectedPageContent] = useState('')
   const [buttonList, setButtonList] = useState('')
   const { taskerPage, setTaskerPage } = useContext(TaskerPageContext)
 
@@ -56,23 +55,21 @@ const TaskerProfilePage = () => {
     getTasker()
   }, [dispatch])
 
-  useEffect(() => {
-    if (taskerPage === 'all') {
-      let allSkills = (
-        <>
-          <TaskerAllSkills tasker={tasker}/>
-        </>
-      )
-      setSelectedPageContent(allSkills)
-    } else {
-      let categoryPage = (
-        <>
-          <TaskerCategoryPage category={taskerPage}/>
-        </>
-      )
-      setSelectedPageContent(categoryPage)
-    }
-  }, [taskerPage])
+  let categoryPage
+
+  if (taskerPage === 'all') {
+    categoryPage = (
+      <>
+        <TaskerAllSkills tasker={tasker}/>
+      </>
+    )
+  } else {
+    categoryPage = (
+      <>
+        <TaskerCategoryPage category={taskerPage} tasker={tasker}/>
+      </>
+    )
+  }
 
   return (
     <div className="taskerProfilePage">
@@ -110,7 +107,7 @@ const TaskerProfilePage = () => {
             </div>
           </div>
           <div className='taskerProfilePage-results'>
-            {isLoaded && selectedPageContent}
+            {isLoaded && categoryPage}
           </div>
         </>
       ):(
