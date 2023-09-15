@@ -31,6 +31,7 @@ const CategoryTaskerListItem = ({ tasker, categoryId }) => {
     setAvgStars(Math.floor((totalStars / tasker.Reviews.length) * 10) / 10)
 
     setTasks(tasker.Appointments.length)
+    // eslint-disable-next-line
   }, [])
 
   const bookAppointment = (e) => {

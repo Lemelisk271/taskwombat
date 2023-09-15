@@ -93,6 +93,7 @@ const ScheduleAppointment = () => {
       setIsLoaded(true)
     }
     loadPage()
+    // eslint-disable-next-line
   }, [])
 
   useEffect(() => {
@@ -114,6 +115,7 @@ const ScheduleAppointment = () => {
 
       setDateErrors(errors)
     }
+    // eslint-disable-next-line
   }, [startDate, isLoaded])
 
   useEffect(() => {
@@ -124,6 +126,7 @@ const ScheduleAppointment = () => {
     }
 
     setTimeErrors(errors)
+    // eslint-disable-next-line
   }, [startTime])
 
   useEffect(() => {
@@ -134,6 +137,7 @@ const ScheduleAppointment = () => {
     }
 
     setValidationErrors(errors)
+    // eslint-disable-next-line
   }, [task])
 
   useEffect(() => {
@@ -144,6 +148,7 @@ const ScheduleAppointment = () => {
     setTotal(userTotal)
     setFee(userFee)
     setSubTotal(userSubtotal)
+    // eslint-disable-next-line
   }, [taskLength, startTime, isLoaded])
 
   useEffect(() => {
@@ -176,7 +181,6 @@ const ScheduleAppointment = () => {
       categoryId: apptObj.category
     }
 
-    console.log(reqObj)
     setShowConfirm(true)
     setResponse(reqObj)
   }

@@ -35,6 +35,7 @@ const TaskerCategoryListItem = ({ category }) => {
       }
     }
     loadPage()
+    // eslint-disable-next-line
   }, [])
 
   const bookAppointment = (e) => {

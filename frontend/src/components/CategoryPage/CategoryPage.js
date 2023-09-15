@@ -17,7 +17,6 @@ const CategoryPage = () => {
       setCategory(data)
       setSubCategories(data.Subcategories)
       setTaskers(data.Taskers)
-      console.log(data)
 
       setIsLoaded(true)
     }
