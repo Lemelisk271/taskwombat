@@ -7,7 +7,7 @@ import './UserTasks.css'
 const UserTasks = () => {
   const user = useSelector(state => state.user)
   const sessionUser = useSelector(state => state.session.user)
-  const tasks = user.Appointments
+  // const tasks = user.Appointments
   const [pastTasks, setPastTasks] = useState([])
   const [futureTasks, setFutureTasks] = useState([])
   const [isLoaded, setIsLoaded] = useState(false)
@@ -15,7 +15,7 @@ const UserTasks = () => {
   useEffect(() => {
     const oldTasks = []
     const newTasks = []
-    tasks.forEach(task => {
+    user.Appointments.forEach(task => {
       let today = Date.now()
       let apptDate = Date.parse(task.end)
       if (apptDate > today) {
