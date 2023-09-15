@@ -41,13 +41,14 @@ const ScheduleAppointment = () => {
 
   useEffect(() => {
     const loadPage = async () => {
-      await dispatch(getSingleTasker(apptObj.tasker))
+      const newTasker = await dispatch(getSingleTasker(apptObj.tasker))
 
-      const newRate = tasker?.Categories.filter(category => category.id === apptObj.category)
+      const newRate = newTasker.Categories.filter(category => category.id === (apptObj.category))
+
       setRate(newRate[0].TaskerCategories.rate)
 
       const availabilityArray = []
-      const taskerAvailability = tasker?.Availabilities
+      const taskerAvailability = newTasker.Availabilities
       taskerAvailability.forEach(day => {
         let startTime = null
         if (day.startTime) {
@@ -83,7 +84,7 @@ const ScheduleAppointment = () => {
       })
       setSchedule(availabilityObj)
 
-      const taskerAppointments = tasker?.Appointments.filter(appt => getAdjustedDate(new Date(appt.start)) >= getAdjustedDate(new Date()))
+      const taskerAppointments = newTasker.Appointments.filter(appt => getAdjustedDate(new Date(appt.start)) >= getAdjustedDate(new Date()))
       taskerAppointments.sort(function(a, b) {
         return a.startDate - b.startDate
       })
@@ -113,7 +114,7 @@ const ScheduleAppointment = () => {
 
       setDateErrors(errors)
     }
-  }, [startDate])
+  }, [startDate, isLoaded])
 
   useEffect(() => {
     const errors = {}
@@ -143,7 +144,7 @@ const ScheduleAppointment = () => {
     setTotal(userTotal)
     setFee(userFee)
     setSubTotal(userSubtotal)
-  }, [taskLength, startTime])
+  }, [taskLength, startTime, isLoaded])
 
   useEffect(() => {
     if(showConfirm) {

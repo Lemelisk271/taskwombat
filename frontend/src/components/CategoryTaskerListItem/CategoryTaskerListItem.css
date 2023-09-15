@@ -1,0 +1,49 @@
+.categoryTaskerListItem {
+  display: flex;
+  flex-direction: row;
+  border: 1px solid #848A87;
+  margin-bottom: 10px;
+  padding: 20px;
+  border-radius: 20px;
+}
+
+.categoryTaskerListItem-taskerCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: black;
+  width: 40%;
+  border-right: 1px solid #848A87;
+  margin-right: 20px;;
+}
+
+.categoryTaskerListItem-taskerCard img {
+  width: 100px;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 50%;
+}
+
+.categoryTaskerListItem-taskerInfo {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.categoryTaskerListItem-taskerInfo h3, p, i {
+  margin: 0;
+  margin-bottom: 5px;
+}
+
+.categoryTaskerListItem-right button {
+  background-color: #0D7A5F;
+  color: white;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  font-size: 16px;
+}

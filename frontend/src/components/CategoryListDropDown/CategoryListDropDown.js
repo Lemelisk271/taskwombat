@@ -19,7 +19,6 @@ const CategoryListDropDown = () => {
       const res = await fetch('/api/categories')
       const categoriesList = await res.json()
       setCategories(categoriesList)
-      console.log(categoriesList)
       setIsLoaded(true)
     }
     loadPage()
@@ -48,7 +47,7 @@ const CategoryListDropDown = () => {
           <button onClick={openMenu}>Categories</button>
           <ul className={catClassName} ref={ulRef}>
             {categories.map((category, i) => (
-              <>
+              <div key={i}>
                 <li key={i}>
                   <button
                     onClick={e => {
@@ -61,7 +60,7 @@ const CategoryListDropDown = () => {
                   </button>
                 </li>
                 <div className='categoryListDropDown-line'/>
-              </>
+              </div>
             ))}
           </ul>
         </>

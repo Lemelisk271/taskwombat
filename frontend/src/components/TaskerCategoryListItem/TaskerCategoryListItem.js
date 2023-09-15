@@ -20,7 +20,6 @@ const TaskerCategoryListItem = ({ category }) => {
       const categoryItem = await tasker?.Categories.filter(el => el.category === category)
       setCategoryObj(categoryItem[0])
       const reviewList = await tasker.Reviews.filter(el => el.categoryId === categoryItem[0].id)
-      console.log(categoryItem[0])
       const appointmentList = await tasker.Appointments.filter(el => el.categoryId === categoryItem[0].id)
       if (reviewList.length > 0) {
         let avgReview = 0
