@@ -2,6 +2,7 @@ import { useEffect, useState, useContext } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { findCity } from '../HelperFunctions/HelperFunctions.js'
 import { ApptContext } from '../../context/ApptContext'
+import './CategoryTaskerListItem.css'
 
 const CategoryTaskerListItem = ({ tasker, categoryId }) => {
   const history = useHistory()
@@ -52,11 +53,11 @@ const CategoryTaskerListItem = ({ tasker, categoryId }) => {
       </Link>
       <div className='categoryTaskerListItem-taskerInfo'>
         <div className='categoryTaskerListItem-stats'>
+          <h3>${parseFloat(tasker.TaskerCategories.rate).toFixed(2)}/hr</h3>
           <p><i className="fa-solid fa-star"></i> {`${avgStars} (${totalReviews}) Reviews`}</p>
           <p>{tasks} Total Tasks</p>
         </div>
         <div className='categoryTaskerListItem-right'>
-          <h3>${parseFloat(tasker.TaskerCategories.rate).toFixed(2)}/hr</h3>
           <button onClick={bookAppointment}>Select & Continue</button>
         </div>
       </div>
