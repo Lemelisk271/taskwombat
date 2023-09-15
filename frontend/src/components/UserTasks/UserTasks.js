@@ -7,34 +7,36 @@ import './UserTasks.css'
 const UserTasks = () => {
   const user = useSelector(state => state.user)
   const sessionUser = useSelector(state => state.session.user)
-  // const tasks = user.Appointments
   const [pastTasks, setPastTasks] = useState([])
   const [futureTasks, setFutureTasks] = useState([])
   const [isLoaded, setIsLoaded] = useState(false)
 
   useEffect(() => {
-    const oldTasks = []
-    const newTasks = []
-    user.Appointments.forEach(task => {
-      let today = Date.now()
-      let apptDate = Date.parse(task.end)
-      if (apptDate > today) {
-        newTasks.push(task)
-      } else {
-        oldTasks.push(task)
-      }
-    })
-    oldTasks.sort(function(a, b) {
-      return new Date(b.end) - new Date(a.end)
-    })
-    newTasks.sort(function(a, b) {
-      return new Date(a.end) - new Date(b.end)
-    })
+    const loadPage = async () => {
+      const oldTasks = []
+      const newTasks = []
+      user.Appointments.forEach(task => {
+        let today = Date.now()
+        let apptDate = Date.parse(task.end)
+        if (apptDate > today) {
+          newTasks.push(task)
+        } else {
+          oldTasks.push(task)
+        }
+      })
+      oldTasks.sort(function(a, b) {
+        return new Date(b.end) - new Date(a.end)
+      })
+      newTasks.sort(function(a, b) {
+        return new Date(a.end) - new Date(b.end)
+      })
 
-    setPastTasks(oldTasks)
-    setFutureTasks(newTasks)
-    setIsLoaded(true)
-  }, [user])
+      setPastTasks(oldTasks)
+      setFutureTasks(newTasks)
+      setIsLoaded(true)
+    }
+    loadPage()
+  }, [sessionUser])
 
   if (!sessionUser) return <Redirect to='/'/>
 

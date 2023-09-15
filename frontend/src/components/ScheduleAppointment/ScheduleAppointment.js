@@ -6,6 +6,7 @@ import { getSingleTasker } from '../../store/tasker'
 import { getAdjustedDate, changeTime, getAdjustedTime } from '../HelperFunctions/HelperFunctions.js'
 import { csrfFetch } from '../../store/csrf.js';
 import { UserPageContext } from '../../context/UserPageContext'
+import { getSingleUser } from '../../store/user'
 import moment from 'moment-timezone';
 import FeeModal from '../FeeModal'
 import OpenModalButton from '../OpenModalButton'
@@ -41,6 +42,7 @@ const ScheduleAppointment = () => {
 
   useEffect(() => {
     const loadPage = async () => {
+      await dispatch(getSingleUser(sessionUser.id))
       const newTasker = await dispatch(getSingleTasker(apptObj.tasker))
 
       const newRate = newTasker.Categories.filter(category => category.id === (apptObj.category))

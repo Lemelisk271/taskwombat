@@ -3,6 +3,6 @@
   min-width: calc(100vh - 150px);
 }
 
-.landingPage > img {
+.landingPage-hero > img {
   width: 100%
 }
