@@ -17,11 +17,10 @@ const TaskerCategoryPage = ({ category, tasker }) => {
   const [tools, setTools] = useState('')
   const { taskerPage } = useContext(TaskerPageContext)
   const { setApptObj } = useContext(ApptContext)
-  console.log(tasker)
 
   useEffect(() => {
     const categoryItem = tasker.Categories.filter(el => el.category === category)
-    const categoryId = categoryItem[0].id
+    const categoryId = categoryItem[0]?.id
     setCategoryObj(categoryItem[0])
 
     setRate(categoryItem[0].TaskerCategories.rate)
@@ -47,6 +46,7 @@ const TaskerCategoryPage = ({ category, tasker }) => {
     setTools(toolList.join(", "))
 
     setIsLoaded(true)
+    // eslint-disable-next-line
   }, [taskerPage])
 
   const bookAppointment = (e) => {

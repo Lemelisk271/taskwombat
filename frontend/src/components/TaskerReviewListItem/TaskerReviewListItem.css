@@ -1,0 +1,63 @@
+.taskerReviewListItem {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  border: 1px solid #848A87;
+  padding: 20px;
+  border-radius: 20px;
+  margin-bottom: 10px;
+}
+
+.taskerReviewListItem-userCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 40%;
+  text-decoration: none;
+  color: black;
+  border-right: 1px solid #848A87;
+  margin-right: 20px
+}
+
+.taskerReviewListItem-userCard img {
+  height: 150px;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 50%;
+  margin-bottom: 20px;
+}
+
+.taskerReviewListItem-review {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.taskerReviewListItem-stars {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.taskerReviewListItem-stars i {
+  margin: 0;
+  padding: 0
+}
+
+.taskerListItem-filled {
+  background-color: #0D7A5F;
+  padding: 5px;
+  margin: 2px 2px 2px 0px;
+  border-radius: 50%;
+  color: white;
+}
+
+.taskerListItem-empty {
+  background-color: #848A87;
+  padding: 5px;
+  margin: 2px 2px 2px 0px;
+  border-radius: 50%;
+  color: white;
+}

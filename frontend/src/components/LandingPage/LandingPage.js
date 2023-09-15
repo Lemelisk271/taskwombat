@@ -16,6 +16,7 @@ const LandingPage = () => {
     if (sessionUser) {
       loadCategories()
     }
+    // eslint-disable-next-line
   }, [])
 
   return (

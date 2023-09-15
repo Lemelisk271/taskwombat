@@ -114,6 +114,7 @@ const EditAppointmentForm = ({ task }) => {
       setIsLoaded(true)
     }
     loadPage()
+    // eslint-disable-next-line
   }, [])
 
   useEffect(() => {
@@ -144,6 +145,7 @@ const EditAppointmentForm = ({ task }) => {
     }
 
     setValidationErrors(errors)
+    // eslint-disable-next-line
   }, [start, end, newTask])
 
   const handleSubmit = async (e) => {
