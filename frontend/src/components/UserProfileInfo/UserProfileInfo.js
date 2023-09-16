@@ -1,48 +1,60 @@
-import { useEffect, useState } from 'react'
-import { useSelector } from "react-redux"
+import { useState, useEffect } from 'react'
+import { useSelector } from 'react-redux'
+import OpenModalButton from '../OpenModalButton'
+import EditProfileModal from '../EditProfileModal'
+import './UserProfileInfo.css'
 
-const UserProfileInfo = () => {
+const UserProfileInfo = ({ isSessionUser }) => {
   const user = useSelector(state => state.user)
-  const sessionUser = useSelector(state => state.session.user)
-  const [isLoaded, setIsLoaded] = useState(false)
-  const [isSessionUser, setIsSessionUser] = useState(false)
-  const [phone, setPhone] = useState("")
+  const [phone, setPhone] = useState('')
 
   useEffect(() => {
-    if (user.id === sessionUser.id) {
-      setIsSessionUser(true)
+    if (user.phone) {
+      const areaCode = user.phone.slice(0, 3)
+      const firstThree = user.phone.slice(3, 6)
+      const lastFour = user.phone.slice(6)
+      setPhone(`(${areaCode}) ${firstThree}-${lastFour}`)
     }
-    const areaCode = user?.phone?.slice(0, 3)
-    const firstThree = user?.phone?.slice(3, 6)
-    const lastFour = user?.phone?.slice(6)
-    setPhone(`(${areaCode}) ${firstThree}-${lastFour}`)
-    setIsLoaded(true)
-  }, [user, sessionUser])
+  }, [user])
 
   return (
     <div className="userProfileInfo">
-      {isLoaded ? (
-        <>
-          <div>
-            {isSessionUser ? (
-              <>
-                <div className="userProfileInfo-userCard">
-                  <h1>{user?.firstName} {user?.lastName}</h1>
-                  <p>{user?.email}</p>
-                  <p>{phone}</p>
-                  <p>{user.zipCode}</p>
-                </div>
-              </>
-            ):(
-              <></>
-            )}
-          </div>
-        </>
-      ):(
-        <>
-          <h1>Loading...</h1>
-        </>
-      )}
+      <h1>{user.firstName} {isSessionUser && `${user.lastName}`}</h1>
+      {isSessionUser &&
+        <div className="userProfileInfo-user">
+          <table>
+            <tbody>
+              <tr>
+                <th scope="row">First Name:</th>
+                <td>{user.firstName}</td>
+              </tr>
+              <tr>
+                <th scope='row'>Last Name:</th>
+                <td>{user.lastName}</td>
+              </tr>
+              <tr>
+                <th scope='row'>Zip Code:</th>
+                <td>{user.zipCode}</td>
+              </tr>
+              <tr>
+                <th scope='row'>Email:</th>
+                <td>{user.email}</td>
+              </tr>
+              <tr>
+                <th scope='row'>Phone:</th>
+                <td>{phone}</td>
+              </tr>
+            </tbody>
+          </table>
+          <OpenModalButton
+            buttonText='UpDate Profile'
+            modalComponent={<EditProfileModal user={user}/>}
+          />
+        </div>
+      }
+      <div className="userProfileInfo-userStats">
+        <h3>User Stats</h3>
+      </div>
     </div>
   )
 }

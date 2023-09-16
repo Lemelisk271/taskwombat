@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { getSingleUser } from "../../store/user"
 import { findCity } from '../HelperFunctions/HelperFunctions'
 import { UserPageContext } from '../../context/UserPageContext'
+import UserProfileInfo from '../UserProfileInfo'
 import './UserProfilePage.css'
 
 const UserProfilePage = () => {
@@ -48,7 +49,9 @@ const UserProfilePage = () => {
     )
   } else if (userPage === 'profile') {
     pageContent = (
-      <h1>Profile</h1>
+      <>
+        <UserProfileInfo isSessionUser={isSessionUser} />
+      </>
     )
   } else if (userPage === 'tasks') {
     pageContent = (
