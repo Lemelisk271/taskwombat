@@ -1,0 +1,81 @@
+.userProfilePage {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  min-height: calc(100vh - 100px);
+  margin-top: 10px;
+}
+
+.userProfilePage-userInfo {
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+  margin: 0 10px;
+  align-items: center;
+}
+
+.userProfilePage-userCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid #848A87;
+  padding-bottom: 20px;
+  margin-bottom: 10px;
+  border-radius: 20px;
+  width: 90%;
+}
+
+.userProfilePage-userCard img {
+  height: 250px;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+.userProfilePage-selectButtons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 90%;
+  border: 1px solid #848A87;
+  border-radius: 20px;
+}
+
+.userProfilePage-selectButtons button {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  border: none;
+  background: none;
+  height: 30px;
+  cursor: pointer;
+  font-size: 20px;
+  padding-left: 30px;
+  padding-top: 25px;
+  padding-bottom: 25px;
+}
+
+.userProfilePage-selectButtons button:hover {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.userProfilePage-topButton {
+  border-top-right-radius: 20px;
+  border-top-left-radius: 20px;
+}
+
+.userProfilePage-bottomBUtton {
+  border-bottom-right-radius: 20px;
+  border-bottom-left-radius: 20px;
+}
+
+.userProfilePage-line {
+  border-bottom: 1px solid #848A87;
+  width: 100%;
+}
+
+.userProfilePage-selectedPage {
+  width: 100%;
+}

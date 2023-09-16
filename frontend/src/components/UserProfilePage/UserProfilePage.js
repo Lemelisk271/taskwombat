@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { getSingleUser } from "../../store/user"
 import { findCity } from '../HelperFunctions/HelperFunctions'
 import { UserPageContext } from '../../context/UserPageContext'
+import './UserProfilePage.css'
 
 const UserProfilePage = () => {
   const dispatch = useDispatch()
@@ -75,7 +76,7 @@ const UserProfilePage = () => {
       {isLoaded ? (
         <>
           <div className="userProfilePage-userInfo">
-            <div className="userProfilePage=userCard">
+            <div className="userProfilePage-userCard">
               <h2>{user.firstName} {isSessionUser ? `${user.lastName}` : ""}</h2>
               <img src={user.profileImage} alt={user.firstName}/>
               <p>{city}</p>
@@ -84,7 +85,13 @@ const UserProfilePage = () => {
             </div>
             <div className='userProfilePage-selectButtons'>
               <button className='userProfilePage-topButton' onClick={profileButton}>My Profile</button>
-              {isSessionUser && <button className='userProfilePage-middleButton' onClick={tasksButton}>Tasks</button>}
+              <div className='userProfilePage-line'/>
+              {isSessionUser &&
+              <>
+                <button className='userProfilePage-middleButton' onClick={tasksButton}>Tasks</button>
+                <div className='userProfilePage-line'/>
+              </>
+              }
               <button className='userProfilePage-bottomBUtton' onClick={reviewButton}>Reviews</button>
             </div>
           </div>
