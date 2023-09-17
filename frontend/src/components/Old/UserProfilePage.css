@@ -1,40 +1,43 @@
 .userProfilePage {
+  min-height: calc(100vh - 100px);
+  width: 100%;
   display: flex;
   flex-direction: row;
-  width: 100%;
-  min-height: calc(100vh - 100px);
   margin-top: 10px;
 }
 
-.userProfilePage-userInfo {
+.userProfilePage-user {
+  width: 50%;
   display: flex;
   flex-direction: column;
-  width: 40%;
-  margin: 0 10px;
   align-items: center;
 }
 
 .userProfilePage-userCard {
+  border: 1px solid #848A87;
+  width: 90%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  border: 1px solid #848A87;
-  padding-bottom: 20px;
-  margin-bottom: 10px;
   border-radius: 20px;
-  width: 90%;
+  margin-bottom: 10px;
+  padding-bottom: 20px;
 }
 
-.userProfilePage-userCard img {
+.userProfilePage-userCard p {
+  margin-top: 10px;
+  margin-bottom: 0;
+}
+
+.userProfilePage-userCard > img {
   height: 250px;
-  aspect-ratio: 1/1;
+  width: 250px;
   object-fit: cover;
   object-position: center;
   border-radius: 50%;
-  margin-bottom: 10px;
 }
 
-.userProfilePage-selectButtons {
+.userProfilePage-select {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -43,7 +46,7 @@
   border-radius: 20px;
 }
 
-.userProfilePage-selectButtons button {
+.userProfilePage-select button {
   display: flex;
   align-items: center;
   width: 100%;
@@ -57,25 +60,30 @@
   padding-bottom: 25px;
 }
 
-.userProfilePage-selectButtons button:hover {
+.userProfilePage-select button:hover {
   background-color: rgba(0, 0, 0, 0.7);
 }
 
-.userProfilePage-topButton {
+.userProfilePage-reviewButtonOther {
+  border-radius: 20px;
+}
+
+.userProfilePage-profileButton {
   border-top-right-radius: 20px;
   border-top-left-radius: 20px;
 }
 
-.userProfilePage-bottomBUtton {
+.userProfilePage-taskButton {
   border-bottom-right-radius: 20px;
   border-bottom-left-radius: 20px;
 }
 
-.userProfilePage-line {
-  border-bottom: 1px solid #848A87;
+.userProfilePage-results {
   width: 100%;
+  margin-right: 20px;
 }
 
-.userProfilePage-selectedPage {
+.userProfilePage-line {
+  border-bottom: 1px solid #848A87;
   width: 100%;
 }

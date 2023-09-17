@@ -1,48 +1,111 @@
-import { useEffect, useState } from 'react'
-import { useSelector } from "react-redux"
+import { useState, useEffect } from 'react'
+import { useSelector } from 'react-redux'
+import OpenModalButton from '../OpenModalButton'
+import EditProfileModal from '../EditProfileModal'
+import './UserProfileInfo.css'
 
-const UserProfileInfo = () => {
+const UserProfileInfo = ({ isSessionUser }) => {
   const user = useSelector(state => state.user)
-  const sessionUser = useSelector(state => state.session.user)
-  const [isLoaded, setIsLoaded] = useState(false)
-  const [isSessionUser, setIsSessionUser] = useState(false)
-  const [phone, setPhone] = useState("")
+  const [phone, setPhone] = useState('')
+  const [avgStars , setAvgStars] = useState(0)
+  const [totalReviews, setTotalReviews] = useState(0)
+  const [totalTasks, setTotalTasks] = useState(0)
+  const [taskCategories, setTaskCategories] = useState({})
 
   useEffect(() => {
-    if (user.id === sessionUser.id) {
-      setIsSessionUser(true)
+    if (user.phone) {
+      const areaCode = user.phone.slice(0, 3)
+      const firstThree = user.phone.slice(3, 6)
+      const lastFour = user.phone.slice(6)
+      setPhone(`(${areaCode}) ${firstThree}-${lastFour}`)
     }
-    const areaCode = user?.phone?.slice(0, 3)
-    const firstThree = user?.phone?.slice(3, 6)
-    const lastFour = user?.phone?.slice(6)
-    setPhone(`(${areaCode}) ${firstThree}-${lastFour}`)
-    setIsLoaded(true)
-  }, [user, sessionUser])
+
+    if (user.Reviews) {
+      if (user.Reviews.length > 0) {
+        let totalStars = 0
+        user.Reviews.forEach(review => {
+          totalStars += review.stars
+        })
+        setAvgStars(Math.floor((totalStars / user.Reviews.length) * 10) / 10)
+        setTotalReviews(user.Reviews.length)
+      }
+    }
+
+    if (user.Appointments) {
+      setTotalTasks(user.Appointments.length)
+      const apptCategories = {}
+      user.Appointments.forEach(appt => {
+        if (apptCategories[appt.Category.category] === undefined) {
+          apptCategories[appt.Category.category] = 1
+        } else {
+          apptCategories[appt.Category.category] += 1
+        }
+      })
+      setTaskCategories(apptCategories)
+    }
+  }, [user])
 
   return (
     <div className="userProfileInfo">
-      {isLoaded ? (
+      <h1>{user.firstName} {isSessionUser && `${user.lastName}`}</h1>
+      {isSessionUser &&
         <>
-          <div>
-            {isSessionUser ? (
-              <>
-                <div className="userProfileInfo-userCard">
-                  <h1>{user?.firstName} {user?.lastName}</h1>
-                  <p>{user?.email}</p>
-                  <p>{phone}</p>
-                  <p>{user.zipCode}</p>
-                </div>
-              </>
-            ):(
-              <></>
-            )}
+          <h3>User Information</h3>
+          <div className="userProfileInfo-user">
+            <table>
+              <tbody>
+                <tr>
+                  <th scope="row">First Name:</th>
+                  <td>{user.firstName}</td>
+                </tr>
+                <tr>
+                  <th scope='row'>Last Name:</th>
+                  <td>{user.lastName}</td>
+                </tr>
+                <tr>
+                  <th scope='row'>Zip Code:</th>
+                  <td>{user.zipCode}</td>
+                </tr>
+                <tr>
+                  <th scope='row'>Email:</th>
+                  <td>{user.email}</td>
+                </tr>
+                <tr>
+                  <th scope='row'>Phone:</th>
+                  <td>{phone}</td>
+                </tr>
+              </tbody>
+            </table>
+            <OpenModalButton
+              buttonText='UpDate Profile'
+              modalComponent={<EditProfileModal user={user}/>}
+            />
           </div>
         </>
-      ):(
-        <>
-          <h1>Loading...</h1>
-        </>
-      )}
+      }
+      <div className="userProfileInfo-userStats">
+        <h3>User Stats</h3>
+        <div className='userProfileInfo-stats'>
+          <table>
+            <tbody>
+              <tr>
+                <td><i className="fa-solid fa-star"></i></td>
+                <td>{`${avgStars} (${totalReviews}) Reviews`}</td>
+              </tr>
+              <tr>
+                <td><i className="fa-solid fa-clock"></i></td>
+                <td>{totalTasks} Total Tasks</td>
+              </tr>
+            </tbody>
+          </table>
+          <p>Task Categories:</p>
+          <ul>
+            {Object.keys(taskCategories).map((category, i) => (
+              <li key={i}>{taskCategories[category]} {category}</li>
+            ))}
+          </ul>
+        </div>
+      </div>
     </div>
   )
 }

@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const bcrypt = require('bcryptjs')
-const { setTokenCookie } = require('../../utils/auth.js')
+const { setTokenCookie, requireAuth } = require('../../utils/auth.js')
 const { User, Review, Tasker, Category, ReviewImages, Appointment } = require('../../db/models')
 const { check } = require('express-validator')
 const { handleValidationErrors } = require('../../utils/validation.js')
@@ -116,6 +116,36 @@ router.post('/', validateSignup, async (req, res) => {
   await setTokenCookie(res, safeUser)
 
   return res.json({ user: safeUser })
+})
+
+router.put('/:userId', requireAuth, async (req, res, next) => {
+  const user = await User.findByPk(req.params.userId)
+
+  if (!user) {
+    const err = new Error("Not Found")
+    err.status = 404
+    err.title = "User Not Found"
+    err.errors = {message: "The requested user couldn't be found"}
+    return next(err)
+  }
+
+  user.set(req.body)
+
+  await user.save()
+
+  const safeUser = {
+    id: user.id,
+    firstName: user.firstName,
+    lastName: user.lastName,
+    email: user.email,
+    zipCode: user.zipCode,
+    profileImage: user.profileImage,
+    phone: user.phone
+  }
+
+  await setTokenCookie(res, safeUser)
+
+  return res.json({ user: safeUser})
 })
 
 module.exports = router

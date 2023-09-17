@@ -65,6 +65,25 @@ export const signup = (user) => async (dispatch) => {
   }
 }
 
+export const updateUser = (id, user) => async (dispatch) => {
+  const res = await csrfFetch(`/api/users/${id}`, {
+    method: 'PUT',
+    body: JSON.stringify(user)
+  })
+  if (res.ok) {
+    const data = await res.json()
+    dispatch(setUser(data.user))
+    return null
+  } else if (res.status < 500) {
+    const data = await res.json()
+    if (data.errors) {
+      return data.errors
+    }
+  } else {
+    return ["An error occurred, please try again."]
+  }
+}
+
 export const logout = () => async (dispatch) => {
   const res = await csrfFetch('/api/session', {
     method: "DELETE"

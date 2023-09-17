@@ -59,7 +59,15 @@
   margin-top: 10px;
 }
 
-.userTaskListItem-buttons button {
+.userTaskListItem-otherButtons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+  justify-content: space-around;
+}
+
+.userTaskListItem-otherButtons button {
   background-color: #0D7A5F;
   color: white;
   border: none;
@@ -68,6 +76,15 @@
   font-size: 16px;
 }
 
-.userTaskListItem-buttons button:hover {
+.userTaskListItem-addButton button {
+  background-color: #8367C7;
+  color: white;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  font-size: 16px;
+}
+
+.userTaskListItem-otherButtons button:hover {
   background-color: #055240;
 }
