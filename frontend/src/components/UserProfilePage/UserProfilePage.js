@@ -6,6 +6,7 @@ import { findCity } from '../HelperFunctions/HelperFunctions'
 import { UserPageContext } from '../../context/UserPageContext'
 import UserProfileInfo from '../UserProfileInfo'
 import UserTasks from '../UserTasks'
+import UserReviews from '../UserReviews'
 import './UserProfilePage.css'
 
 const UserProfilePage = () => {
@@ -46,7 +47,9 @@ const UserProfilePage = () => {
 
   if (userPage === 'reviews') {
     pageContent = (
-      <h1>Reviews</h1>
+      <>
+        <UserReviews />
+      </>
     )
   } else if (userPage === 'profile') {
     pageContent = (
