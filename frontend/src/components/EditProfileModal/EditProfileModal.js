@@ -1,9 +1,14 @@
 import { useState, useEffect } from 'react'
 import { lookup } from 'zipcodes'
+import { useDispatch } from 'react-redux'
+import { useModal } from '../../context/Modal'
+import { updateUser } from '../../store/session'
+import { getSingleUser } from "../../store/user"
 import wombat from '../../images/wombat.png'
 import './EditProfileModal.css'
 
 const EditProfileModal = ({ user }) => {
+  const dispatch = useDispatch()
   const [firstName, setFirstName] = useState(user.firstName)
   const [lastName, setLastName] = useState(user.lastName)
   const [email, setEmail] = useState(user.email)
@@ -12,6 +17,8 @@ const EditProfileModal = ({ user }) => {
   const [zipCode, setZipCode] = useState(parseInt(user.zipCode))
   const [isSubmitted, setIsSubmitted] = useState(false)
   const [validationErrors, setValidationErrors] = useState({})
+  const [resErrors, setResErrors] = useState([])
+  const { closeModal } = useModal()
 
   useEffect(() => {
     if (user.phone) {
@@ -84,6 +91,15 @@ const EditProfileModal = ({ user }) => {
     }
 
     console.log(reqObj)
+
+    return dispatch(updateUser(user.id, reqObj))
+      .then(closeModal)
+      .catch(async (res) => {
+        const data = await res.json()
+        if (data && data.errors) {
+          setResErrors(data.errors)
+        }
+      })
   }
 
   return (
@@ -97,6 +113,11 @@ const EditProfileModal = ({ user }) => {
             <li key={i} className='error'>{error}</li>
           ))}
         </ul>}
+        {(isSubmitted && resErrors.length > 0) && <ul>
+            {resErrors.map((error, i) => (
+              <li key={i} className='error'>{error}</li>
+            ))}
+          </ul>}
       <form onSubmit={handleSubmit}>
         <div className='editProfileModal-name'>
           <div>

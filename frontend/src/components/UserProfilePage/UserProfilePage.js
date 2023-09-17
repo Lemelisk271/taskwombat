@@ -24,7 +24,7 @@ const UserProfilePage = () => {
       setIsLoaded(true)
     }
     loadPage()
-  }, [dispatch])
+  }, [dispatch, sessionUser])
 
   useEffect(() => {
     if (user.id === sessionUser.id) setIsSessionUser(true)
