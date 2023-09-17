@@ -29,3 +29,36 @@
 .userProfileInfo-user button:hover {
   background-color: #055240;
 }
+
+.userProfileInfo-stats {
+  border: 1px solid #848A87;
+  padding: 20px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.userProfileInfo-stats table {
+  margin-bottom: 20px;
+}
+
+.userProfileInfo-stats table tr {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+.userProfileInfo-stats table td {
+  text-align: left;
+  padding-right: 10px;
+}
+
+.userProfileInfo-stats p {
+  margin: 0;
+  font-weight: bold;
+}
+
+.userProfileInfo-stats ul {
+  margin: 0;
+}
