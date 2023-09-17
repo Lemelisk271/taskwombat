@@ -114,7 +114,7 @@ const UserTaskListItem = ({ task, page }) => {
               <div className='userTaskListItem-line'/>
               <div className='userTaskListItem-buttons'>
                 {page === "future" ? (
-                  <>
+                  <div className='userTaskListItem-otherButtons'>
                     <OpenModalButton
                       buttonText='Edit Task'
                       modalComponent={<EditAppointmentForm task={task}/>}
@@ -123,23 +123,23 @@ const UserTaskListItem = ({ task, page }) => {
                       buttonText='Cancel Task'
                       modalComponent={<DeleteAppointmentModal id={task.id}/>}
                     />
-                  </>
+                  </div>
                 ):(
                   <>
                     {task.Review ? (
-                      <>
+                      <div className="userTaskListItem-otherButtons">
                         <OpenModalButton
                           buttonText="See Review"
                           modalComponent={<UserReviewListItem review={task.Review} page="task"/>}
                         />
-                      </>
+                      </div>
                     ):(
-                      <>
+                      <div className="userTaskListItem-addButton">
                         <OpenModalButton
                           buttonText="Add Review"
                           modalComponent={<ReviewForm task={task} page="add"/>}
                         />
-                      </>
+                      </div>
                     )}
                   </>
                 )}

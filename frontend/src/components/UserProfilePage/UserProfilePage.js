@@ -5,6 +5,7 @@ import { getSingleUser } from "../../store/user"
 import { findCity } from '../HelperFunctions/HelperFunctions'
 import { UserPageContext } from '../../context/UserPageContext'
 import UserProfileInfo from '../UserProfileInfo'
+import UserTasks from '../UserTasks'
 import './UserProfilePage.css'
 
 const UserProfilePage = () => {
@@ -55,7 +56,9 @@ const UserProfilePage = () => {
     )
   } else if (userPage === 'tasks') {
     pageContent = (
-      <h1>Tasks</h1>
+      <>
+        <UserTasks />
+      </>
     )
   }
 
