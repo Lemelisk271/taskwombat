@@ -3,7 +3,6 @@ import { lookup } from 'zipcodes'
 import { useDispatch } from 'react-redux'
 import { useModal } from '../../context/Modal'
 import { updateUser } from '../../store/session'
-import { getSingleUser } from "../../store/user"
 import wombat from '../../images/wombat.png'
 import './EditProfileModal.css'
 
@@ -119,25 +118,23 @@ const EditProfileModal = ({ user }) => {
             ))}
           </ul>}
       <form onSubmit={handleSubmit}>
-        <div className='editProfileModal-name'>
-          <div>
-            <label htmlFor='firstName'>First Name:</label>
-            <input
-              type='text'
-              id='firstName'
-              value={firstName}
-              onChange={e => setFirstName(e.target.value)}
-            />
-          </div>
-          <div>
-            <label htmlFor='lastName'>Last Name:</label>
-            <input
-              type='text'
-              id='lastName'
-              value={lastName}
-              onChange={e => setLastName(e.target.value)}
-            />
-          </div>
+        <div>
+          <label htmlFor='firstName'>First Name:</label>
+          <input
+            type='text'
+            id='firstName'
+            value={firstName}
+            onChange={e => setFirstName(e.target.value)}
+          />
+        </div>
+        <div>
+          <label htmlFor='lastName'>Last Name:</label>
+          <input
+            type='text'
+            id='lastName'
+            value={lastName}
+            onChange={e => setLastName(e.target.value)}
+          />
         </div>
         <div>
           <label htmlFor='email'>Email:</label>

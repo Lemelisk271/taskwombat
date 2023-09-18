@@ -1,3 +1,10 @@
+.editProfileModal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 50px;
+}
+
 .editProfileModal-head {
   display: flex;
   flex-direction: row;
@@ -8,4 +15,32 @@
 .editProfileModal-head > img {
   height: 50px;
   margin-right: 10px;
+}
+
+.editProfileModal form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.editProfileModal form div {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 10px
+}
+
+.editProfileModal form button {
+  background-color: #0D7A5F;
+  border: none;
+  width: 50%;
+  padding: 10px;
+  font-size: 20px;
+  cursor: pointer;
+  color: white;
+}
+
+.editProfileModal form button:hover {
+  background-color: #055240;
 }

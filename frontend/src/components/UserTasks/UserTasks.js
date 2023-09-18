@@ -37,7 +37,7 @@ const UserTasks = () => {
     }
     loadPage()
     // eslint-disable-next-line
-  }, [sessionUser])
+  }, [sessionUser, user])
 
   if (!sessionUser) return <Redirect to='/'/>
 
