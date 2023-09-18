@@ -145,7 +145,7 @@ router.put('/:userId', requireAuth, async (req, res, next) => {
 
   await setTokenCookie(res, safeUser)
 
-  return res.json({ user: safeUser})
+  return res.status(201).json({ user: safeUser})
 })
 
 module.exports = router

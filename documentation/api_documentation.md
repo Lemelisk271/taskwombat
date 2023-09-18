@@ -199,6 +199,8 @@ Creates a new user, logs them in as a current user, and returns the current user
 
 ### Get User by ID
 
+Returns user information by ID.
+
 - Require Authentication: false
 - Request
   - Method GET
@@ -314,3 +316,45 @@ Creates a new user, logs them in as a current user, and returns the current user
       ]
     }
     ```
+
+### Edit User Information
+
+Updates the user's information and returns the new information
+
+- Require Authentication: true
+- Request
+  - Method: PUT
+  - URL: /api/users/:userId
+  - Headers:
+    - Content-type: application/json
+  - Body:
+    ```json
+    {
+      "firstName": "Jane",
+      "lastName": "Doe",
+      "email": "jane@doe.com",
+      "phone": "3605551212",
+      "zipCode": "98584"
+    }
+    ```
+
+- Successful Response
+  - Status Code: 201
+  - Headers:
+    -Content-Type: application/json
+  - Body:
+    ```json
+    {
+      "user": {
+        "id": 1,
+        "firstName": "Jane",
+        "lastName": "Doe",
+        "email": "jane@doe.com",
+        "zipCode": "98584",
+        "profileImage": "http://www.example.com/image7.png",
+        "phone": "3605551212"
+      }
+    }
+    ```
+
+## Taskers
