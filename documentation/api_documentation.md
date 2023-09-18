@@ -341,7 +341,7 @@ Updates the user's information and returns the new information
 - Successful Response
   - Status Code: 201
   - Headers:
-    -Content-Type: application/json
+    - Content-Type: application/json
   - Body:
     ```json
     {
@@ -483,5 +483,106 @@ Returns the availability of a single Tasker by Id.
           "taskerId": 1
         }
       ]
+    }
+    ```
+
+## Appointments
+
+### Edit Appointment
+
+Edits an Appointment Based on the Appointment's ID
+
+- Require Authentication: true,
+- Request
+  - Method: PUT
+  - URL: /api/appointments/:apptId
+  - Headers
+    - Content-Type: application/json
+  - Body
+    ```json
+    {
+      "start": "2023-09-19T15:00:00.000Z",
+      "end": "2023-09-19T18:00:00.000Z",
+      "task": "Description of the task",
+      "taskerId": 1,
+      "userId": 1,
+      "categoryId": 1
+    }
+    ```
+
+- Successful Response
+  - Status Code: 201
+  - Headers
+    - Content-Type: application/json
+  - Body
+    ```json
+    {
+      "id": 1,
+      "start": "2023-09-19T15:00:00.000Z",
+      "end": "2023-09-19T18:00:00.000Z",
+      "task": "Description of the task",
+      "taskerId": 1,
+      "userId": 1,
+      "categoryId": 1
+    }
+    ```
+
+### Delete Appointment
+
+Allows a user to Delete an Appointment by ID
+
+- Require Authentication: true
+- Request
+  - Method: DELETE
+  - URL: /api/appointments/:apptID
+  - Body: none
+
+- Successful Response
+  - Status Code: 200
+  - Headers
+    - Content-Type: application/json
+  - Body
+    ```json
+    {
+      "message": "Successfully Deleted"
+    }
+    ```
+
+### Create Appointment
+
+Allows User to Create a new Appointment and Returns the new Appointment
+
+- Require Authentication: true
+- Request
+  - Method: POST
+  - URL /api/appointments/
+  - Headers
+    - Content-Type: application/json
+  - Body
+    ```json
+    {
+      "start": "2023-10-19T15:00:00.000Z",
+      "end": "2023-10-19T18:00:00.000Z",
+      "task": "Description of the task",
+      "taskerId": 18,
+      "userId": 7,
+      "categoryId": 14
+    }
+    ```
+
+- Successful Response
+  - Status Code: 201
+  - Headers
+    - Content-Type: application/json
+  - Body
+    ```json
+    {
+      "id": 23,
+      "start": "2023-10-19T15:00:00.000Z",
+      "end": "2023-10-19T18:00:00.000Z",
+      "task": "Description of the task",
+      "taskerId": 18,
+      "userId": 7,
+      "categoryId": 14
     }
     ```

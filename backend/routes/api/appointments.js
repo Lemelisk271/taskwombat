@@ -20,7 +20,7 @@ router.put('/:apptId', requireAuth, async (req, res, next) => {
 
     await appointment.save()
 
-    res.json(appointment)
+    res.status(201).json(appointment)
   } catch (err) {
     res.json(err)
   }
