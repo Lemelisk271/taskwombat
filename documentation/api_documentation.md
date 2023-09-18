@@ -690,3 +690,105 @@ Returns a Category by ID and Includes all Taskers Associated With That Category
     ```
 
 ## Reviews
+
+### Edit Review
+
+Edits an Existing Review Based on That Review's ID
+
+- Requires Authentication: true
+- Request
+  - Method: PUT
+  - URL: /api/reviews/:reviewId
+  - Headers
+    - Content-Type: application/json
+  - Body
+    ```json
+    {
+      "review": "Review text",
+      "stars": 3,
+      "date": "2023-09-18",
+      "appointmentId": 23,
+      "userId": 14,
+      "taskerId": 26,
+      "categoryId": 7
+    }
+    ```
+- Successful Response
+  - Status Code: 201
+  - Headers
+    - Content-Type: application/json
+  - Body
+    ```json
+    {
+      "id": 33,
+      "review": "Review text",
+      "stars": 3,
+      "date": "2023-09-18",
+      "appointmentId": 23,
+      "userId": 14,
+      "taskerId": 26,
+      "categoryId": 7
+    }
+    ```
+
+### Delete Review
+
+Deletes a Review Based on it's ID
+
+- Require Authentication: true
+- Request
+  - Method: DELETE
+  - URL: /api/reviews/:reviewId
+  - Body: None
+
+- Successful Response
+  - Status Code: 200
+  - Headers
+    - Content-Type: application/json
+  - Body
+    ```json
+    {
+      "message": "Successfully Deleted"
+    }
+    ```
+
+### Create Review
+
+Creates a new Review and Returns That Review
+
+- Require Authentication: true,
+- Request
+  - Method: POST
+  - URL: /api/reviews
+  - Headers
+    - Content-Type: application/json
+  - Body
+    ```json
+    {
+      "review": "Review text",
+      "stars": 4,
+      "date": "2023-08-18",
+      "appointmentId": 42,
+      "userId": 4,
+      "taskerId": 6,
+      "categoryId": 10
+    }
+    ```
+
+- Successful Response
+  - Status Code: 201
+  - Headers
+    - Content-Type: application/json
+  - Body
+    ```json
+    {
+      "id": 83,
+      "review": "Review text",
+      "stars": 4,
+      "date": "2023-08-18",
+      "appointmentId": 42,
+      "userId": 4,
+      "taskerId": 6,
+      "categoryId": 10
+    }
+    ```
