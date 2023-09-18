@@ -72,7 +72,8 @@ const EditProfileModal = ({ user }) => {
     }
 
     setValidationErrors(errors)
-  }, [firstName, lastName, phone])
+    // eslint-disable-next-line
+  }, [firstName, lastName, phone, email])
 
   const handleSubmit = (e) => {
     e.preventDefault()
