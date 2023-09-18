@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { getSingleUser } from "../../store/user"
 import { findCity } from '../HelperFunctions/HelperFunctions'
 import { UserPageContext } from '../../context/UserPageContext'
+import { ResetContext } from '../../context/ResetContext'
 import UserProfileInfo from '../UserProfileInfo'
 import UserTasks from '../UserTasks'
 import UserReviews from '../UserReviews'
@@ -19,6 +20,7 @@ const UserProfilePage = () => {
   const [phone, setPhone] = useState('')
   const [city, setCity] = useState('')
   const { userPage, setUserPage } = useContext(UserPageContext)
+  const { resetPage } = useContext(ResetContext)
 
   useEffect(() => {
     const loadPage = async () => {
@@ -26,7 +28,7 @@ const UserProfilePage = () => {
       setIsLoaded(true)
     }
     loadPage()
-  }, [dispatch, sessionUser])
+  }, [dispatch, sessionUser, resetPage])
 
   useEffect(() => {
     if (user.id === sessionUser.id) setIsSessionUser(true)

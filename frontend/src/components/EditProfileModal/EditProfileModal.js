@@ -3,7 +3,6 @@ import { lookup } from 'zipcodes'
 import { useDispatch } from 'react-redux'
 import { useModal } from '../../context/Modal'
 import { updateUser } from '../../store/session'
-import { getSingleUser } from "../../store/user"
 import wombat from '../../images/wombat.png'
 import './EditProfileModal.css'
 
