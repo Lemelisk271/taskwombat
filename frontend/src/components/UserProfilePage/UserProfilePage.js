@@ -28,6 +28,7 @@ const UserProfilePage = () => {
       setIsLoaded(true)
     }
     loadPage()
+    // eslint-disable-next-line
   }, [dispatch, sessionUser, resetPage])
 
   useEffect(() => {
@@ -43,6 +44,7 @@ const UserProfilePage = () => {
 
       setCity(findCity(user.zipCode))
     }
+    // eslint-disable-next-line
   }, [user, sessionUser])
 
   let pageContent
