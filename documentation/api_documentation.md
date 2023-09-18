@@ -586,3 +586,107 @@ Allows User to Create a new Appointment and Returns the new Appointment
       "categoryId": 14
     }
     ```
+
+## Categories
+
+### Get all Categories
+
+Returns all of the Categories and Their Subcategories
+
+- Requires Authentication: false
+- Request
+  - Method: GET
+  - URL: /api/categories
+  - Body: None
+
+- Successful Response
+  - Status Code: 200
+  - Headers
+    - Content-Type: application/json
+  - Body
+    ```json
+    [
+      {
+        "id": 1,
+        "category": "Handyman",
+        "about": "Hire a Tasker for help around the house",
+        "url": "https://www.example.com/image12.png",
+        "Subcategories": [
+          {
+            "id": 121,
+            "subcategory": "Baby Proofing"
+          }
+        ]
+      }
+    ]
+    ```
+
+### Get Category by ID
+
+Returns a Category by ID and Includes all Taskers Associated With That Category
+
+- Requires Authentication: false
+- Request
+  - Method: GET
+  - URL: /api/categories/:categoryId
+  - Body: None
+
+- Successful Response
+  - Status Code: 200
+  - Headers
+    - Content-Type: application/json
+  - Body
+    ```json
+    {
+      "id": 1,
+      "category": "Handyman",
+      "about": "Hire a Tasker for help around the house",
+      "url": "https://www.example.com/image12.png",
+      "Subcategories": [
+        {
+          "id": 2,
+          "subcategory": "Home Repair"
+        }
+      ],
+      "Taskers": [
+        {
+          "id": 38,
+          "firstName": "Itzel",
+          "lastName": "Okuneva",
+          "about": "About this tasker",
+          "zipCode": "98692",
+          "profileImage": "https://www.example.com/image8.png",
+          "email": "Itzel3@hotmail.com",
+          "phone": "9530448533",
+          "TaskerCategories": {
+            "rate": 30.18
+          },
+          "Reviews": [
+            {
+              "id": 76,
+              "review": "Review text",
+              "stars": 4,
+              "date": "2023-07-22",
+              "appointmentId": 226,
+              "userId": 13,
+              "taskerId": 38,
+              "categoryId": 1
+            }
+          ],
+          "Appointments": [
+            {
+              "id": 7,
+              "start": "2023-11-20T02:00:00.000Z",
+              "end": "2023-11-20T03:00:00.000Z",
+              "task": "Task description",
+              "taskerId": 38,
+              "userId": 1,
+              "categoryId": 1
+            }
+          ]
+        }
+      ]
+    }
+    ```
+
+## Reviews
