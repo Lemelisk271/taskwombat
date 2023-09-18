@@ -31,7 +31,7 @@ const UserProfilePage = () => {
   useEffect(() => {
     if (user.id === sessionUser.id) setIsSessionUser(true)
 
-    if (user.id !== sessionUser.i) setUserPage('profile')
+    if (user.id !== sessionUser.id) setUserPage('profile')
 
     if (user.phone && user.zipCode) {
       const areaCode = user.phone.slice(0, 3)
