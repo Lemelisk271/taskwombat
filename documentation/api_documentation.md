@@ -358,3 +358,130 @@ Updates the user's information and returns the new information
     ```
 
 ## Taskers
+
+### Get Tasker by ID
+
+Returns Tasker's information by ID
+
+- Require Authentication: false
+- Request
+  - Method: GET
+  - URL: /api/taskers/:taskerId
+  - Body: none
+- Successful Response:
+  - Status Code: 200
+  - Headers:
+    - Content-Type: application/json
+  - Body:
+    ```json
+    {
+      "id": 38,
+      "firstName": "Itzel",
+      "lastName": "Okuneva",
+      "about": "About tasker 38",
+      "zipCode": "98692",
+      "profileImage": "https://www.example.com/image8.png",
+      "email": "Itzel3@hotmail.com",
+      "phone": "9530448553",
+      "Reviews": [
+        {
+          "id": 8,
+          "review": "Review text",
+          "stars": 2,
+          "date": "2023-03-23",
+          "appointmentId": 24,
+          "userId": 2,
+          "taskerId": 38,
+          "categoryId": 15,
+          "User": {
+            "id": 2,
+            "firstName": "Bo",
+            "profileImage": "https://www.example.com/image9.png",
+            "zipCode": "98058"
+          }
+        }
+      ],
+      "Appointments": [
+        {
+          "id": 541,
+          "start": "2022-09-18T18:00:00.000Z",
+          "end": "2022-09-18T20:00:00.000Z",
+          "task": "Description of the task",
+          "taskerId": 38,
+          "userId": 32,
+          "categoryId": 4
+        }
+      ],
+      "Categories": [
+        {
+          "id": 1,
+          "category": "Handyman",
+          "about": "Hire a Tasker for help around the house",
+          "url": "https://www.example.com/image10.png",
+          "TaskerCategories": {
+            "rate": 30.18
+          }
+        }
+      ],
+      "Availabilities": [
+        {
+          "id": 260,
+          "day": "Mon",
+          "startTime": "09:00:00",
+          "endTime": "21:00:00",
+          "notAvailable": false,
+          "dayIdx": 1,
+          "taskerId": 38
+        }
+      ],
+      "Vehicles": [
+        {
+          "vehicleType": "Sedan"
+        }
+      ],
+      "Tools": [
+        {
+          "id": 7,
+          "toolType": "Axe"
+        }
+      ]
+    }
+    ```
+
+### Get a Taskers Availability by ID
+
+Returns the availability of a single Tasker by Id.
+
+- Require Authentication: false,
+- Request
+  - Method: GET
+  - URL: /api/taskers/schedule/:taskerId
+  - Body: none
+- Successful Response
+  - Status Code: 200
+  - Headers:
+    - Content-Type: application/json
+  - Body
+    ```json
+    {
+      "id": 1,
+      "firstName": "Kaley",
+      "lastName": "Rutherford",
+      "about": "About Tasker 1",
+      "zipCode": "98404",
+      "profileImage": "https://www.example.com/image11.png",
+      "email": "Kaley76@yahoo.com",
+      "phone": "8096966507",
+      "Availabilities": [
+        {
+          "id": 1,
+          "day": "Mon",
+          "startTime": "09:00:00",
+          "endTime": "21:00:00",
+          "notAvailable": false,
+          "dayIdx": 1,
+          "taskerId": 1
+        }
+      ]
+    }
+    ```
