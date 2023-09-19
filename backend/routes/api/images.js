@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const { setTokenCookie, requireAuth } = require('../../utils/auth.js')
-const { singleMulterUpload, singlePublicFileUpload } = require('../../awsS3.js')
+const { singleMulterUpload, singlePublicFileUpload, removeFileFromS3 } = require('../../awsS3.js')
 const { User } = require('../../db/models')
 
 
@@ -14,6 +14,12 @@ router.put("/:userId", requireAuth, singleMulterUpload("image"), async (req, res
     err.title = "User Not Found"
     err.errors = {message: "The requested user couldn't be found"}
     return next(err)
+  }
+
+  if (user.profileImage.split(".")[0] === 'https://taskwombat') {
+    console.log("**********")
+    removeFileFromS3(user.profileImage)
+    console.log("**********")
   }
 
   const profileImage = await singlePublicFileUpload(req.file)

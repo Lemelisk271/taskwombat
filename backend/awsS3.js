@@ -75,6 +75,22 @@ const retrievePrivateFile = (key) => {
   return fileUrl || key;
 };
 
+const removeFileFromS3 = (image_url) => {
+  let urlArray = image_url.split('/')
+  let key = urlArray[urlArray.length - 1]
+  const params = {
+    Bucket: NAME_OF_BUCKET,
+    Key: key
+  }
+  s3.deleteObject(params, function (err, data) {
+    if (err) {
+      return err
+    } else {
+      return data
+    }
+  })
+}
+
 // --------------------------- Storage ------------------------
 
 const storage = multer.memoryStorage({
@@ -97,4 +113,5 @@ module.exports = {
   retrievePrivateFile,
   singleMulterUpload,
   multipleMulterUpload,
+  removeFileFromS3
 };
