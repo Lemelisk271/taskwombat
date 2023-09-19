@@ -84,6 +84,22 @@ export const updateUser = (id, user) => async (dispatch) => {
   }
 }
 
+export const addImage = (id, body)  => async (dispatch) => {
+  const { image } = body
+  const formData = new FormData()
+  formData.append("image", image)
+  const res = await csrfFetch(`/api/images/${id}`, {
+    method: 'PUT',
+    headers: {
+      "Content-Type": "multipart/form-data"
+    },
+    body: formData
+  })
+
+  const data = await res.json()
+  dispatch(setUser((data.user)))
+}
+
 export const logout = () => async (dispatch) => {
   const res = await csrfFetch('/api/session', {
     method: "DELETE"

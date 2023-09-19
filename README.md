@@ -30,6 +30,8 @@ Backend Dependencies:
 - pg
 - sequelize
 - sequelize-cli
+- multer
+- aws-sdk
 
 Backend Dev Dependencies:
 - dotenv-cli
