@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import OpenModalButton from '../OpenModalButton'
 import EditProfileModal from '../EditProfileModal'
+import AddProfileImageModal from '../AddProfileImageModal'
 import './UserProfileInfo.css'
 
 const UserProfileInfo = ({ isSessionUser }) => {
@@ -79,6 +80,10 @@ const UserProfileInfo = ({ isSessionUser }) => {
             <OpenModalButton
               buttonText='UpDate Profile'
               modalComponent={<EditProfileModal user={user}/>}
+            />
+            <OpenModalButton
+              buttonText="Change Profile Image"
+              modalComponent={<AddProfileImageModal />}
             />
           </div>
         </>

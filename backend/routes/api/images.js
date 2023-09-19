@@ -5,8 +5,8 @@ const { singleMulterUpload, singlePublicFileUpload } = require('../../awsS3.js')
 const { User } = require('../../db/models')
 
 
-router.put("/:userId", singleMulterUpload("image"), async (req, res, next) => {
-  const user = User.findByPk(req.params.userId)
+router.put("/:userId", requireAuth, singleMulterUpload("image"), async (req, res, next) => {
+  const user = await User.findByPk(req.params.userId)
 
   if (!user) {
     const err = new Error("Not Found")
