@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux'
 import OpenModalButton from '../OpenModalButton'
 import EditProfileModal from '../EditProfileModal'
 import AddProfileImageModal from '../AddProfileImageModal'
+import SavedPayments from '../SavedPayments'
 import './UserProfileInfo.css'
 
 const UserProfileInfo = ({ isSessionUser }) => {
@@ -51,40 +52,46 @@ const UserProfileInfo = ({ isSessionUser }) => {
       <h1>{user.firstName} {isSessionUser && `${user.lastName}`}</h1>
       {isSessionUser &&
         <>
-          <h3>User Information</h3>
-          <div className="userProfileInfo-user">
-            <table>
-              <tbody>
-                <tr>
-                  <th scope="row">First Name:</th>
-                  <td>{user.firstName}</td>
-                </tr>
-                <tr>
-                  <th scope='row'>Last Name:</th>
-                  <td>{user.lastName}</td>
-                </tr>
-                <tr>
-                  <th scope='row'>Zip Code:</th>
-                  <td>{user.zipCode}</td>
-                </tr>
-                <tr>
-                  <th scope='row'>Email:</th>
-                  <td>{user.email}</td>
-                </tr>
-                <tr>
-                  <th scope='row'>Phone:</th>
-                  <td>{phone}</td>
-                </tr>
-              </tbody>
-            </table>
-            <OpenModalButton
-              buttonText='UpDate Profile'
-              modalComponent={<EditProfileModal user={user}/>}
-            />
-            <OpenModalButton
-              buttonText="Change Profile Image"
-              modalComponent={<AddProfileImageModal />}
-            />
+          <div className='userProfileInfo-info'>
+            <h3>User Information</h3>
+            <div className="userProfileInfo-user">
+              <table>
+                <tbody>
+                  <tr>
+                    <th scope="row">First Name:</th>
+                    <td>{user.firstName}</td>
+                  </tr>
+                  <tr>
+                    <th scope='row'>Last Name:</th>
+                    <td>{user.lastName}</td>
+                  </tr>
+                  <tr>
+                    <th scope='row'>Zip Code:</th>
+                    <td>{user.zipCode}</td>
+                  </tr>
+                  <tr>
+                    <th scope='row'>Email:</th>
+                    <td>{user.email}</td>
+                  </tr>
+                  <tr>
+                    <th scope='row'>Phone:</th>
+                    <td>{phone}</td>
+                  </tr>
+                </tbody>
+              </table>
+              <OpenModalButton
+                buttonText='UpDate Profile'
+                modalComponent={<EditProfileModal user={user}/>}
+              />
+              <OpenModalButton
+                buttonText="Change Profile Image"
+                modalComponent={<AddProfileImageModal />}
+              />
+            </div>
+            <h3>Payment Method</h3>
+            <div className='userProfileInfo-payment'>
+              <SavedPayments />
+            </div>
           </div>
         </>
       }
