@@ -8,6 +8,7 @@ import { ResetContext } from '../../context/ResetContext'
 import UserProfileInfo from '../UserProfileInfo'
 import UserTasks from '../UserTasks'
 import UserReviews from '../UserReviews'
+import UserInvoices from '../UserInvoices'
 import './UserProfilePage.css'
 
 const UserProfilePage = () => {
@@ -67,6 +68,12 @@ const UserProfilePage = () => {
         <UserTasks />
       </>
     )
+  } else if (userPage === 'invoice') {
+    pageContent = (
+      <>
+        <UserInvoices />
+      </>
+    )
   }
 
   const reviewButton = (e) => {
@@ -82,6 +89,11 @@ const UserProfilePage = () => {
   const tasksButton = (e) => {
     e.preventDefault()
     setUserPage('tasks')
+  }
+
+  const invoiceButton = (e) => {
+    e.preventDefault()
+    setUserPage('invoice')
   }
 
   return (
@@ -102,6 +114,8 @@ const UserProfilePage = () => {
               {isSessionUser &&
               <>
                 <button className='userProfilePage-middleButton' onClick={tasksButton}>Tasks</button>
+                <div className='userProfilePage-line'/>
+                <button className='userProfilePage-middleButton' onClick={invoiceButton}>Invoices</button>
                 <div className='userProfilePage-line'/>
               </>
               }
