@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import OpenModalButton from '../OpenModalButton'
 import CreditCardForm from '../CreditCardForm'
+import DeletePaymentModal from '../DeletePaymentModal'
 
 const PaymentListItem = ({ card }) => {
   const [cardNumber, setCardNumber] = useState('')
@@ -70,7 +71,10 @@ const PaymentListItem = ({ card }) => {
               buttonText="Edit Card"
               modalComponent={<CreditCardForm page="edit" card={card} cardNumber={cardNumber}/>}
             />
-            <button>Delete Card</button>
+            <OpenModalButton
+              buttonText="Delete Card"
+              modalComponent={<DeletePaymentModal id={card.id}/>}
+            />
           </div>
         </>
       ):(
