@@ -1,6 +1,7 @@
 import { useSelector } from 'react-redux'
 import AddReviewImageModal from '../AddReviewImageModal'
 import OpenModalButton from '../OpenModalButton'
+import DeleteImageModal from '../DeleteImageModal'
 import './reviewImageModal.css'
 
 const ReviewImageModal = ({ images, review }) => {
@@ -18,7 +19,12 @@ const ReviewImageModal = ({ images, review }) => {
       {images.map(image => (
         <div className='reviewImageModal-imageCard' key={image.id}>
           <img src={image.url} alt="review"/>
-          {user.id === image.userId && <button>Delete Image</button>}
+          {user.id === image.userId &&
+            <OpenModalButton
+              buttonText="Delete Image"
+              modalComponent={<DeleteImageModal id={image.id}/>}
+            />
+          }
         </div>
       ))}
     </div>
