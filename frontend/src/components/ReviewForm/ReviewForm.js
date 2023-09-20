@@ -28,6 +28,7 @@ const ReviewForm = ({ page, review, task }) => {
     } else {
       setPageTitle(`Add Review for ${task.Tasker.firstName} ${task.Tasker.lastName}`)
     }
+    // eslint-disable-next-line
   }, [])
 
   useEffect(() => {

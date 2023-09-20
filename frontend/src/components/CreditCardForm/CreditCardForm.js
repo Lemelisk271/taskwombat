@@ -41,6 +41,7 @@ const CreditCardForm = ({ page, card, cardNumber }) => {
     } else {
       setPageTitle('Create Card')
     }
+    // eslint-disable-next-line
   }, [page, card])
 
   useEffect(() => {
@@ -61,6 +62,7 @@ const CreditCardForm = ({ page, card, cardNumber }) => {
       years.push(i)
     }
     setYearOptions(years)
+    // eslint-disable-next-line
   }, [])
 
   useEffect(() => {

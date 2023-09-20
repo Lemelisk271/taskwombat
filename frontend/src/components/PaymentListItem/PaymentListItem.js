@@ -26,6 +26,7 @@ const PaymentListItem = ({ card }) => {
 
     setCardNumber(`${firstNumbers}${lastFour}`)
     setIsLoaded(true)
+    // eslint-disable-next-line
   }, [])
 
   let cardType
