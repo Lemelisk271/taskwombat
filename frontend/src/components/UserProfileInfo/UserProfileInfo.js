@@ -88,7 +88,7 @@ const UserProfileInfo = ({ isSessionUser }) => {
                 modalComponent={<AddProfileImageModal />}
               />
             </div>
-            <h3>Payment Method</h3>
+            <h3>Payment Methods</h3>
             <div className='userProfileInfo-payment'>
               <SavedPayments />
             </div>

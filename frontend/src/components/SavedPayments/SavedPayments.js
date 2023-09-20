@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { csrfFetch } from '../../store/csrf.js'
+import PaymentListItem from '../PaymentListItem'
 
 const SavedPayments = () => {
   const [isLoaded, setIsLoaded] = useState(false)
@@ -19,7 +20,14 @@ const SavedPayments = () => {
     <div className='savedPayments'>
       {isLoaded ? (
         <>
-          <p>Saved Payments</p>
+          <div className='savedPayments-cards'>
+            {cards.map((card, i) => (
+              <PaymentListItem key={i} card={card} />
+            ))}
+          </div>
+          <div className='savedPayments-button'>
+            <button>Add Card</button>
+          </div>
         </>
       ):(
         <>
