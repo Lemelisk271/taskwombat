@@ -2,6 +2,7 @@ import { useState, useContext } from 'react'
 import { useModal } from '../../context/Modal'
 import { csrfFetch } from '../../store/csrf'
 import { ResetContext } from '../../context/ResetContext'
+import './DeletePaymentModal.css'
 
 const DeletePaymentModal = ({ id }) => {
   const [errors, setErrors] = useState([])

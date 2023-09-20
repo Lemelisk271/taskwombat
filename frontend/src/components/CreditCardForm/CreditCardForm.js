@@ -24,23 +24,24 @@ const CreditCardForm = ({ page, card, cardNumber }) => {
   const { setResetPage, resetPage } = useContext(ResetContext)
 
   useEffect(() => {
-    let cardType
-
-    if (card.cardType === 'visa') {
-      cardType = 'Visa'
-    } else if (card.cardType === 'mastercard') {
-      cardType = 'Mastercard'
-    } else if (card.cardType === 'discover') {
-      cardType = 'Discover'
-    } else if (card.cardType === 'american_express') {
-      cardType = 'American Express'
-    }
-
     if (page === 'edit') {
+      let cardType
+
+      if (card.cardType === 'visa') {
+        cardType = 'Visa'
+      } else if (card.cardType === 'mastercard') {
+        cardType = 'Mastercard'
+      } else if (card.cardType === 'discover') {
+        cardType = 'Discover'
+      } else if (card.cardType === 'american_express') {
+        cardType = 'American Express'
+      }
+
       setPageTitle(`Edit ${cardType} ${cardNumber}`)
     } else {
-      setPageTitle('Create Card')
+      setPageTitle('Add a new Card')
     }
+    // eslint-disable-next-line
   }, [page, card])
 
   useEffect(() => {
@@ -61,12 +62,17 @@ const CreditCardForm = ({ page, card, cardNumber }) => {
       years.push(i)
     }
     setYearOptions(years)
+    // eslint-disable-next-line
   }, [])
 
   useEffect(() => {
     const errors = []
 
     if (userCardNumber.includes('*')) {
+      errors.push('Please Enter a Credit Card Number')
+    }
+
+    if (userCardNumber.length === 0) {
       errors.push('Please Enter a Credit Card Number')
     }
 
@@ -89,19 +95,36 @@ const CreditCardForm = ({ page, card, cardNumber }) => {
     e.preventDefault()
     setIsSubmitted(true)
 
+    if (validationErrors.length > 0) return
+
+    const paymentObj = {
+      cardNumber: userCardNumber,
+      cardType,
+      expires: `${expireMonth}/${expireYear}`,
+      cvv: cvv.toString(),
+      userId: sessionUser.id
+    }
+
     if (page === 'edit') {
-      if (validationErrors.length > 0) return
-
-      const paymentObj = {
-        cardNumber: userCardNumber,
-        cardType,
-        expires: `${expireMonth}/${expireYear}`,
-        cvv: cvv.toString(),
-        userId: sessionUser.id
-      }
-
       const res = await csrfFetch(`/api/payments/${card.id}`, {
         method: 'PUT',
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(paymentObj)
+      })
+      if (res.ok) {
+        closeModal()
+        setResetPage(!resetPage)
+      } else {
+        const data = await res.json()
+        if (data && data.errors) {
+          setValidationErrors(data.errors)
+        }
+      }
+    } else {
+      const res = await csrfFetch(`/api/payments`, {
+        method: 'POST',
         headers: {
           "Content-Type": "application/json"
         },
@@ -141,7 +164,7 @@ const CreditCardForm = ({ page, card, cardNumber }) => {
           ))}
         </ul>}
       <form onSubmit={handleSubmit}>
-        <div>
+        <div className='creditCardForm-formDiv'>
           <label htmlFor='cardType'>Card Type:</label>
           <select
             id='cardType'
@@ -155,7 +178,7 @@ const CreditCardForm = ({ page, card, cardNumber }) => {
             <option value='american_express'>American Express</option>
           </select>
         </div>
-        <div>
+        <div className='creditCardForm-formDiv'>
           <label htmlFor='cardNumber'>Card Number:</label>
           <input
             id='cardNumber'
@@ -163,8 +186,8 @@ const CreditCardForm = ({ page, card, cardNumber }) => {
             onChange={e => setUserCardNumber(e.target.value)}
           />
         </div>
+        <p>Enter an Expiration Date:</p>
         <div className='creditCardForm-expDate'>
-          <p>Enter an Expiration Date:</p>
           <div>
             <label htmlFor='expireMonth'>Month:</label>
             <select
@@ -201,7 +224,7 @@ const CreditCardForm = ({ page, card, cardNumber }) => {
             </select>
           </div>
         </div>
-        <div>
+        <div className='creditCardForm-formDiv'>
           <label htmlFor='cvv'>CVV:</label>
           <input
             id="cvv"

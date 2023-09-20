@@ -1,0 +1,34 @@
+.deletePaymentModal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 50px;
+}
+
+.deletePaymentModal span {
+  color: red;
+}
+
+.deletePaymentModal-buttons {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-around;
+}
+
+.deletePaymentModal-buttons button {
+  border: none;
+  color: white;
+  padding: 10px;
+  cursor: pointer;
+  width: 25%;
+  font-size: 20px;
+}
+
+.deletePaymentModal-delete {
+  background-color: red;
+}
+
+.deletePaymentModal-cancel {
+  background-color: #0D7A5F;
+}

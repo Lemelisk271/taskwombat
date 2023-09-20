@@ -1,0 +1,42 @@
+.paymentListItem {
+  border-top: 1px solid #848A87;
+  border-bottom: 1px solid #848A87;
+  margin-bottom: 10px;
+  padding: 10px 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.paymentListItem-card {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.paymentListItem-card i {
+  font-size: 48px;
+  margin-right: 10px;
+}
+
+.paymentListItem-card table th {
+  text-align: left;
+  padding-right: 10px;
+}
+
+.paymentListItem-buttons {
+  display: flex;
+  flex-direction: column;
+}
+
+.paymentListItem-buttons button {
+  margin-bottom: 5px;
+  margin-top: 5px;
+  background-color: #0D7A5F;
+  border: none;
+  color: white;
+  padding: 10px;
+  cursor: pointer;
+  font-size: 16px;
+}

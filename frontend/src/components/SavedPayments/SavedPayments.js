@@ -2,6 +2,9 @@ import { useEffect, useState, useContext } from 'react'
 import { csrfFetch } from '../../store/csrf.js'
 import { ResetContext } from '../../context/ResetContext'
 import PaymentListItem from '../PaymentListItem'
+import OpenModalButton from '../OpenModalButton'
+import CreditCardForm from '../CreditCardForm'
+import './SavedPayments.css'
 
 const SavedPayments = () => {
   const [isLoaded, setIsLoaded] = useState(false)
@@ -23,12 +26,23 @@ const SavedPayments = () => {
       {isLoaded ? (
         <>
           <div className='savedPayments-cards'>
-            {cards.map((card, i) => (
-              <PaymentListItem key={i} card={card} />
-            ))}
+            {cards.length > 0 ? (
+              <>
+                {cards.map((card, i) => (
+                  <PaymentListItem key={i} card={card} />
+                ))}
+              </>
+            ):(
+              <>
+                <p>You don't have any saved cards, add one now.</p>
+              </>
+            )}
           </div>
           <div className='savedPayments-button'>
-            <button>Add Card</button>
+            <OpenModalButton
+              buttonText='Add Card'
+              modalComponent={<CreditCardForm page='new'/>}
+            />
           </div>
         </>
       ):(
