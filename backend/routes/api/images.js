@@ -58,4 +58,32 @@ router.post("/review", requireAuth, singleMulterUpload("image"), async (req, res
   }
 })
 
+router.delete("/:imageId", async (req, res, next) => {
+  const image = await ReviewImages.findByPk(req.params.imageId)
+
+  if (!image) {
+    const err = new Error("Not Found")
+    err.status = 404
+    err.title = "Image Not Found"
+    err.errors = {message: "The requested image couldn't be found"}
+    return next(err)
+  }
+
+  if (image.userId !== req.user.id) {
+    const err = new Error("Invalid Authorization")
+    err.status = 403
+    err.title = "Invalid Authorization"
+    err.errors = {message: "You can only delete your own images"}
+    return next(err)
+  }
+
+  if (image.url.split(".")[0] === 'https://taskwombat') {
+    removeFileFromS3(image.url)
+  }
+
+  image.destroy()
+
+  res.json({message: 'Successfully Deleted'})
+})
+
 module.exports = router

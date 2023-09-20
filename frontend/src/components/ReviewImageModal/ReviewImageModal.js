@@ -5,7 +5,6 @@ import DeleteImageModal from '../DeleteImageModal'
 import './reviewImageModal.css'
 
 const ReviewImageModal = ({ images, review }) => {
-  console.log(review)
   const user = useSelector(state => state.session.user)
 
   return (
@@ -22,7 +21,7 @@ const ReviewImageModal = ({ images, review }) => {
           {user.id === image.userId &&
             <OpenModalButton
               buttonText="Delete Image"
-              modalComponent={<DeleteImageModal id={image.id}/>}
+              modalComponent={<DeleteImageModal id={image.id} userId={image.userId}/>}
             />
           }
         </div>
