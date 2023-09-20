@@ -24,19 +24,19 @@ const CreditCardForm = ({ page, card, cardNumber }) => {
   const { setResetPage, resetPage } = useContext(ResetContext)
 
   useEffect(() => {
-    let cardType
-
-    if (card.cardType === 'visa') {
-      cardType = 'Visa'
-    } else if (card.cardType === 'mastercard') {
-      cardType = 'Mastercard'
-    } else if (card.cardType === 'discover') {
-      cardType = 'Discover'
-    } else if (card.cardType === 'american_express') {
-      cardType = 'American Express'
-    }
-
     if (page === 'edit') {
+      let cardType
+
+      if (card.cardType === 'visa') {
+        cardType = 'Visa'
+      } else if (card.cardType === 'mastercard') {
+        cardType = 'Mastercard'
+      } else if (card.cardType === 'discover') {
+        cardType = 'Discover'
+      } else if (card.cardType === 'american_express') {
+        cardType = 'American Express'
+      }
+
       setPageTitle(`Edit ${cardType} ${cardNumber}`)
     } else {
       setPageTitle('Create Card')
@@ -72,6 +72,10 @@ const CreditCardForm = ({ page, card, cardNumber }) => {
       errors.push('Please Enter a Credit Card Number')
     }
 
+    if (userCardNumber.length === 0) {
+      errors.push('Please Enter a Credit Card Number')
+    }
+
     if (cardType === '') {
       errors.push('Please select a Card Type')
     }
@@ -91,19 +95,36 @@ const CreditCardForm = ({ page, card, cardNumber }) => {
     e.preventDefault()
     setIsSubmitted(true)
 
+    if (validationErrors.length > 0) return
+
+    const paymentObj = {
+      cardNumber: userCardNumber,
+      cardType,
+      expires: `${expireMonth}/${expireYear}`,
+      cvv: cvv.toString(),
+      userId: sessionUser.id
+    }
+
     if (page === 'edit') {
-      if (validationErrors.length > 0) return
-
-      const paymentObj = {
-        cardNumber: userCardNumber,
-        cardType,
-        expires: `${expireMonth}/${expireYear}`,
-        cvv: cvv.toString(),
-        userId: sessionUser.id
-      }
-
       const res = await csrfFetch(`/api/payments/${card.id}`, {
         method: 'PUT',
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(paymentObj)
+      })
+      if (res.ok) {
+        closeModal()
+        setResetPage(!resetPage)
+      } else {
+        const data = await res.json()
+        if (data && data.errors) {
+          setValidationErrors(data.errors)
+        }
+      }
+    } else {
+      const res = await csrfFetch(`/api/payments`, {
+        method: 'POST',
         headers: {
           "Content-Type": "application/json"
         },

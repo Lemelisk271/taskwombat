@@ -55,4 +55,15 @@ router.delete('/:paymentId', requireAuth, async (req, res, next) => {
   res.json({message: 'Successfully Deleted'})
 })
 
+router.post('/', requireAuth, async (req, res, next) => {
+  try {
+    const newPayment = Payment.build(req.body)
+    newPayment.validate()
+    await newPayment.save()
+    res.status(201).json(newPayment)
+  } catch (err) {
+    return next(err)
+  }
+})
+
 module.exports = router
