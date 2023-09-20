@@ -15,17 +15,19 @@ const ReviewImageModal = ({ images, review }) => {
           modalComponent={<AddReviewImageModal review={review}/>}
         />
       }
-      {images.map(image => (
-        <div className='reviewImageModal-imageCard' key={image.id}>
-          <img src={image.url} alt="review"/>
-          {user.id === image.userId &&
-            <OpenModalButton
-              buttonText="Delete Image"
-              modalComponent={<DeleteImageModal id={image.id} userId={image.userId}/>}
-            />
-          }
-        </div>
-      ))}
+      <div className='reviewImageModal-images'>
+        {images.map(image => (
+          <div className='reviewImageModal-imageCard' key={image.id}>
+            <img src={image.url} alt="review"/>
+            {user.id === image.userId &&
+              <OpenModalButton
+                buttonText="Delete Image"
+                modalComponent={<DeleteImageModal id={image.id} userId={image.userId}/>}
+              />
+            }
+          </div>
+        ))}
+      </div>
     </div>
   )
 }
