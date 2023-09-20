@@ -1,3 +1,11 @@
+.creditCardForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 30vw;
+  padding: 50px;
+}
+
 .creditCardForm-header {
   display: flex;
   flex-direction: row;
@@ -8,4 +16,63 @@
 .creditCardForm-header > img {
   height: 50px;
   margin-right: 10px;
+}
+
+.creditCardForm-notice {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 30px;
+  background-color: #848A87;
+  color: white;
+  padding: 20px;
+  border-radius: 20px;
+}
+
+.creditCardForm-notice span {
+  color: #FE4A49;
+  font-weight: bold;
+}
+
+.creditCardForm form {
+  width: 100%;
+}
+
+.creditCardForm-formDiv{
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+.creditCardForm-expDate {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 10px;
+}
+
+.creditCardForm-expDate label {
+  margin-right: 5px;
+}
+
+.creditCardForm-expDate select {
+  margin-right: 5px;
+}
+
+.creditCardForm-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.creditCardForm-buttons button {
+  margin-bottom: 5px;
+  margin-top: 5px;
+  background-color: #0D7A5F;
+  border: none;
+  color: white;
+  padding: 10px;
+  cursor: pointer;
+  font-size: 16px;
 }

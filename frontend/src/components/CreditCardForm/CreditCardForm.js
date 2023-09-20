@@ -39,7 +39,7 @@ const CreditCardForm = ({ page, card, cardNumber }) => {
 
       setPageTitle(`Edit ${cardType} ${cardNumber}`)
     } else {
-      setPageTitle('Create Card')
+      setPageTitle('Add a new Card')
     }
     // eslint-disable-next-line
   }, [page, card])
@@ -164,7 +164,7 @@ const CreditCardForm = ({ page, card, cardNumber }) => {
           ))}
         </ul>}
       <form onSubmit={handleSubmit}>
-        <div>
+        <div className='creditCardForm-formDiv'>
           <label htmlFor='cardType'>Card Type:</label>
           <select
             id='cardType'
@@ -178,7 +178,7 @@ const CreditCardForm = ({ page, card, cardNumber }) => {
             <option value='american_express'>American Express</option>
           </select>
         </div>
-        <div>
+        <div className='creditCardForm-formDiv'>
           <label htmlFor='cardNumber'>Card Number:</label>
           <input
             id='cardNumber'
@@ -186,8 +186,8 @@ const CreditCardForm = ({ page, card, cardNumber }) => {
             onChange={e => setUserCardNumber(e.target.value)}
           />
         </div>
+        <p>Enter an Expiration Date:</p>
         <div className='creditCardForm-expDate'>
-          <p>Enter an Expiration Date:</p>
           <div>
             <label htmlFor='expireMonth'>Month:</label>
             <select
@@ -224,7 +224,7 @@ const CreditCardForm = ({ page, card, cardNumber }) => {
             </select>
           </div>
         </div>
-        <div>
+        <div className='creditCardForm-formDiv'>
           <label htmlFor='cvv'>CVV:</label>
           <input
             id="cvv"
