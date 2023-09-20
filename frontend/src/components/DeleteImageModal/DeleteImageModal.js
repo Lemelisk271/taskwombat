@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useModal } from '../../context/Modal'
 import { deleteReviewImage } from '../../store/user'
+import './DeleteImageModal.css'
 
 const DeleteImageModal = ({ id, userId }) => {
   const dispatch = useDispatch()
