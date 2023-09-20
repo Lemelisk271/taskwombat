@@ -1,0 +1,11 @@
+.creditCardForm-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.creditCardForm-header > img {
+  height: 50px;
+  margin-right: 10px;
+}
