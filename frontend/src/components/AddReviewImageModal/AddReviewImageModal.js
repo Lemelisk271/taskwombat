@@ -5,7 +5,6 @@ import { addReviewImage } from '../../store/user'
 import './AddReviewImageModal.css'
 
 const AddReviewImageModal = ({ review }) => {
-  console.log(review)
   const dispatch = useDispatch()
   const [image, setImage] = useState(null)
   const [errors, setErrors] = useState([])

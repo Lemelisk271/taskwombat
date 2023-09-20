@@ -7,7 +7,6 @@ import './PaymentListItem.css'
 const PaymentListItem = ({ card }) => {
   const [cardNumber, setCardNumber] = useState('')
   const [isLoaded, setIsLoaded] = useState(false)
-  console.log(card)
 
   useEffect(() => {
     let numberArray = card.cardNumber.split("")

@@ -90,8 +90,6 @@ const EditProfileModal = ({ user }) => {
       zipCode
     }
 
-    console.log(reqObj)
-
     return dispatch(updateUser(user.id, reqObj))
       .then(closeModal)
       .catch(async (res) => {
