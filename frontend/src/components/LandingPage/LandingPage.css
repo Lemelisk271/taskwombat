@@ -1,6 +1,6 @@
 .landingPage {
   margin-top: 10px;
-  min-width: calc(100vh - 150px);
+  min-height: calc(100vh - 150px);
 }
 
 .landingPage-hero {

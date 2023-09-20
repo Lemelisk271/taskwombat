@@ -1,0 +1,29 @@
+.footer {
+  position: sticky;
+  bottom: 0px;
+  width: 100%;
+  height: 75px;
+  margin: 0 auto;
+  border-top: 1px solid #848A87;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.footer a {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  text-decoration: none;
+  color: black;
+  font-size: 24px;
+}
+
+.footer a p:hover {
+  text-decoration: underline;
+}
+
+.footer a i {
+  padding-right: 10px;
+}
