@@ -49,6 +49,16 @@ export const addReviewImage = (body) => async (dispatch) => {
   return reviewImage
 }
 
+export const deleteReviewImage = (id, userId) => async (dispatch) => {
+  const reviewImage = await csrfFetch(`/api/images/${id}`, {
+    method: "DELETE"
+  })
+  const user = await csrfFetch(`/api/users/${userId}`)
+  const userData = await user.json()
+  dispatch(getUser(userData))
+  return reviewImage
+}
+
 const initialState = {}
 
 const userReducer = (state = initialState, action) => {

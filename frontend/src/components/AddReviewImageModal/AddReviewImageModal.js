@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useDispatch } from 'react-redux'
 import { useModal } from '../../context/Modal'
 import { addReviewImage } from '../../store/user'
+import './AddReviewImageModal.css'
 
 const AddReviewImageModal = ({ review }) => {
   console.log(review)
@@ -62,8 +63,10 @@ const AddReviewImageModal = ({ review }) => {
           accept='image/*'
           onChange={updateFile}
         />
-        <button type='submit'>Submit</button>
-        <button onClick={closeModal}>Cancel</button>
+        <div className='addReviewImageModal-button'>
+          <button type='submit'>Submit</button>
+          <button onClick={closeModal}>Cancel</button>
+        </div>
       </form>
     </div>
   )
