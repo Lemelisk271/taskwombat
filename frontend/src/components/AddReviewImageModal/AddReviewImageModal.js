@@ -1,12 +1,11 @@
 import { useState, useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { addImage } from '../../store/session'
+import { useDispatch } from 'react-redux'
 import { useModal } from '../../context/Modal'
-import './AddProfileImageModal.css'
+import { addReviewImage } from '../../store/user'
 
-const AddProfileImageModal = () => {
+const AddReviewImageModal = ({ review }) => {
+  console.log(review)
   const dispatch = useDispatch()
-  const user = useSelector(state => state.session.user)
   const [image, setImage] = useState(null)
   const [errors, setErrors] = useState([])
   const [isSubmitted, setIsSubmitted] = useState(false)
@@ -16,7 +15,7 @@ const AddProfileImageModal = () => {
     const newErrors = []
 
     if (image === null) {
-      newErrors.push("Please select an Image")
+      newErrors.push("Please Select an Image")
     }
 
     setErrors(newErrors)
@@ -28,19 +27,18 @@ const AddProfileImageModal = () => {
 
     if (errors.length > 0) return
 
-    let newErrors = []
-    dispatch(addImage(user.id, {image}))
+    const imageObj = {
+      image,
+      reviewId: review.id,
+      userId: review.userId
+    }
+
+    dispatch(addReviewImage(imageObj))
       .then(closeModal)
       .catch(async (res) => {
         const data = await res.json()
         if (data && data.errors) {
-          newErrors = data.errors
-          setErrors(newErrors)
-        } else if (data && data.message) {
-          if (data.message === 'request entity too large') {
-            newErrors.push("The file size of that image is too large.")
-            setErrors(newErrors)
-          }
+          setErrors(data.errors)
         }
       })
   }
@@ -51,10 +49,9 @@ const AddProfileImageModal = () => {
   }
 
   return (
-    <div className='AddProfileImageModal'>
-      <h3>Change Profile Image</h3>
-      <img src={user.profileImage} alt={user.firstName}/>
-      {(errors.length > 0 && isSubmitted) && <ul>
+    <div className="addReviewImageModal">
+      <h3>Please Select an Image to add</h3>
+      {(isSubmitted && errors.length > 0) && <ul>
           {errors.map((error, i) => (
             <li key={i} className='error'>{error}</li>
           ))}
@@ -62,13 +59,14 @@ const AddProfileImageModal = () => {
       <form onSubmit={handleSubmit}>
         <input
           type='file'
-          accept="image/*"
+          accept='image/*'
           onChange={updateFile}
         />
-        <button type='submit'>Save</button>
+        <button type='submit'>Submit</button>
+        <button onClick={closeModal}>Cancel</button>
       </form>
     </div>
   )
 }
 
-export default AddProfileImageModal
+export default AddReviewImageModal

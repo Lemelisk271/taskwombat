@@ -30,6 +30,25 @@ export const updateReview = (id, body) => async (dispatch) => {
   return review
 }
 
+export const addReviewImage = (body) => async (dispatch) => {
+  const { image, reviewId, userId } = body
+  const formData = new FormData()
+  formData.append("reviewId", reviewId)
+  formData.append("userId", userId)
+  formData.append("image", image)
+  const reviewImage = await csrfFetch('/api/images/review', {
+    method: 'POST',
+    headers: {
+      "Content-Type": "multipart/form-data"
+    },
+    body: formData
+  })
+  const user = await csrfFetch(`/api/users/${userId}`)
+  const userData = await user.json()
+  dispatch(getUser(userData))
+  return reviewImage
+}
+
 const initialState = {}
 
 const userReducer = (state = initialState, action) => {

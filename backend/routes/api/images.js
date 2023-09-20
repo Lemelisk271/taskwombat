@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const { setTokenCookie, requireAuth } = require('../../utils/auth.js')
 const { singleMulterUpload, singlePublicFileUpload, removeFileFromS3 } = require('../../awsS3.js')
-const { User } = require('../../db/models')
+const { User, ReviewImages } = require('../../db/models')
 
 
 router.put("/:userId", requireAuth, singleMulterUpload("image"), async (req, res, next) => {
@@ -17,9 +17,7 @@ router.put("/:userId", requireAuth, singleMulterUpload("image"), async (req, res
   }
 
   if (user.profileImage.split(".")[0] === 'https://taskwombat') {
-    console.log("**********")
     removeFileFromS3(user.profileImage)
-    console.log("**********")
   }
 
   const profileImage = await singlePublicFileUpload(req.file)
@@ -41,6 +39,23 @@ router.put("/:userId", requireAuth, singleMulterUpload("image"), async (req, res
   await setTokenCookie(res, safeUser)
 
   return res.status(201).json({ user: safeUser })
+})
+
+router.post("/review", requireAuth, singleMulterUpload("image"), async (req, res, next) => {
+  const { reviewId, userId } = req.body
+  const url = await singlePublicFileUpload(req.file)
+  try {
+    const newReviewImage = ReviewImages.build({
+      url,
+      reviewId,
+      userId
+    })
+    newReviewImage.validate()
+    await newReviewImage.save()
+    res.status(201).json(newReviewImage)
+  } catch(err) {
+    return next(err)
+  }
 })
 
 module.exports = router
