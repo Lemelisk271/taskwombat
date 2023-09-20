@@ -1,10 +1,12 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useContext } from 'react'
 import { csrfFetch } from '../../store/csrf.js'
+import { ResetContext } from '../../context/ResetContext'
 import PaymentListItem from '../PaymentListItem'
 
 const SavedPayments = () => {
   const [isLoaded, setIsLoaded] = useState(false)
   const [cards, setCards] = useState([])
+  const { resetPage } = useContext(ResetContext)
 
   useEffect(() => {
     const loadPage = async () => {
@@ -14,7 +16,7 @@ const SavedPayments = () => {
       setIsLoaded(true)
     }
     loadPage()
-  }, [])
+  }, [resetPage])
 
   return (
     <div className='savedPayments'>

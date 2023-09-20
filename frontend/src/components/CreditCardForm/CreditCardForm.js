@@ -1,8 +1,10 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { useSelector } from 'react-redux'
 import { useModal } from '../../context/Modal'
+import { ResetContext } from '../../context/ResetContext'
 import moment from 'moment-timezone';
 import { getAdjustedDate } from '../HelperFunctions/HelperFunctions.js'
+import { csrfFetch } from '../../store/csrf'
 import wombat from '../../images/wombat.png'
 import './CreditCardForm.css'
 
@@ -19,6 +21,7 @@ const CreditCardForm = ({ page, card, cardNumber }) => {
   const [yearOptions, setYearOptions] = useState([])
   const [cvv, setCvv] = useState('')
   const { closeModal } = useModal()
+  const { setResetPage, resetPage } = useContext(ResetContext)
 
   useEffect(() => {
     let cardType
@@ -82,23 +85,38 @@ const CreditCardForm = ({ page, card, cardNumber }) => {
     setValidationErrors(errors)
   }, [userCardNumber, cardType, expireYear, cvv])
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     setIsSubmitted(true)
 
-    if (validationErrors.length > 0) return
+    if (page === 'edit') {
+      if (validationErrors.length > 0) return
 
-    console.log(card.expires)
+      const paymentObj = {
+        cardNumber: userCardNumber,
+        cardType,
+        expires: `${expireMonth}/${expireYear}`,
+        cvv: cvv.toString(),
+        userId: sessionUser.id
+      }
 
-    const paymentObj = {
-      cardNumber: userCardNumber,
-      cardType,
-      expires: `${expireMonth}/${expireYear}`,
-      cvv: cvv.toString(),
-      userId: sessionUser.id
+      const res = await csrfFetch(`/api/payments/${card.id}`, {
+        method: 'PUT',
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(paymentObj)
+      })
+      if (res.ok) {
+        closeModal()
+        setResetPage(!resetPage)
+      } else {
+        const data = await res.json()
+        if (data && data.errors) {
+          setValidationErrors(data.errors)
+        }
+      }
     }
-
-    console.log(paymentObj)
   }
 
   const cancelButton = (e) => {

@@ -63,6 +63,7 @@ const PaymentListItem = ({ card }) => {
             {cardType}
             <p>{cardNumber}</p>
             <p>Expires: {card.expires}</p>
+            <p>CVV: {card.cvv}</p>
           </div>
           <div className='paymentListItem-buttons'>
             <OpenModalButton
