@@ -87,7 +87,7 @@ const UserReviewListItem = ({ review, page }) => {
           {isSessionUser && userButtons}
           <OpenModalButton
             buttonText="View Images"
-            modalComponent={<ReviewImageModal images={review.ReviewImages}/>}
+            modalComponent={<ReviewImageModal images={review.ReviewImages} review={review}/>}
           />
         </div>
       </div>

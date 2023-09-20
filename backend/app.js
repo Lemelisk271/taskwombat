@@ -14,7 +14,8 @@ const routes = require('./routes')
 
 app.use(morgan('dev'))
 app.use(cookieParser())
-app.use(express.json())
+app.use(express.urlencoded({ limit: "5mb", extended: true }))
+app.use(express.json({limit: '5mb', extended: true}))
 
 if (!isProduction) {
   app.use(cors())

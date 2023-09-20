@@ -1,10 +1,9 @@
 const express = require('express')
 const router = express.Router()
-const { Op } = require('sequelize')
 const bcrypt = require('bcryptjs')
 const { check } = require('express-validator')
 const { handleValidationErrors } = require('../../utils/validation.js')
-const { setTokenCookie } = require('../../utils/auth.js')
+const { setTokenCookie, requireAuth } = require('../../utils/auth.js')
 const { User } = require('../../db/models')
 
 const validateLogin = [
@@ -56,7 +55,7 @@ router.delete('/', (_req, res) => {
   return res.json({ message: 'success' })
 })
 
-router.get('/', (req, res) => {
+router.get('/', requireAuth, (req, res) => {
   const { user } = req
   if (user) {
     const safeUser = {

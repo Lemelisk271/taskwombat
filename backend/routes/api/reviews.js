@@ -36,7 +36,7 @@ router.put('/:reviewId', requireAuth, validateReview, async (req, res, next) => 
 
   await review.save()
 
-  res.json(review)
+  res.status(201).json(review)
 })
 
 router.delete('/:reviewId', requireAuth, async (req, res, next) => {
