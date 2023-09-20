@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import OpenModalButton from '../OpenModalButton'
 import CreditCardForm from '../CreditCardForm'
 import DeletePaymentModal from '../DeletePaymentModal'
+import './PaymentListItem.css'
 
 const PaymentListItem = ({ card }) => {
   const [cardNumber, setCardNumber] = useState('')
@@ -63,9 +64,22 @@ const PaymentListItem = ({ card }) => {
         <>
           <div className='paymentListItem-card'>
             {cardType}
-            <p>{cardNumber}</p>
-            <p>Expires: {card.expires}</p>
-            <p>CVV: {card.cvv}</p>
+            <table>
+              <tbody>
+                <tr>
+                  <th scope='row'>Card Number:</th>
+                  <td>{cardNumber}</td>
+                </tr>
+                <tr>
+                  <th scope='row'>Expires:</th>
+                  <td>{card.expires}</td>
+                </tr>
+                <tr>
+                  <th scope='row'>CVV:</th>
+                  <td>{card.cvv}</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
           <div className='paymentListItem-buttons'>
             <OpenModalButton

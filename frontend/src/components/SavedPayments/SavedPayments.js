@@ -4,6 +4,7 @@ import { ResetContext } from '../../context/ResetContext'
 import PaymentListItem from '../PaymentListItem'
 import OpenModalButton from '../OpenModalButton'
 import CreditCardForm from '../CreditCardForm'
+import './SavedPayments.css'
 
 const SavedPayments = () => {
   const [isLoaded, setIsLoaded] = useState(false)
