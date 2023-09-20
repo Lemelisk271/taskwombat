@@ -8,6 +8,7 @@ import UserProfilePage from './components/UserProfilePage'
 import TaskerProfilePage from './components/TaskerProfilePage'
 import ScheduleAppointment from './components/ScheduleAppointment'
 import CategoryPage from './components/CategoryPage'
+import Footer from './components/Footer'
 
 function App() {
   const dispatch = useDispatch()
@@ -49,6 +50,9 @@ function App() {
             </Route>
           </Switch>
         </main>
+        <footer>
+          <Footer />
+        </footer>
       </>
     )
   );
