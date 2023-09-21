@@ -1,7 +1,57 @@
+import { useState, useEffect } from 'react'
+import { csrfFetch } from '../../store/csrf.js'
+import { getAdjustedDate } from '../HelperFunctions/HelperFunctions.js'
+import UserInvoiceListItem from '../UserInvoiceListItem'
+
 const UserInvoices = () => {
+  const [isLoaded, setIsLoaded] = useState(false)
+  const [outstandingInvoices, setOutstandingInvoices] = useState([])
+  const [paidInvoices, setPaidInvoices] = useState([])
+
+  useEffect(() => {
+    const loadPage = async () => {
+      const res = await csrfFetch('/api/invoices')
+      const invoicesData = await res.json()
+      const today = getAdjustedDate(new Date()).getTime()
+      let currentInvoices = []
+      let paid = []
+      invoicesData.forEach(el => {
+        let endDate = getAdjustedDate(new Date(el.Appointment.end)).getTime()
+        if (endDate < today) {
+          if (el.fullPaid) {
+            paid.push(el)
+          } else {
+            currentInvoices.push(el)
+          }
+        }
+      })
+
+      setOutstandingInvoices(currentInvoices)
+      setPaidInvoices(paid)
+
+      setIsLoaded(true)
+    }
+    loadPage()
+  }, [])
+
   return (
     <div className='userInvoices'>
-      <h1>User Invoices</h1>
+      {isLoaded ? (
+        <>
+          <h1>Outstanding Invoices</h1>
+          {outstandingInvoices.map((invoice, i) => (
+            <UserInvoiceListItem key={i} invoice={invoice}/>
+          ))}
+          <h1>Paid Invoices</h1>
+          {paidInvoices.map((invoice, i) => (
+            <UserInvoiceListItem key={i} invoice={invoice}/>
+          ))}
+        </>
+      ):(
+        <>
+          <h1>Loading...</h1>
+        </>
+      )}
     </div>
   )
 }
