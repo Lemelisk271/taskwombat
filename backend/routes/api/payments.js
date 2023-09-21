@@ -45,7 +45,7 @@ router.delete('/:paymentId', requireAuth, async (req, res, next) => {
   if (payment.userId !== req.user.id) {
     const err = new Error('Invalid Authorization')
     err.status = 403
-    err.title = ('Invalid Authorization')
+    err.title = 'Invalid Authorization'
     err.errors = {message: "You can only delete your own payments"}
     return next(err)
   }

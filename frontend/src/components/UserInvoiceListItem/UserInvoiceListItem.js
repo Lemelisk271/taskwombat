@@ -1,24 +1,19 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { getAdjustedDate } from '../HelperFunctions/HelperFunctions.js'
 import OpenModalButton from '../OpenModalButton'
 import InvoiceDetailModal from '../InvoiceDetailModal'
+import { ResetContext } from '../../context/ResetContext'
 import moment from 'moment-timezone';
 import './UserInvoiceListItem.css'
 
 const UserInvoiceListItem = ({ invoice }) => {
   const [invoiceDate, setInvoiceDate] = useState('')
-  const [balance, setBalance] = useState(parseFloat(0).toFixed(2))
+  const { resetPage } = useContext(ResetContext)
 
   useEffect(() => {
     const date = moment(getAdjustedDate(new Date(invoice.Appointment.end))).format('MM-DD-YYYY')
     setInvoiceDate(date)
-
-    const paid = invoice.amountPaid
-    const total = invoice.totalDue
-    setBalance(parseFloat(total-paid).toFixed(2))
-  }, [])
-
-  console.log(invoice)
+  }, [resetPage])
 
   return (
     <div className="userInvoiceListItem">
@@ -29,7 +24,7 @@ const UserInvoiceListItem = ({ invoice }) => {
         </>
       ):(
         <>
-          <p>Outstanding Balance: ${balance}</p>
+          <p>Outstanding Balance: ${parseFloat(parseFloat(invoice.totalDue) - parseFloat(invoice.amountPaid)).toFixed(2)}</p>
         </>
       )}
       <OpenModalButton

@@ -1,6 +1,8 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { getAdjustedDate } from '../HelperFunctions/HelperFunctions.js'
 import { csrfFetch } from '../../store/csrf.js'
+import { useModal } from '../../context/Modal'
+import { ResetContext } from '../../context/ResetContext'
 import moment from 'moment-timezone';
 import wombat from '../../images/wombat.png'
 import './InvoiceDetailModal.css'
@@ -19,6 +21,11 @@ const InvoiceDetailModal = ({ invoice }) => {
   const [isLoaded, setIsLoaded] = useState(false)
   const [paymentOptions, setPaymentOptions] = useState([])
   const [cardId, setCardId] = useState(0)
+  const [payment, setPayment] = useState(parseFloat(0).toFixed(2))
+  const [validationErrors, setValidationErrors] = useState([])
+  const [isSubmitted, setIsSubmitted] = useState(false)
+  const { closeModal } = useModal()
+  const { setResetPage, resetPage } = useContext(ResetContext)
 
   useEffect(() => {
     const loadPage = async () => {
@@ -62,6 +69,60 @@ const InvoiceDetailModal = ({ invoice }) => {
     }
     loadPage()
   }, [])
+
+  useEffect(() => {
+    const errors = []
+
+    if (parseInt(cardId) === 0) {
+      errors.push("Please Select a Card")
+    }
+
+    if (parseFloat(payment) === 0) {
+      errors.push("Please enter a payment amount")
+    }
+
+    if (parseFloat(payment) > parseFloat(balance)) {
+      errors.push("The payment amount cannot be more than the balance.")
+    }
+
+    setValidationErrors(errors)
+  }, [cardId, payment])
+
+  const cancelButton = (e) => {
+    e.preventDefault()
+    closeModal()
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    setIsSubmitted(true)
+
+    if (validationErrors.length > 0) return
+
+    const totalPaid = parseFloat(payment) + parseFloat(paid)
+
+    const invoiceObj = {
+      amountPaid: parseFloat(totalPaid).toFixed(2),
+      fullPaid: parseFloat(totalPaid).toFixed(2) === parseFloat(total).toFixed(2)
+    }
+
+    const res = await csrfFetch(`/api/invoices/${invoice.id}`, {
+      method: 'PUT',
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(invoiceObj)
+    })
+    if (res.ok) {
+      closeModal()
+      setResetPage(!resetPage)
+    } else {
+      const data = await res.json()
+      if (data && data.errors) {
+        setValidationErrors(data.errors)
+      }
+    }
+  }
 
   return (
     <div className="invoiceDetailModal">
@@ -113,7 +174,12 @@ const InvoiceDetailModal = ({ invoice }) => {
           )}
           {makePayment ? (
             <>
-              <form>
+              {(isSubmitted && validationErrors.length > 0) && <ul>
+                  {validationErrors.map((error, i) => (
+                    <li key={i} className='error'>{error}</li>
+                  ))}
+                </ul>}
+              <form onSubmit={handleSubmit}>
                 <div>
                   <label htmlFor='payment'>Select a Payment Type:</label>
                   <select
@@ -121,10 +187,24 @@ const InvoiceDetailModal = ({ invoice }) => {
                     value={cardId}
                     onChange={e => setCardId(e.target.value)}
                   >
+                    <option disabled value='0'>Please Select a Card</option>
                     {paymentOptions.map(option => (
                       <option key={option.id} value={option.id}>{option.info}</option>
                     ))}
                   </select>
+                </div>
+                <div>
+                  <label htmlFor='amount'>Payment Amount:</label>
+                  <input
+                    id='amount'
+                    type='number'
+                    value={payment}
+                    onChange={e => setPayment(e.target.value)}
+                  />
+                </div>
+                <div>
+                  <button type='submit'>Make Payment</button>
+                  <button onClick={cancelButton}>Cancel</button>
                 </div>
               </form>
             </>

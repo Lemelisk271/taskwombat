@@ -1,12 +1,14 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { csrfFetch } from '../../store/csrf.js'
 import { getAdjustedDate } from '../HelperFunctions/HelperFunctions.js'
 import UserInvoiceListItem from '../UserInvoiceListItem'
+import { ResetContext } from '../../context/ResetContext'
 
 const UserInvoices = () => {
   const [isLoaded, setIsLoaded] = useState(false)
   const [outstandingInvoices, setOutstandingInvoices] = useState([])
   const [paidInvoices, setPaidInvoices] = useState([])
+  const { resetPage } = useContext(ResetContext)
 
   useEffect(() => {
     const loadPage = async () => {
@@ -32,7 +34,7 @@ const UserInvoices = () => {
       setIsLoaded(true)
     }
     loadPage()
-  }, [])
+  }, [resetPage])
 
   return (
     <div className='userInvoices'>
