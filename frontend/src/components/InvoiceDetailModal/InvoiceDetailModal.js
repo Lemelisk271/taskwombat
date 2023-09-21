@@ -169,7 +169,7 @@ const InvoiceDetailModal = ({ invoice }) => {
             <></>
           ):(
             <>
-              <button onClick={() => setMakePayment(true)}>Make a Payment</button>
+              <button className='invoiceDetailModal-payButton' onClick={() => setMakePayment(true)}>Make a Payment</button>
             </>
           )}
           {makePayment ? (
@@ -180,7 +180,7 @@ const InvoiceDetailModal = ({ invoice }) => {
                   ))}
                 </ul>}
               <form onSubmit={handleSubmit}>
-                <div>
+                <div className='invoiceDetailModal-formData'>
                   <label htmlFor='payment'>Select a Payment Type:</label>
                   <select
                     id='payment'
@@ -193,7 +193,7 @@ const InvoiceDetailModal = ({ invoice }) => {
                     ))}
                   </select>
                 </div>
-                <div>
+                <div className='invoiceDetailModal-formData'>
                   <label htmlFor='amount'>Payment Amount:</label>
                   <input
                     id='amount'
@@ -202,7 +202,7 @@ const InvoiceDetailModal = ({ invoice }) => {
                     onChange={e => setPayment(e.target.value)}
                   />
                 </div>
-                <div>
+                <div className='invoiceDetailModal-formButtons'>
                   <button type='submit'>Make Payment</button>
                   <button onClick={cancelButton}>Cancel</button>
                 </div>

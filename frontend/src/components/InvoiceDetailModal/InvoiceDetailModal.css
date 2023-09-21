@@ -1,3 +1,11 @@
+.invoiceDetailModal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 50px;
+  max-width: 20vw;
+}
+
 .invoiceDetailModal-header {
   display: flex;
   flex-direction: row;
@@ -8,4 +16,52 @@
 .invoiceDetailModal-header img {
   height: 50px;
   margin-right: 10px;
+}
+
+.invoiceDetailModal table {
+  margin-bottom: 20px;
+}
+
+.invoiceDetailModal table th {
+  text-align: left;
+}
+
+.invoiceDetailModal table td {
+  text-align: right;
+}
+
+.invoiceDetailModal-payButton {
+  background-color: #0D7A5F;
+  border: none;
+  color: white;
+  padding: 10px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.invoiceDetailModal form {
+  display: flex;
+  flex-direction: column;
+}
+
+.invoiceDetailModal-formData {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+.invoiceDetailModal-formButtons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.invoiceDetailModal-formButtons button {
+  background-color: #0D7A5F;
+  border: none;
+  color: white;
+  padding: 10px;
+  cursor: pointer;
+  font-size: 16px;
 }
