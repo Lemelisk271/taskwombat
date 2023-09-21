@@ -68,6 +68,7 @@ const InvoiceDetailModal = ({ invoice }) => {
       setIsLoaded(true)
     }
     loadPage()
+    // eslint-disable-next-line
   }, [])
 
   useEffect(() => {
@@ -86,6 +87,7 @@ const InvoiceDetailModal = ({ invoice }) => {
     }
 
     setValidationErrors(errors)
+    // eslint-disable-next-line
   }, [cardId, payment])
 
   const cancelButton = (e) => {

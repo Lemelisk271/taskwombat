@@ -13,6 +13,7 @@ const UserInvoiceListItem = ({ invoice }) => {
   useEffect(() => {
     const date = moment(getAdjustedDate(new Date(invoice.Appointment.end))).format('MM-DD-YYYY')
     setInvoiceDate(date)
+    // eslint-disable-next-line
   }, [resetPage])
 
   return (
