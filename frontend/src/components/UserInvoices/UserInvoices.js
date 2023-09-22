@@ -8,6 +8,7 @@ const UserInvoices = () => {
   const [isLoaded, setIsLoaded] = useState(false)
   const [outstandingInvoices, setOutstandingInvoices] = useState([])
   const [paidInvoices, setPaidInvoices] = useState([])
+  const [futureInvoices, setFutureInvoices] = useState([])
   const { resetPage } = useContext(ResetContext)
 
   useEffect(() => {
@@ -17,6 +18,7 @@ const UserInvoices = () => {
       const today = new Date(getAdjustedDate(new Date())).getTime()
       let currentInvoices = []
       let paid = []
+      let future = []
       invoicesData.forEach(el => {
         let endDate = new Date(getAdjustedDate(new Date(el.Appointment.end))).getTime()
         if (endDate < today) {
@@ -25,11 +27,14 @@ const UserInvoices = () => {
           } else {
             currentInvoices.push(el)
           }
+        } else {
+          future.push(el)
         }
       })
-
+      console.log(future)
       setOutstandingInvoices(currentInvoices)
       setPaidInvoices(paid)
+      setFutureInvoices(future)
 
       setIsLoaded(true)
     }
@@ -42,11 +47,15 @@ const UserInvoices = () => {
         <>
           <h1>Outstanding Invoices</h1>
           {outstandingInvoices.map((invoice, i) => (
-            <UserInvoiceListItem key={i} invoice={invoice}/>
+            <UserInvoiceListItem key={i} invoice={invoice} future={false}/>
+          ))}
+          <h1>Upcoming Invoices</h1>
+          {futureInvoices.map((invoice, i) => (
+            <UserInvoiceListItem key={i} invoice={invoice} future={true}/>
           ))}
           <h1>Paid Invoices</h1>
           {paidInvoices.map((invoice, i) => (
-            <UserInvoiceListItem key={i} invoice={invoice}/>
+            <UserInvoiceListItem key={i} invoice={invoice} future={false}/>
           ))}
         </>
       ):(

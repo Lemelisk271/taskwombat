@@ -48,16 +48,24 @@ module.exports = {
 
       const totalDue = Math.round(((rate * hours) + fees) * 100) / 100
 
-      const payChoice = randomBetweenNumbers(1, 3)
+      const today = new Date().getTime()
+      const end = new Date(appointment.end).getTime()
+
       let amountPaid
-      if (payChoice === 1) {
+
+      if (end < today) {
+        const payChoice = randomBetweenNumbers(1, 3)
+        if (payChoice === 1) {
+          amountPaid = 0
+        }
+        if (payChoice === 2) {
+          amountPaid = faker.number.float({ min: 0, max: totalDue, precision: 0.01})
+        }
+        if (payChoice === 3) {
+          amountPaid = totalDue
+        }
+      } else {
         amountPaid = 0
-      }
-      if (payChoice === 2) {
-        amountPaid = faker.number.float({ min: 0, max: totalDue, precision: 0.01})
-      }
-      if (payChoice === 3) {
-        amountPaid = totalDue
       }
 
       const fullPaid = totalDue === amountPaid
