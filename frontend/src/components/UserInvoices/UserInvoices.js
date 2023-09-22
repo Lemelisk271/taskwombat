@@ -14,11 +14,11 @@ const UserInvoices = () => {
     const loadPage = async () => {
       const res = await csrfFetch('/api/invoices')
       const invoicesData = await res.json()
-      const today = getAdjustedDate(new Date()).getTime()
+      const today = new Date(getAdjustedDate(new Date())).getTime()
       let currentInvoices = []
       let paid = []
       invoicesData.forEach(el => {
-        let endDate = getAdjustedDate(new Date(el.Appointment.end)).getTime()
+        let endDate = new Date(getAdjustedDate(new Date(el.Appointment.end))).getTime()
         if (endDate < today) {
           if (el.fullPaid) {
             paid.push(el)
