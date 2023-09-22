@@ -7,7 +7,7 @@ import moment from 'moment-timezone';
 import wombat from '../../images/wombat.png'
 import './InvoiceDetailModal.css'
 
-const InvoiceDetailModal = ({ invoice }) => {
+const InvoiceDetailModal = ({ invoice, future }) => {
   const [invoiceDate, setInvoiceDate] = useState('')
   const [rate, setRate] = useState(parseFloat(0).toFixed(2))
   const [duration, setDuration] = useState(0)
@@ -171,7 +171,13 @@ const InvoiceDetailModal = ({ invoice }) => {
             <></>
           ):(
             <>
-              <button className='invoiceDetailModal-payButton' onClick={() => setMakePayment(true)}>Make a Payment</button>
+              {future ? (
+                <></>
+              ):(
+                <>
+                  <button className='invoiceDetailModal-payButton' onClick={() => setMakePayment(true)}>Make a Payment</button>
+                </>
+              )}
             </>
           )}
           {makePayment ? (

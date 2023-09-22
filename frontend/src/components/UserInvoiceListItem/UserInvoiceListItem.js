@@ -6,7 +6,7 @@ import { ResetContext } from '../../context/ResetContext'
 import moment from 'moment-timezone';
 import './UserInvoiceListItem.css'
 
-const UserInvoiceListItem = ({ invoice }) => {
+const UserInvoiceListItem = ({ invoice, future }) => {
   const [invoiceDate, setInvoiceDate] = useState('')
   const { resetPage } = useContext(ResetContext)
 
@@ -25,12 +25,20 @@ const UserInvoiceListItem = ({ invoice }) => {
         </>
       ):(
         <>
-          <p>Outstanding Balance: ${parseFloat(parseFloat(invoice.totalDue) - parseFloat(invoice.amountPaid)).toFixed(2)}</p>
+          {future ? (
+            <>
+              <p>Estimated Total: ${parseFloat(invoice.totalDue).toFixed(2)}</p>
+            </>
+          ):(
+            <>
+              <p>Outstanding Balance: ${parseFloat(parseFloat(invoice.totalDue) - parseFloat(invoice.amountPaid)).toFixed(2)}</p>
+            </>
+          )}
         </>
       )}
       <OpenModalButton
         buttonText="View Details"
-        modalComponent={<InvoiceDetailModal invoice={invoice}/>}
+        modalComponent={<InvoiceDetailModal invoice={invoice} future={future}/>}
       />
     </div>
   )
