@@ -792,3 +792,286 @@ Creates a new Review and Returns That Review
       "categoryId": 10
     }
     ```
+
+## Payments
+
+### Get User's Payment Methods
+
+Returns all of the users saved payment methods.
+
+- Requires Authentication: true
+- Request
+  - Method: GET
+  - URL: /api/payments
+  - Body: None
+
+- Successful Response
+  - Status Code: 200
+  - Headers
+    - Content-Type: application/json
+  - Body
+    ```json
+    [
+      {
+        "id": 1,
+        "cardNumber": "1234567890123456",
+        "cardType": "visa",
+        "cvv": "111",
+        "expires": "08/2026",
+        "userId": 1
+      }
+    ]
+    ```
+
+### Edit Payment
+
+Edit a payment's information based on that payment's ID.
+
+- Requires Authentication: true
+- Request
+  - Method: PUT
+  - URL: /api/payments/:paymentId
+  - Headers
+    - Content-Type: application/json
+  - Body
+    ```json
+    {
+      "cardNumber": "567890123456789",
+      "cardType": "mastercard",
+      "cvv": "222",
+      "expires": "09/2030",
+      "userId": 1
+    }
+    ```
+- Successful Response
+  - Status Code: 201
+  - Headers
+    - Content-Type: application/json
+  - Body
+    ```json
+    {
+      "id": 21,
+      "cardNumber": "567890123456789",
+      "cardType": "mastercard",
+      "cvv": "222",
+      "expires": "09/2030",
+      "userId": 1
+    }
+    ```
+
+### Delete a Payment
+
+Deletes a payment based on the payment's ID.
+
+- Require Authentication: true
+- Request
+  - Method: DELETE
+  - URL: /api/payments/:paymentId
+  - Body: None
+
+- Successful Response
+  - Status Code: 200
+  - Headers
+    - Content-Type: application/json
+  - Body
+    ```json
+    {
+      "message": "Successfully Deleted"
+    }
+    ```
+
+### Create a Payment
+
+Creates a new payment method for the user.
+
+- Requires Authentication: true
+- Request
+  - Method: POST
+  - URL: /api/payments
+  - Body
+    ```json
+    {
+      "cardNumber": "7890123456789",
+      "cardType": "american_express",
+      "cvv": "333",
+      "expires": "10/2030",
+      "userId": 15
+    }
+    ```
+- Successful Response
+  - Status Code: 201
+  - Headers
+    - Content-Type: application/json
+  - Body
+    ```json
+    {
+      "id": 38,
+      "cardNumber": "7890123456789",
+      "cardType": "american_express",
+      "cvv": "333",
+      "expires": "10/2030",
+      "userId": 15
+    }
+    ```
+
+## Invoices
+
+### Get all Invoices for a User
+
+Returns all the invoices for a user
+
+Requires Authentication: true
+- Request
+  - Method: GET
+  - URL: /api/invoices
+  - Body: none
+
+- Successful Response
+  - Status Code: 200
+  - Headers
+    - Content-Type: application/json
+  - Body
+    ```json
+    [
+      {
+        "id": 5,
+        "amountPaid": 0,
+        "appointmentId": 5,
+        "fees": 11.68,
+        "fullPaid": false,
+        "hours": 2,
+        "rate": 35.38,
+        "taskerId": 10,
+        "totalDue": 82.44,
+        "userId": 1,
+        "Appointment": {
+          "id": 5,
+          "categoryId": 4,
+          "end": "2022-11-05T18:00:00.000Z",
+          "start": "2022-11-05T16:00:00.000Z",
+          "task": "Description of the task",
+          "taskerId": 10,
+          "userId": 1
+        }
+      }
+    ]
+    ```
+
+### Edit Invoice Paid Amount
+
+Updates the paid amount for an invoice based on the invoice Id.
+
+Requires Authentication: true
+- Request
+  - Method: PUT
+  - URL: /api/invoices/:invoiceId
+  - Headers
+    - Content-Type: application/json
+  - Body:
+    ```json
+    {
+      "amountPaid": 24.63,
+      "fullPaid": false
+    }
+    ```
+- Successful Response
+  - Status Code: 201
+  - Headers
+    - Content-Type: application/json
+  - Body
+    ```json
+    {
+      "id": 5,
+      "amountPaid": 24.63,
+      "appointmentId": 5,
+      "fees": 11.68,
+      "fullPaid": false,
+      "hours": 2,
+      "rate": 35.38,
+      "taskerId": 10,
+      "totalDue": 82.44,
+      "userId": 1,
+    }
+    ```
+
+### Create Invoice
+
+Creates a new invoice
+
+- Requires Authentication: true
+- Request
+  - Method: POST
+  - URL: /api/invoices
+  - Headers
+    - Content-Type: application/json
+  - Body
+    ```json
+    {
+      "amountPaid": 0,
+      "appointmentId": 11,
+      "fees": 16.13,
+      "fullPaid": false,
+      "hours": 3,
+      "rate": 53.76,
+      "taskerId": 17,
+      "totalDue": 177.41,
+      "userId": 3,
+    }
+    ```
+
+- Successful Response
+  - Status Code: 201
+  - Headers
+    - Content-Type: application/json
+  - Body
+    ```json
+    {
+      "id": 23,
+      "amountPaid": 0,
+      "appointmentId": 11,
+      "fees": 16.13,
+      "fullPaid": false,
+      "hours": 3,
+      "rate": 53.76,
+      "taskerId": 17,
+      "totalDue": 177.41,
+      "userId": 3,
+    }
+    ```
+
+### Edit Invoice Hours and Total Due
+
+Changes the duration (hours) of an appointment and total due based on the appointmentId.
+
+- Requires Authentication: true
+- Request
+  - Method: PUT
+  - URL: /api/invoices/appointment/:apptId
+  - Headers
+    - Content-Type: application/json
+  - Body
+    ```json
+    {
+      "hours": 2
+    }
+    ```
+
+- Successful Response
+  - Status Code: 201
+  - Headers
+    - Content-Type: application/json
+  - Body
+    ```json
+    {
+      "id": 23,
+      "amountPaid": 0,
+      "appointmentId": 11,
+      "fees": 16.13,
+      "fullPaid": false,
+      "hours": 2,
+      "rate": 53.76,
+      "taskerId": 17,
+      "totalDue": 123.65,
+      "userId": 3,
+    }
+    ```
