@@ -58,4 +58,37 @@ router.post('/', requireAuth, async (req, res, next) => {
   }
 })
 
+router.put('/appointment/:apptId', requireAuth, async (req, res, next) => {
+  const invoice = await Invoice.findOne({
+    where: {
+      appointmentId: req.params.apptId
+    }
+  })
+
+  if (!invoice) {
+    const err = new Error("Not Found")
+    err.status = 404
+    err.title = "Invoice Not Found"
+    err.errors = {message: "The requested invoice couldn't be found"}
+    return next(err)
+  }
+
+  const rate = invoice.rate
+  const fees = invoice.fees
+  const hours = req.body.hours
+
+  const total = parseFloat((parseFloat(rate) * parseInt(hours)) + parseFloat(fees)).toFixed(2)
+
+  const invoiceObj = {
+    hours: hours,
+    totalDue: total
+  }
+
+  invoice.set(invoiceObj)
+
+  invoice.save()
+
+  res.json(invoice)
+})
+
 module.exports = router
