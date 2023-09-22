@@ -184,6 +184,12 @@ const EditAppointmentForm = ({ task }) => {
 
     const endDateAdjusted = getAdjustedTime(endDateFinal)
 
+    const totalTime = Math.ceil((new Date(endDateAdjusted).getTime() - new Date(startDateAdjusted).getTime()) / 1000 / 60 / 60)
+
+    const invoiceObj = {
+      hours: totalTime
+    }
+
     const apptObj = {
       start: startDateAdjusted,
       end: endDateAdjusted,
@@ -202,6 +208,13 @@ const EditAppointmentForm = ({ task }) => {
     })
     if (res.ok) {
       const data = await res.json()
+      await csrfFetch(`/api/invoices/appointment/${task.id}`, {
+        method: 'PUT',
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(invoiceObj)
+      })
       if (data.errors) {
         const err = []
         data.errors.forEach(el => {

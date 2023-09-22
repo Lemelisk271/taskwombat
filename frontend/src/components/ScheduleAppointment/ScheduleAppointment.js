@@ -195,6 +195,17 @@ const ScheduleAppointment = () => {
   const confirmButton = async (e) => {
     e.preventDefault()
 
+    const invoiceObj = {
+      rate: parseFloat(rate).toFixed(2),
+      fees: parseFloat(fee).toFixed(2),
+      hours: taskLength,
+      totalDue: parseFloat(total).toFixed(2),
+      amountPaid: parseFloat(0).toFixed(2),
+      fullPaid: false,
+      taskerId: tasker.id,
+      userId: sessionUser.id
+    }
+
     const res = await csrfFetch('/api/appointments', {
       method: 'POST',
       headers: {
@@ -204,6 +215,14 @@ const ScheduleAppointment = () => {
     })
     if (res.ok) {
       const data = await res.json()
+      invoiceObj.appointmentId = data.id
+      await csrfFetch('/api/invoices', {
+        method: 'POST',
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(invoiceObj)
+      })
       if (data.errors) {
         const err = []
         data.errors.forEach(el => {
