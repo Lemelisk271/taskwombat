@@ -47,4 +47,15 @@ router.put('/:invoiceId', requireAuth, async (req, res, next) => {
   res.status(201).json(invoice)
 })
 
+router.post('/', requireAuth, async (req, res, next) => {
+  try {
+    const newInvoice = Invoice.build(req.body)
+    newInvoice.validate()
+    await newInvoice.save()
+    res.status(201).json(newInvoice)
+  } catch (err) {
+    return next(err)
+  }
+})
+
 module.exports = router
