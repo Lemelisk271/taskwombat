@@ -31,7 +31,6 @@ const UserInvoices = () => {
           future.push(el)
         }
       })
-      console.log(future)
       setOutstandingInvoices(currentInvoices)
       setPaidInvoices(paid)
       setFutureInvoices(future)
