@@ -1,14 +1,17 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useContext } from 'react'
 import OpenModalButton from '../OpenModalButton'
 import CreditCardForm from '../CreditCardForm'
 import DeletePaymentModal from '../DeletePaymentModal'
+import { ResetContext } from '../../context/ResetContext'
 import './PaymentListItem.css'
 
 const PaymentListItem = ({ card }) => {
   const [cardNumber, setCardNumber] = useState('')
   const [isLoaded, setIsLoaded] = useState(false)
+  const { resetPage } = useContext(ResetContext)
 
   useEffect(() => {
+    setIsLoaded(false)
     let numberArray = card.cardNumber.split("")
     let cardNumberArray = []
     numberArray.forEach(el => {
@@ -27,7 +30,7 @@ const PaymentListItem = ({ card }) => {
     setCardNumber(`${firstNumbers}${lastFour}`)
     setIsLoaded(true)
     // eslint-disable-next-line
-  }, [])
+  }, [resetPage])
 
   let cardType
 
