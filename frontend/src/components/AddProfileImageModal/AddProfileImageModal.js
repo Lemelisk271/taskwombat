@@ -8,6 +8,7 @@ const AddProfileImageModal = () => {
   const dispatch = useDispatch()
   const user = useSelector(state => state.session.user)
   const [image, setImage] = useState(null)
+  const [previewImage, setPreviewImage] = useState(null)
   const [errors, setErrors] = useState([])
   const [isSubmitted, setIsSubmitted] = useState(false)
   const { closeModal } = useModal()
@@ -20,6 +21,18 @@ const AddProfileImageModal = () => {
     }
 
     setErrors(newErrors)
+  }, [image])
+
+  useEffect(() => {
+    if (!image) {
+      setPreviewImage(null)
+      return
+    }
+
+    const objectUrl = URL.createObjectURL(image)
+    setPreviewImage(objectUrl)
+
+    return () => URL.revokeObjectURL(objectUrl)
   }, [image])
 
   const handleSubmit = (e) => {
@@ -53,7 +66,10 @@ const AddProfileImageModal = () => {
   return (
     <div className='AddProfileImageModal'>
       <h3>Change Profile Image</h3>
-      <img src={user.profileImage} alt={user.firstName}/>
+      {image && <>
+        <p>Preview Image</p>
+        <img src={previewImage} alt="Preview"/>
+      </>}
       {(errors.length > 0 && isSubmitted) && <ul>
           {errors.map((error, i) => (
             <li key={i} className='error'>{error}</li>
