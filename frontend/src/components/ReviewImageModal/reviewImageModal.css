@@ -1,6 +1,6 @@
 .reviewImageModal {
   max-width: 70vw;
-  max-height: 90vh;
+  max-height: 80vh;
   overflow-y: scroll;
   display: flex;
   flex-direction: column;

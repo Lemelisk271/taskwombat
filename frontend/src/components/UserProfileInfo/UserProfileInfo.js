@@ -80,7 +80,7 @@ const UserProfileInfo = ({ isSessionUser }) => {
                 </tbody>
               </table>
               <OpenModalButton
-                buttonText='UpDate Profile'
+                buttonText='Update Profile'
                 modalComponent={<EditProfileModal user={user}/>}
               />
               <OpenModalButton
