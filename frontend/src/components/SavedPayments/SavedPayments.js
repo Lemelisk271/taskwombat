@@ -12,6 +12,7 @@ const SavedPayments = () => {
   const { resetPage } = useContext(ResetContext)
 
   useEffect(() => {
+    setIsLoaded(false)
     const loadPage = async () => {
       const res = await csrfFetch(`/api/payments`)
       const payments = await res.json()

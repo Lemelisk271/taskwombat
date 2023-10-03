@@ -114,8 +114,8 @@ const CreditCardForm = ({ page, card, cardNumber }) => {
         body: JSON.stringify(paymentObj)
       })
       if (res.ok) {
-        closeModal()
         setResetPage(!resetPage)
+        closeModal()
       } else {
         const data = await res.json()
         if (data && data.errors) {
@@ -131,8 +131,8 @@ const CreditCardForm = ({ page, card, cardNumber }) => {
         body: JSON.stringify(paymentObj)
       })
       if (res.ok) {
-        closeModal()
         setResetPage(!resetPage)
+        closeModal()
       } else {
         const data = await res.json()
         if (data && data.errors) {

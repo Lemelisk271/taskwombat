@@ -43,9 +43,17 @@ const CategoryPage = () => {
             </div>
           </div>
           <div className='categoryPage-taskerList'>
-            {taskers.map((tasker, i) => (
-              <CategoryTaskerListItem key={i} tasker={tasker} categoryId={categoryId}/>
-            ))}
+            {taskers.length > 0 ? (
+              <>
+                {taskers.map((tasker, i) => (
+                  <CategoryTaskerListItem key={i} tasker={tasker} categoryId={categoryId}/>
+                ))}
+              </>
+            ):(
+              <>
+                <h2>There are currently no taskers that are accepting tasks in the {category.category} category.</h2>
+              </>
+            )}
           </div>
         </>
       ):(

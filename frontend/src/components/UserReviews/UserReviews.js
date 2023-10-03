@@ -6,9 +6,17 @@ const UserReviews = () => {
 
   return (
     <div className="userReviews">
-      {reviews?.map(review => (
-        <UserReviewListItem key={review.id} review={review} />
-      ))}
+      {reviews?.length > 0 ? (
+        <>
+          {reviews?.map(review => (
+            <UserReviewListItem key={review.id} review={review} />
+          ))}
+        </>
+      ):(
+        <>
+          <h2>You have not made any reviews yet.</h2>
+        </>
+      )}
     </div>
   )
 }

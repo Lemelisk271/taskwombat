@@ -16,8 +16,10 @@ router.put("/:userId", requireAuth, singleMulterUpload("image"), async (req, res
     return next(err)
   }
 
-  if (user.profileImage.split(".")[0] === 'https://taskwombat') {
-    removeFileFromS3(user.profileImage)
+  if (user.profileImage) {
+    if (user.profileImage.split(".")[0] === 'https://taskwombat') {
+      removeFileFromS3(user.profileImage)
+    }
   }
 
   const profileImage = await singlePublicFileUpload(req.file)

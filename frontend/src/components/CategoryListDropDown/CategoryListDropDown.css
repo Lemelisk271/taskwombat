@@ -28,6 +28,8 @@
   border: none;
   font-size: 16px;
   cursor: pointer;
+  width: 100%;
+  text-align: left;
 }
 
 .category-dropdown button:hover {
