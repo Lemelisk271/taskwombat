@@ -1,0 +1,11 @@
+.userInvoices h2 {
+  text-align: center;
+}
+
+.userInvoices-categories {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-around;
+}
