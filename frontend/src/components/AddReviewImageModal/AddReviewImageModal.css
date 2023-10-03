@@ -5,6 +5,19 @@
   padding: 50px;
 }
 
+.addReviewImageModal img {
+  width: 300px;
+  aspect-ratio: 1/1;
+  object-fit: cover;
+  object-position: center;
+  margin: 20px 0;
+  border: 1px solid black;
+}
+
+.addReviewImageModal p {
+  margin: 0;
+}
+
 .addReviewImageModal form {
   display: flex;
   flex-direction: column;

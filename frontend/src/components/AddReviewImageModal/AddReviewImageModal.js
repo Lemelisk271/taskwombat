@@ -7,6 +7,7 @@ import './AddReviewImageModal.css'
 const AddReviewImageModal = ({ review }) => {
   const dispatch = useDispatch()
   const [image, setImage] = useState(null)
+  const [previewImage, setPreviewImage] = useState(null)
   const [errors, setErrors] = useState([])
   const [isSubmitted, setIsSubmitted] = useState(false)
   const { closeModal } = useModal()
@@ -19,6 +20,18 @@ const AddReviewImageModal = ({ review }) => {
     }
 
     setErrors(newErrors)
+  }, [image])
+
+  useEffect(() => {
+    if (!image) {
+      setPreviewImage(null)
+      return
+    }
+
+    const objectUrl = URL.createObjectURL(image)
+    setPreviewImage(objectUrl)
+
+    return () => URL.revokeObjectURL(objectUrl)
   }, [image])
 
   const handleSubmit = (e) => {
@@ -51,6 +64,10 @@ const AddReviewImageModal = ({ review }) => {
   return (
     <div className="addReviewImageModal">
       <h3>Please Select an Image to add</h3>
+      {image && <>
+        <p>Preview Image</p>
+        <img src={previewImage} alt="Preview"/>
+      </>}
       {(isSubmitted && errors.length > 0) && <ul>
           {errors.map((error, i) => (
             <li key={i} className='error'>{error}</li>
