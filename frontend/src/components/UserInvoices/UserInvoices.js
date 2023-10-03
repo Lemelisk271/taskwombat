@@ -2,13 +2,16 @@ import { useState, useEffect, useContext } from 'react'
 import { csrfFetch } from '../../store/csrf.js'
 import { getAdjustedDate } from '../HelperFunctions/HelperFunctions.js'
 import UserInvoiceListItem from '../UserInvoiceListItem'
+import LandingPageCategoryListItem from '../LandingPageCategoryListItem'
 import { ResetContext } from '../../context/ResetContext'
+import './UserInvoices.css'
 
 const UserInvoices = () => {
   const [isLoaded, setIsLoaded] = useState(false)
   const [outstandingInvoices, setOutstandingInvoices] = useState([])
   const [paidInvoices, setPaidInvoices] = useState([])
   const [futureInvoices, setFutureInvoices] = useState([])
+  const [categories, setCategories] = useState([])
   const { resetPage } = useContext(ResetContext)
 
   useEffect(() => {
@@ -35,6 +38,12 @@ const UserInvoices = () => {
       setPaidInvoices(paid)
       setFutureInvoices(future)
 
+      if (currentInvoices.length === 0 && paid.length === 0 && future.length === 0) {
+        const resCategories = await csrfFetch('/api/categories')
+        const categoryList = await resCategories.json()
+        setCategories(categoryList)
+      }
+
       setIsLoaded(true)
     }
     loadPage()
@@ -44,18 +53,32 @@ const UserInvoices = () => {
     <div className='userInvoices'>
       {isLoaded ? (
         <>
-          <h1>Outstanding Invoices</h1>
-          {outstandingInvoices.map((invoice, i) => (
-            <UserInvoiceListItem key={i} invoice={invoice} future={false}/>
-          ))}
-          <h1>Upcoming Invoices</h1>
-          {futureInvoices.map((invoice, i) => (
-            <UserInvoiceListItem key={i} invoice={invoice} future={true}/>
-          ))}
-          <h1>Paid Invoices</h1>
-          {paidInvoices.map((invoice, i) => (
-            <UserInvoiceListItem key={i} invoice={invoice} future={false}/>
-          ))}
+          {outstandingInvoices.length > 0 && <>
+            <h1>Outstanding Invoices</h1>
+            {outstandingInvoices.map((invoice, i) => (
+              <UserInvoiceListItem key={i} invoice={invoice} future={false}/>
+            ))}
+          </>}
+          {futureInvoices.length > 0 && <>
+            <h1>Upcoming Invoices</h1>
+            {futureInvoices.map((invoice, i) => (
+              <UserInvoiceListItem key={i} invoice={invoice} future={true}/>
+            ))}
+          </>}
+          {paidInvoices.length > 0 && <>
+            <h1>Paid Invoices</h1>
+            {paidInvoices.map((invoice, i) => (
+              <UserInvoiceListItem key={i} invoice={invoice} future={false}/>
+            ))}
+          </>}
+          {(paidInvoices.length === 0 && futureInvoices.length === 0 && outstandingInvoices.length === 0) && <>
+            <h2>You haven't scheduled any tasks yet. Select a category below to start!</h2>
+            <div className='userInvoices-categories'>
+              {categories.map((category, i) => (
+                <LandingPageCategoryListItem key={i} category={category} />
+              ))}
+            </div>
+          </>}
         </>
       ):(
         <>
