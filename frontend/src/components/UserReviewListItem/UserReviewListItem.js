@@ -1,15 +1,18 @@
 import { useSelector } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import ReviewForm from '../ReviewForm'
 import OpenModalButton from '../OpenModalButton'
 import DeleteReviewModal from '../DeleteReviewModal'
 import ReviewImageModal from '../ReviewImageModal'
+import { useModal } from '../../context/Modal'
 
 import './UserReviewListItem.css'
 
 const UserReviewListItem = ({ review, page }) => {
+  const history = useHistory()
   const user = useSelector(state => state.user)
   const sessionUser = useSelector(state => state.session.user)
+  const { closeModal } = useModal()
 
   const isSessionUser = user.id === sessionUser.id
 
@@ -38,10 +41,16 @@ const UserReviewListItem = ({ review, page }) => {
     </>
   )
 
+  const linkButton = (e) => {
+    e.preventDefault()
+    closeModal()
+    history.push(`/taskers/${review.Tasker.id}`)
+  }
+
   return (
     <div className="UserReviewListItem">
       <div className={page === 'task' ? 'userReviewListItem-card task' : 'userReviewListItem-card'}>
-        <Link to={`/taskers/${review.Tasker.id}`} className='userReviewListItem-cardHead'>
+        <button onClick={linkButton} className='userReviewListItem-cardHead'>
           <img src={review.Tasker.profileImage} alt="Tasker"/>
           <div className='userReviewListItem-cardHeadInfo'>
             <table>
@@ -78,10 +87,10 @@ const UserReviewListItem = ({ review, page }) => {
               </div>
             </div>
           </div>
-        </Link>
-        <Link to={`/taskers/${review.Tasker.id}`}  className='userReviewListItem-body'>
+        </button>
+        <button onClick={linkButton} to={`/taskers/${review.Tasker.id}`}  className='userReviewListItem-body'>
           <p>{review.review}</p>
-        </Link>
+        </button>
         <div className='userReviewListItem-line'></div>
         <div className='userReviewListItem-buttons'>
           {isSessionUser && userButtons}
